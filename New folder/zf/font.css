@@ -1,0 +1,421 @@
+@font-face {
+    font-family: 'Zoho_Puvi_Thin';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_ThinItalic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Thin.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Light';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_LightItalic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_ExtraLight';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extralight.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extralight.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extralight.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extralight.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Regular';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Regular_Italic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular_Italic.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular_Italic.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular_Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: oblique;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Medium';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_SemiBold';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Semibold_Italic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold_Italic.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold_Italic.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold_Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Bold';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Bold_Italic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold_Italic.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold_Italic.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold_Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_ExtraBold';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrabold.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrabold.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrabold.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrabold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_ExtraBoldItalic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_Black';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_BlackItalic';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Zoho_Puvi_ExtraBlack';
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.eot');
+    src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.eot') format('embedded-opentype'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.woff2') format('woff2'),url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Extrablack.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabthin/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabthin/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.svg#RobotoSlab-Thin) format("svg");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url(https://static.zohocdn.com/webfonts/robotoslablight/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslablight/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.svg#RobotoSlab-Light) format("svg");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabregular/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabregular/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.svg#RobotoSlab-Regular) format("svg");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabbold/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabbold/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.svg#RobotoSlab-Bold) format("svg");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "robotoslabthin";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabthin/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabthin/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabthin/font.svg#RobotoSlab-Thin) format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "robotoslablight";
+    src: url(https://static.zohocdn.com/webfonts/robotoslablight/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslablight/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslablight/font.svg#RobotoSlab-Light) format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "robotoslabregular";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabregular/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabregular/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabregular/font.svg#RobotoSlab-Regular) format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "robotoslabbold";
+    src: url(https://static.zohocdn.com/webfonts/robotoslabbold/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoslabbold/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoslabbold/font.svg#RobotoSlab-Bold) format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url(https://static.zohocdn.com/webfonts/caveatregular/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/caveatregular/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/caveatregular/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/caveatregular/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/caveatregular/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/caveatregular/font.svg#Caveat-Regular) format("svg");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url(https://static.zohocdn.com/webfonts/caveatbold/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/caveatbold/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/caveatbold/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/caveatbold/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/caveatbold/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/caveatbold/font.svg#Caveat-Bold) format("svg");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotothin/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotothin/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotothin/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotothin/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotothin/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotothin/font.svg#Roboto-Thin) format("svg");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotothinitalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotothinitalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotothinitalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotothinitalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotothinitalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotothinitalic/font.svg#Roboto-ThinItalic) format("svg");
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotolight/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotolight/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotolight/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotolight/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotolight/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotolight/font.svg#Roboto-Light) format("svg");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotolightitalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotolightitalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotolightitalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotolightitalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotolightitalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotolightitalic/font.svg#Roboto-LightItalic) format("svg");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotoregular/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoregular/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoregular/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoregular/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoregular/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoregular/font.svg#Roboto-Regular) format("svg");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotoitalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoitalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoitalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoitalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoitalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoitalic/font.svg#Roboto-Italic) format("svg");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotomedium/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotomedium/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotomedium/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotomedium/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotomedium/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotomedium/font.svg#Roboto-Medium) format("svg");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotomediumitalic/font.svg#Roboto-MediumItalic) format("svg");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotobold/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotobold/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotobold/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotobold/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotobold/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotobold/font.svg#Roboto-Bold) format("svg");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotobolditalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotobolditalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotobolditalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotobolditalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotobolditalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotobolditalic/font.svg#Roboto-BoldItalic) format("svg");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotoblack/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoblack/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoblack/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoblack/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoblack/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoblack/font.svg#Roboto-Black) format("svg");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.eot);
+    src: url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.eot?#iefix) format("eot"),url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.woff2) format("woff2"),url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.woff) format("woff"),url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.ttf) format("truetype"),url(https://static.zohocdn.com/webfonts/robotoblackitalic/font.svg#Roboto-BlackItalic) format("svg");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap
+}
+
+@font-face {
+    font-family: "Binturong_Regular";
+    src: url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.eot");
+    src: url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.eot?#iefix") format("embedded-opentype"),url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.woff2") format("woff2"),url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.woff") format("woff"),url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.ttf") format("truetype"),url("https://static.zohocdn.com/zohofonts/binturong/1.0/Binturong-Regular.svg#Binturong") format("svg")
+}
+
+@font-face {
+    font-family: 'Bellaboo_Regular';
+    src: url('https://static.zohocdn.com/zohofonts/bellaboo/1.0/Bellaboo-Regular.otf') format('opentype'),url('https://static.zohocdn.com/zohofonts/bellaboo/1.0/Bellaboo-Regular.ttf') format('truetype'),url('https://static.zohocdn.com/zohofonts/bellaboo/1.0/Bellaboo-Regular.woff') format('woff'),url('https://static.zohocdn.com/zohofonts/bellaboo/1.0/Bellaboo-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap
+}
+
+:root {
+    --primaryfont-bold: 'Zoho_Puvi_Bold';
+    --primaryfont-semibold: 'Zoho_Puvi_SemiBold';
+    --primaryfont-regular: 'Zoho_Puvi_Regular';
+    --secondaryfont-bold: 'Zoho_Puvi_Bold';
+    --secondaryfont-semibold: 'Zoho_Puvi_SemiBold';
+    --secondaryfont-regular: 'Zoho_Puvi_Regular';
+    --zf-secondary-thin: 'Zoho_Puvi_Thin';
+    --zf-secondary-thinitalic: 'Zoho_Puvi_ThinItalic';
+    --zf-secondary-extralight: 'Zoho_Puvi_ExtraLight';
+    --zf-secondary-light: 'Zoho_Puvi_Light';
+    --zf-secondary-lightitalic: 'Zoho_Puvi_LightItalic';
+    --zf-secondary-regular: 'Zoho_Puvi_Regular';
+    --zf-secondary-regularitalic: 'Zoho_Puvi_Regular_Italic';
+    --zf-secondary-medium: 'Zoho_Puvi_Medium';
+    --zf-secondary-semibold: 'Zoho_Puvi_SemiBold';
+    --zf-secondary-semibolditalic: 'Zoho_Puvi_SemiBold_Italic';
+    --zf-secondary-bold: 'Zoho_Puvi_Bold';
+    --zf-secondary-bolditalic: 'Zoho_Puvi_Bold_Italic';
+    --zf-secondary-extrabold: 'Zoho_Puvi_ExtraBold';
+    --zf-secondary-extrabolditalic: 'Zoho_Puvi_ExtraBoldItalic';
+    --zf-secondary-black: 'Zoho_Puvi_Black';
+    --zf-secondary-blackitalic: 'Zoho_Puvi_BlackItalic';
+    --zf-secondary-extrablack: 'Zoho_Puvi_ExtraBlack';
+    --zf-primary-thin: 'Zoho_Puvi_Thin';
+    --zf-primary-thinitalic: 'Zoho_Puvi_ThinItalic';
+    --zf-primary-extralight: 'Zoho_Puvi_ExtraLight';
+    --zf-primary-light: 'Zoho_Puvi_Light';
+    --zf-primary-lightitalic: 'Zoho_Puvi_LightItalic';
+    --zf-primary-regular: 'Zoho_Puvi_Regular';
+    --zf-primary-regularitalic: 'Zoho_Puvi_RegularItalic';
+    --zf-primary-medium: 'Zoho_Puvi_Medium';
+    --zf-primary-semibold: 'Zoho_Puvi_SemiBold';
+    --zf-primary-semibolditalic: 'Zoho_Puvi_SemiBoldItalic';
+    --zf-primary-bold: 'Zoho_Puvi_Bold';
+    --zf-primary-bolditalic: 'Zoho_Puvi_BoldItalic';
+    --zf-primary-extrabold: 'Zoho_Puvi_ExtraBold';
+    --zf-primary-extrabolditalic: 'Zoho_Puvi_ExtraBoldItalic';
+    --zf-primary-black: 'Zoho_Puvi_Black';
+    --zf-primary-blackitalic: 'Zoho_Puvi_BlackItalic';
+    --zf-primary-extrablack: 'Zoho_Puvi_ExtraBlack';
+    --zf-splfontserif-bold: 'robotoslabbold';
+    --zf-splfontserif-thin: 'robotoslabthin';
+    --zf-splfontserif-regular: 'robotoslabregular';
+    --zf-splfontserif-light: 'robotoslablight';
+    --zf-splfont-cursive-one-regular: 'Binturong_Regular';
+    --zf-splfont-cursive-two-regular: 'Bellaboo_Regular';
+    --zoho-logo-web: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg);
+    --zoho-logo-white: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-white.svg);
+    --zoho-logo-darkbg: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-darkbg.svg);
+    --mobile-app-icons: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/mobile-apps.png);
+    --common-elements: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/common-elements.svg);
+    --country-flags: url(//www.zohowebstatic.com/sites/zweb/images/commonroot/country-flags.png);
+    --primary-focus-color: #0047ff;
+    --primary-btn-color: #e42527
+}

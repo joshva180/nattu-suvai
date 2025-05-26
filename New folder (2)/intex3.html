@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naattu Suvai - Pure Sesame Oil</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #fffefa;
+      scroll-behavior: smooth;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+    nav {
+      background-color: #333;
+      text-align: center;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #4CAF50;
+    }
+    .hero {
+      width: 100%;
+      height: auto;
+      animation: fadeIn 1.5s ease;
+    }
+    .section {
+      padding: 40px 20px;
+      animation: fadeInUp 1s ease;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .video-container iframe,
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .product-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+      animation: fadeInUp 1s ease;
+    }
+    .left, .right {
+      flex: 1;
+      min-width: 300px;
+    }
+    .box {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: background 0.3s;
+    }
+    .box:hover {
+      background-color: #eafbea;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ddd;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+      .container {
+        flex-direction: column;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* WhatsApp Floating Button Styles */
+    .whatsapp-btn-wrapper {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 70px;
+      height: 70px;
+      z-index: 10000;
+      cursor: pointer;
+      animation: bounceIn 1s ease forwards;
+      outline: none;
+    }
+    .whatsapp-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90px;
+      height: 90px;
+      margin-left: -45px;
+      margin-top: -45px;
+      border: 3px solid rgba(37, 211, 102, 0.5);
+      border-radius: 50%;
+      animation: rotateRing 4s linear infinite;
+      pointer-events: none;
+    }
+    .whatsapp-btn {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      background-color: #25d366;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      will-change: transform;
+      user-select: none;
+    }
+    .whatsapp-btn img {
+      width: 35px;
+      height: 35px;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+      pointer-events: none;
+    }
+    .whatsapp-btn-wrapper:hover .whatsapp-btn {
+      transform: scale(1.2) rotate(15deg);
+      box-shadow:
+        0 0 12px 4px rgba(37, 211, 102, 0.8),
+        0 0 25px 6px rgba(37, 211, 102, 0.6),
+        0 0 35px 10px rgba(37, 211, 102, 0.4);
+      animation: pulseGlow 2s infinite;
+    }
+    .whatsapp-btn-wrapper:active .whatsapp-btn {
+      transform: scale(0.9) rotate(-10deg);
+      transition: transform 0.15s ease;
+    }
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.5);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.1);
+      }
+      80% {
+        transform: translateY(10px) scale(0.95);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes rotateRing {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 12px 4px rgba(37, 211, 102, 0.8),
+          0 0 25px 6px rgba(37, 211, 102, 0.6),
+          0 0 35px 10px rgba(37, 211, 102, 0.4);
+      }
+      50% {
+        box-shadow:
+          0 0 16px 6px rgba(37, 211, 102, 1),
+          0 0 30px 10px rgba(37, 211, 102, 0.8),
+          0 0 40px 14px rgba(37, 211, 102, 0.6);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Naattu Suvai</h1>
+    <p>Traditional Cold-Pressed Sesame Oil</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <img src="https://via.placeholder.com/1200x400?text=Pure+Sesame+Oil" alt="Sesame Oil Banner" class="hero" />
+
+  <!-- Video Section -->
+  <div class="section">
+    <h2>How We Make Our Sesame Oil</h2>
+    <div class="video-container">
+      <!-- Replace YOUTUBE_VIDEO_ID with your actual YouTube video ID -->
+      <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Product Section -->
+  <div class="section" id="products">
+    <h2>Our Products</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250x200?text=500ml+Sesame+Oil" alt="500ml Bottle" />
+        <h3>500ml Sesame Oil</h3>
+        <p>₹150 - Cold pressed, pure & natural.</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250x200?text=1L+Sesame+Oil" alt="1L Bottle" />
+        <h3>1L Sesame Oil</h3>
+        <p>₹280 - Wooden chekku oil with full flavor.</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/250x200?text=5L+Sesame+Oil" alt="5L Can" />
+        <h3>5L Sesame Oil</h3>
+        <p>₹1300 - Ideal for large families & cooking needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us & Contact -->
+  <div class="container">
+    <div class="left box">
+      <h2>Why Choose Us?</h2>
+      <p>
+        We use high-quality seeds, cold-pressed using vaagai maram wooden chekku,
+        and follow traditional methods with no chemicals or preservatives.
+      </p>
+    </div>
+    <div class="right box" id="contact">
+      <h2>Contact Us</h2>
+      <form onsubmit="alert('Thank you for contacting Naattu Suvai!'); return false;">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Email Address" required />
+        <textarea rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Naattu Suvai. All Rights Reserved.
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <div
+    class="whatsapp-btn-wrapper"
+    role="button"
+    tabindex="0"
+    aria-label="Chat on WhatsApp"
+    onclick="window.open('https://wa.me/917373030602', '_blank')"
+  >
+    <div class="whatsapp-ring"></div>
+    <div class="whatsapp-btn">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp Icon"
+      />
+    </div>
+  </div>
+
+</body>
+</html>

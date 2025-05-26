@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naattu Suvai - Pure Sesame Oil</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #fffefa;
+      scroll-behavior: smooth;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #333;
+      text-align: center;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .menu-toggle {
+      display: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 0 15px;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #4CAF50;
+    }
+    .hero {
+      width: 100%;
+      height: auto;
+      animation: fadeIn 2s ease;
+    }
+    .section {
+      padding: 40px 20px;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .product-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .order-button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .order-button:hover {
+      background-color: #388e3c;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+    }
+    .left, .right {
+      flex: 1;
+      min-width: 300px;
+    }
+    .box {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: background 0.3s;
+    }
+    .box:hover {
+      background-color: #eafbea;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ddd;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        padding: 10px 0;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .nav-links a {
+        margin: 10px 0;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .container {
+        flex-direction: column;
+      }
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <header data-aos="fade-down">
+    <h1>Naattu Suvai</h1>
+    <p>Traditional Cold-Pressed Sesame Oil</p>
+  </header>
+
+  <nav data-aos="fade-up">
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <img src="https://via.placeholder.com/1200x400?text=Pure+Sesame+Oil" alt="Sesame Oil Banner" class="hero" data-aos="zoom-in">
+
+  <div class="section" data-aos="fade-up">
+    <h2>How We Make Our Sesame Oil</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="section" id="products">
+    <h2 data-aos="fade-up">Our Products</h2>
+    <div class="products">
+      <div class="product-card" data-aos="flip-left">
+        <img src="https://via.placeholder.com/250x200?text=500ml+Sesame+Oil" alt="500ml Bottle">
+        <h3>500ml Sesame Oil</h3>
+        <p>₹150 - Cold pressed, pure & natural.</p>
+        <button class="order-button" onclick="orderNow('500ml Sesame Oil')">Order Now</button>
+      </div>
+      <div class="product-card" data-aos="flip-left">
+        <img src="https://via.placeholder.com/250x200?text=1L+Sesame+Oil" alt="1L Bottle">
+        <h3>1L Sesame Oil</h3>
+        <p>₹280 - Wooden chekku oil with full flavor.</p>
+        <button class="order-button" onclick="orderNow('1L Sesame Oil')">Order Now</button>
+      </div>
+      <div class="product-card" data-aos="flip-left">
+        <img src="https://via.placeholder.com/250x200?text=5L+Sesame+Oil" alt="5L Can">
+        <h3>5L Sesame Oil</h3>
+        <p>₹1300 - Ideal for large families & cooking needs.</p>
+        <button class="order-button" onclick="orderNow('5L Sesame Oil')">Order Now</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="left box" data-aos="fade-right">
+      <h2>Why Choose Us?</h2>
+      <p>We use high-quality seeds, cold-pressed using vaagai maram wooden chekku, and follow traditional methods with no chemicals or preservatives.</p>
+    </div>
+    <div class="right box" id="contact" data-aos="fade-left">
+      <h2>Contact Us</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea rows="4" placeholder="Message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <footer data-aos="fade-up">
+    &copy; 2025 Naattu Suvai. All rights reserved.
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    function orderNow(product) {
+      const name = prompt(`Enter your name to order ${product}:`);
+      if (name) {
+        alert(`Thank you, ${name}! Your order for ${product} has been received.`);
+      }
+    }
+
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+:root {
+    --black: #000;
+    --white: #fff;
+    --bgblack-border-color: #272727;
+    --grey: #979797
+}
+
+.footer-wrapper {
+    max-width: 1280px;
+    margin: 0 auto
+}
+
+.payroll-footer {
+    padding-top: 70px;
+    color: var(--white);
+    background-color: var(--black)
+}
+
+.payroll-footer p {
+    margin-bottom: 0;
+    color: #fff
+}
+
+.payroll-links {
+    max-width: 860px;
+    width: 100%
+}
+
+.contact-section {
+    max-width: 300px;
+    width: 100%
+}
+
+.security-badge-section.security-2 li {
+    display: none
+}
+
+.contact-section,.payroll-links {
+    padding-bottom: 50px
+}
+
+.payroll-links .help-resources {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0
+}
+
+.footer-flex-space,.free-tools-links {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    gap: 0 20px
+}
+
+.footer-flex-space,.free-tools-links {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.free-tools-links {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.footer-flex-space .help,.footer-flex-space .quick-links-section,.footer-flex-space .resources-and-partners,.free-tools-links li {
+    width: 26%
+}
+
+.footer-flex-space.edition-bar {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 30px 0;
+    border-top: 1px solid #272727
+}
+
+.footer-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.footer-flex .mobile-app-icon:first-child img {
+    margin-right: 20px
+}
+
+.footer-dropdown-arrow {
+    display: none
+}
+
+.payroll-footer .footer-title {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: grey;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    letter-spacing: 1.5px;
+    position: relative;
+    padding: 0 0 15px;
+    border-bottom: 1px solid #272727;
+    margin: 0 0 10px
+}
+
+.payroll-footer .footer-title:after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 50px;
+    background-color: #272727;
+    position: absolute;
+    bottom: -2px
+}
+
+.payroll-footer h4 {
+    color: #bbb;
+    font-weight: 800;
+    font-size: 14px;
+    text-shadow: none;
+    line-height: 30px
+}
+
+.payroll-footer li,.payroll-footer li a,.payroll-footer p {
+    color: #aaa;
+    font-weight: 400;
+    font-size: 13px
+}
+
+.payroll-footer .contact-us li,.payroll-footer li {
+    line-height: 30px
+}
+
+.mobile-app-icon img {
+    width: 126px;
+    height: 38px
+}
+
+.security-badge-section {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.security-badge-section .security-badge {
+    height: 55px;
+    width: auto;
+    margin-right: 10px
+}
+
+.payroll-footer .social-media {
+    margin: auto 0;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    gap: 20px;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: none
+}
+
+.payroll-footer .social-media,.social-platform {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.social-media svg {
+    width: 30px;
+    height: 30px
+}
+
+.social-media a {
+    border: 1px solid #2d2d2d;
+    border-radius: 5px;
+    display: block;
+    margin-right: 4px;
+    height: 32px;
+    opacity: .6;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+
+.social-media a:hover {
+    opacity: 1
+}
+
+.payroll-footer .contact-section .contact-us {
+    margin: 0 0 40px
+}
+
+.contact-section .download-app {
+    margin-bottom: 45px
+}
+
+.contact-section .contact-us li {
+    margin-top: 20px
+}
+
+.contact-section .contact-us li .contact-by {
+    line-height: 20px
+}
+
+.badges-section,.free-tools {
+    margin-top: 35px
+}
+
+.download-app .footer-title {
+    margin-bottom: 20px
+}
+
+.finance-products {
+    border-bottom: 1px solid #272727;
+    border-top: 1px solid #272727;
+    padding: 35px 0
+}
+
+.finance-products-title {
+    width: 100%;
+    text-align: center;
+    color: grey;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px
+}
+
+.finance-products-lists {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-top: 20px
+}
+
+.finance-products-lists li {
+    margin-top: 8px
+}
+
+.finance-products-lists a:after {
+    display: none
+}
+
+.payroll-footer .resource-img-container {
+    border: 1px solid #272727;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 20px;
+    height: 44px;
+    min-width: 44px
+}
+
+.payroll-footer .resource-img-container svg {
+    width: 18px;
+    height: 18px;
+    fill: grey;
+    vertical-align: bottom
+}
+
+.payroll-footer li a {
+    position: relative
+}
+
+.payroll-footer li a:hover {
+    color: #fff
+}
+
+.payroll-footer>div li a:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    border-bottom: 1px solid #fff
+}
+
+.payroll-footer li a:hover:after {
+    color: #fff;
+    width: 100%;
+    -webkit-transition: width .5s;
+    transition: width .5s
+}
+
+.payroll-footer .contact-section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+
+.payroll-footer .contact-section,.select-edition {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.select-edition {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 20px
+}
+
+.select-edition .select-edition-title,.social-media .social-title {
+    font-size: 12px;
+    color: grey;
+    font-weight: 700;
+    position: relative;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1.5px
+}
+
+.finance-products-lists img {
+    width: 145px
+}
+
+.finance-products-lists a:after {
+    content: none
+}
+
+.footer {
+    border-top: 0!important;
+    background-color: #000!important
+}
+
+.common-footer li a,.common-footer p {
+    color: grey!important
+}
+
+.common-footer li a:hover,.common-footer p:hover {
+    color: #fff!important
+}
+
+.common-footer p {
+    text-shadow: none!important
+}
+
+.common-footer li {
+    padding: 0 15px!important;
+    margin-top: 20px!important;
+    border-color: grey!important
+}
+
+.common-footer ul {
+    max-width: 1200px!important
+}
+
+@media (max-width: 1320px) {
+    .footer-wrapper {
+        max-width:1120px
+    }
+}
+
+@media (max-width: 1140px) {
+    .payroll-footer {
+        padding:70px 4% 0
+    }
+
+    .free-tools,.help-resources {
+        width: 100%
+    }
+
+    .finance-products-lists {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center
+    }
+
+    .payroll-footer .contact-section .contact-us,.payroll-footer .contact-section .download-app,.payroll-footer .contact-section .security-badges {
+        width: 100%;
+        margin-right: 20px
+    }
+
+    .payroll-footer .contact-section .contact-us {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+
+    .payroll-footer .contact-section .security-badges {
+        margin-top: 20px
+    }
+
+    .payroll-footer li {
+        margin-bottom: 10px
+    }
+
+    .payroll-footer li:not(.footer-flex) {
+        line-height: 20px
+    }
+
+    .contact-section,.payroll-links {
+        padding-bottom: 40px
+    }
+}
+
+@media (max-width: 920px) {
+    .contact-section,.free-tools,.payroll-links {
+        width:100%
+    }
+
+    .footer-wrapper {
+        max-width: 1080px
+    }
+
+    .footer-wrapper,.payroll-footer .contact-section {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap
+    }
+
+    .payroll-footer .contact-section {
+        width: 100%;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row
+    }
+
+    .payroll-footer {
+        padding: 50px 0 0 20px
+    }
+
+    .payroll-footer .footer-title {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between
+    }
+
+    .payroll-footer {
+        width: 100%
+    }
+
+    .payroll-footer .contact-section,.payroll-footer .contact-section .download-app {
+        margin-top: 0;
+        width: 100%;
+        max-width: 100%
+    }
+
+    .contact-us,.download-app {
+        width: 100%;
+        margin-top: 20px
+    }
+
+    .social-title {
+        margin: auto 0
+    }
+}
+
+@media (max-width: 700px) {
+    .contact-section,.payroll-links {
+        padding-bottom:0
+    }
+
+    .footer-dropdown-arrow {
+        content: "";
+        background-image: url(/payroll/images/common-footer/footer-dropdown.svg);
+        -webkit-transition: -webkit-transform .5s ease;
+        transition: -webkit-transform .5s ease;
+        transition: transform .5s ease;
+        transition: transform .5s ease,-webkit-transform .5s ease;
+        height: 7px;
+        display: block;
+        width: 12px;
+        margin: auto 15px
+    }
+
+    .show .footer-dropdown-arrow {
+        -webkit-transform: rotateX(180deg);
+        transform: rotateX(180deg)
+    }
+
+    .payroll-footer .footer-title {
+        cursor: pointer
+    }
+
+    .finance-products {
+        margin: 0;
+        padding-top: 0;
+        border: none
+    }
+
+    .finance-products-title {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        position: relative;
+        text-align: left;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0 0 15px;
+        border-bottom: 1px solid #272727
+    }
+
+    .finance-products-title:after {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 50px;
+        background-color: #272727;
+        position: absolute;
+        bottom: -2px
+    }
+
+    .show .finance-products-lists.dropdown-content {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between
+    }
+
+    .footer-flex-space.edition-bar {
+        -webkit-box-ordinal-group: 0;
+        -webkit-order: -1;
+        -ms-flex-order: -1;
+        order: -1;
+        border-bottom: 1px solid #272727;
+        margin-bottom: 30px;
+        border-top: none
+    }
+
+    .dropdown-content {
+        display: none
+    }
+
+    .show .dropdown-content {
+        display: block
+    }
+
+    .footer-flex-space {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column
+    }
+
+    .payroll-footer .social-media {
+        margin-top: 20px;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap
+    }
+
+    .footer-flex-space .help,.footer-flex-space .quick-links-section,.footer-flex-space .resources-and-partners,.free-tools-links li {
+        width: 100%
+    }
+
+    .badges-section,.security-badge-section.security-1 li {
+        display: none
+    }
+
+    .security-badge-section.security-2 li {
+        display: block
+    }
+
+    .finance-products-lists,.security-badges .security-badge-section.security-2 {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #272727
+    }
+
+    .payroll-footer {
+        padding: 30px 0 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap
+    }
+
+    .payroll-footer .footer-title {
+        font-size: 14px
+    }
+
+    .payroll-footer h4 {
+        font-size: 16px
+    }
+
+    .finance-products,.footer-flex-space,.free-tools-links li,.security-badges,.social-title {
+        width: 100%
+    }
+
+    .finance-products-title:after,.payroll-footer .footer-title:after {
+        display: none
+    }
+
+    .contact-us .dropdown-content,.download-app .dropdown-content,.finance-products-title,.finance-products .dropdown-content,.footer-flex-space.help-resources-list,.free-tools-links,.payroll-footer .footer-title,.security-badges .security-badge-section.security-2 {
+        padding: 0 20px 15px
+    }
+
+    .contact-section .download-app,.help-resources,.payroll-footer .contact-section .contact-us,.payroll-footer .contact-section .download-app,.payroll-footer .free-tools {
+        margin: 0 0 30px
+    }
+
+    .download-app .footer-title,.payroll-footer .contact-section .security-badges,.payroll-footer .footer-title {
+        margin: 0
+    }
+
+    .download-app ul,.free-tools ul,.help ul {
+        margin-top: 20px
+    }
+
+    .footer-flex-space.edition-bar {
+        padding: 0 20px 20px
+    }
+}
+
+@media (max-width: 480px) {
+    .finance-products-title,.social-title {
+        line-height:20px
+    }
+}
