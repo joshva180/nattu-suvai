@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naattu Suvai - Pure Sesame Oil</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="Naattu Suvai offers premium quality traditional cold-pressed sesame oil made using vaagai maram wooden chekku. Order online for pure and natural nallaennai delivered across Tamil Nadu." />
+  <meta name="keywords" content="Naattu Suvai, sesame oil, nallaennai, cold pressed oil, wooden chekku, vaagai maram oil, pure sesame oil, natural oil, traditional oil, organic sesame oil, Chennai sesame oil" />
+  <meta name="author" content="Naattu Suvai" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #ffffff;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Header */
+    header {
+      text-align: center;
+      padding: 20px 15px;
+      background: #4CAF50;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      margin-bottom: 6px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+    /* Navbar */
+    nav {
+      background: #e6f4ea;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      user-select: none;
+    }
+    .nav-links {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 10px 10px;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: background 0.25s ease;
+    }
+    .nav-links a:hover {
+      background: #4caf5022;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      padding: 5px 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+    /* Hero Image */
+    .hero {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      margin-bottom: 30px;
+      user-select: none;
+      filter: brightness(0.9);
+    }
+    /* Sections */
+    .section {
+      max-width: 900px;
+      margin: 0 auto 50px auto;
+      padding: 0 15px;
+    }
+    .section h2 {
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      text-align: center;
+      color: #2e7d32;
+    }
+    /* Video Container */
+    .video-container {
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      user-select: none;
+    }
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+    }
+    .video-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+      transition: opacity 0.3s ease;
+    }
+    /* Products grid */
+    .products {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+    .product-card {
+      background: #f9fff8;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 280px;
+      text-align: center;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      max-width: 100%;
+      height: 160px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+    .product-card h3 {
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+    .product-card p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    .order-button {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 25px;
+      background: #4caf50;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    .order-button:hover {
+      background: #388e3c;
+      text-decoration: none;
+    }
+    /* Order section layout */
+    #order-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      user-select: none;
+    }
+    #order-section > div {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      padding: 30px;
+      background: #f9fff8;
+      max-width: 450px;
+      flex: 1 1 350px;
+    }
+    #order-section h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 25px;
+    }
+    /* Form styles */
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+    form input[type="text"],
+    form input[type="tel"],
+    form select,
+    form input[type="number"],
+    form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+    }
+    form button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      background: #4caf50;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    form button:hover {
+      background: #388e3c;
+    }
+    /* Payment info box */
+    #order-section div:nth-child(2) {
+      background: #e6f4ea;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      color: #2e7d32;
+      font-size: 1.1rem;
+      text-align: center;
+      user-select: text;
+    }
+    #order-section div:nth-child(2) p {
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    /* WhatsApp floating button */
+    .whatsapp-float {
+      position: fixed;
+      width: 56px;
+      height: 56px;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #f2f2f2;
+      color: #555;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    /* Responsive */
+    @media(max-width: 768px) {
+      .products {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav .nav-links {
+        flex-direction: column;
+        display: none;
+        background: #e6f4ea;
+        border-top: 1px solid #4caf50;
+        padding: 15px 0;
+        margin: 0 auto;
+        max-width: 250px;
+        border-radius: 0 0 10px 10px;
+      }
+      nav .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+        color: #4caf50;
+      }
+      nav {
+        user-select: none;
+      }
+      #order-section {
+        flex-direction: column;
+        padding: 0 10px 50px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header data-aos="fade-down">
+    <h1>Naattu Suvai</h1>
+    <p>Traditional Cold-Pressed Sesame Oil</p>
+  </header>
+
+  <!-- Navbar -->
+  <nav data-aos="fade-up">
+    <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#order-section">Order</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Image -->
+  <img src="https://via.placeholder.com/1200x400?text=Pure+Sesame+Oil" alt="Sesame Oil Banner" class="hero" data-aos="zoom-in" />
+
+  <!-- About Section -->
+  <div class="section" data-aos="fade-up" id="about">
+    <h2>How We Make Our Sesame Oil</h2>
+    <div class="video-container" id="video-container">
+      <!-- Hidden YouTube iframe -->
+      <iframe id="video-iframe" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+      <!-- Visible placeholder image -->
+      <img id="video-thumbnail" src="images/0.png" alt="Video Thumbnail" />
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="section" id="products">
+    <h2 data-aos="fade-up">Our Products</h2>
+    <div class="products">
+      <div class="product-card" data-aos="flip-left">
+       <img src="images/1.png" alt="500ml Naattu Suvai Sesame Oil" />
+        <h3>500ml Sesame Oil</h3>
+        <p>₹150 - Cold pressed, pure & natural.</p>
+        <a href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20order%20500ml%20Sesame%20Oil" class="order-button" target="_blank" rel="noopener">Order via WhatsApp</a>
+      </div>
+      <div class="product-card" data-aos="flip-left">
+        <img src="images/2.png" alt="1L Naattu Suvai Sesame Oil" />
+        <h3>1L Sesame Oil</h3>
+        <p>₹280 - Wooden chekku oil with full flavor.</p>
+        <a href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20order%201L%20Sesame%20Oil" class="order-button" target="_blank" rel="noopener">Order via WhatsApp</a>
+      </div>
+      <div class="product-card" data-aos="flip-left">
+       <img src="images/3.png" alt="5L Naattu Suvai Sesame Oil Can" width="250" height="200" />
+        <h3>5L Sesame Oil</h3>
+        <p>₹1300 - Ideal for large families & cooking needs.</p>
+        <a href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20order%205L%20Sesame%20Oil" class="order-button" target="_blank" rel="noopener">Order via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Section -->
+  <div class="section" id="order-section">
+    <!-- Order Form -->
+    <div>
+      <h2>Place Your Order</h2>
+      <form id="orderForm" novalidate>
+        <label for="name">Name*:</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+        <label for="phone">Phone Number*:</label>
+        <input type="tel" id="phone" name="phone" placeholder="10-digit phone number" pattern="[0-9]{10}" required />
+
+        <label for="product">Select Product*:</label>
+        <select id="product" name="product" required>
+          <option value="" disabled selected>Select your product</option>
+          <option value="500ml Sesame Oil" data-price="15000">500ml Sesame Oil - ₹150</option>
+          <option value="1L Sesame Oil" data-price="28000">1L Sesame Oil - ₹280</option>
+          <option value="5L Sesame Oil" data-price="130000">5L Sesame Oil - ₹1300</option>
+        </select>
+
+        <label for="quantity">Quantity*:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+
+        <label for="address">Delivery Address*:</label>
+        <textarea id="address" name="address" rows="3" placeholder="Full address including city, pin code" required></textarea>
+
+        <button type="submit">Pay & Submit Order</button>
+      </form>
+    </div>
+
+    <!-- Payment Info -->
+    <div>
+      <h2>Payment Options</h2>
+      <p>Pay conveniently via Razorpay on order submission.</p>
+      <p>You can also order via WhatsApp or pay on delivery (contact us).</p>
+    </div>
+  </div>
+
+  <!-- WhatsApp floating button -->
+  <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.52 3.478a11.956 11.956 0 00-8.544-3.48C5.36 0 0 5.354 0 11.96c0 2.12.57 4.106 1.58 5.84L0 24l6.385-1.655a11.918 11.918 0 006.123 1.63c6.603 0 11.96-5.355 11.96-11.96 0-3.208-1.25-6.215-3.928-8.537zM12.036 21.57a9.57 9.57 0 01-4.89-1.37l-.35-.21-3.785 1.006 1.012-3.684-.23-.38a9.557 9.557 0 01-1.48-5.43c0-5.292 4.3-9.58 9.6-9.58 2.56 0 4.97 1 6.77 2.83a9.434 9.434 0 012.8 6.75c-.002 5.29-4.308 9.578-9.625 9.578z" />
+      <path d="M17.52 14.02l-2.415-.82a.74.74 0 00-.69.17l-1.05 1.026a7.08 7.08 0 01-3.15-3.19l1.022-1.054a.742.742 0 00.17-.687l-.81-2.4a.742.742 0 00-.696-.494H7.2a.74.74 0 00-.74.74c0 3.81 3.092 6.9 6.9 6.9a.74.74 0 00.74-.74v-1.35a.74.74 0 00-.314-.6z" />
+    </svg>
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Naattu Suvai. All rights reserved.
+  </footer>
+
+  <!-- External Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    // Animate on scroll
+    AOS.init();
+
+    // Video play on click
+    const videoContainer = document.getElementById('video-container');
+    const videoIframe = document.getElementById('video-iframe');
+    const videoThumbnail = document.getElementById('video-thumbnail');
+
+    videoContainer.addEventListener('click', () => {
+      videoThumbnail.style.display = 'none';
+      videoIframe.style.display = 'block';
+    });
+
+    // Razorpay integration
+    const razorpayKey = "YOUR_RAZORPAY_KEY_HERE"; // <-- Replace with your Razorpay key
+    const formspreeEndpoint = "https://formspree.io/f/mayvlkgy"; // <-- Replace with your Formspree endpoint
+
+    const orderForm = document.getElementById('orderForm');
+
+    orderForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const name = orderForm.name.value.trim();
+      const phone = orderForm.phone.value.trim();
+      const productSelect = orderForm.product;
+      const product = productSelect.value;
+      const productPrice = productSelect.options[productSelect.selectedIndex].dataset.price;
+      const quantity = parseInt(orderForm.quantity.value);
+      const address = orderForm.address.value.trim();
+
+      if (!name || !phone.match(/^\d{10}$/) || !product || !quantity || !address) {
+        alert('Please fill in all required fields correctly.');
+        return;
+      }
+
+      const amount = parseInt(productPrice) * quantity; // amount in paise
+
+      if (amount <= 0) {
+        alert('Invalid order amount.');
+        return;
+      }
+
+      const options = {
+        key: razorpayKey,
+        amount: amount,
+        currency: "INR",
+        name: "Naattu Suvai",
+        description: `Order Payment for ${product} x ${quantity}`,
+        handler: async function(response) {
+          // On payment success, send order data to Formspree
+          const orderData = {
+            name,
+            phone,
+            product,
+            quantity,
+            address,
+            razorpay_payment_id: response.razorpay_payment_id
+          };
+
+          try {
+            const res = await fetch(formspreeEndpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(orderData)
+            });
+
+            if (res.ok) {
+              alert("Payment successful and order submitted! Thank you for your purchase.");
+              orderForm.reset();
+            } else {
+              alert("Payment successful but failed to submit order form. Please contact us.");
+            }
+          } catch (error) {
+            alert("Network error after payment. Please contact us with your payment ID.");
+          }
+        },
+        prefill: {
+          name: name,
+          contact: phone
+        },
+        theme: {
+          color: "#4CAF50"
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+  </script>
+</body>
+</html>
