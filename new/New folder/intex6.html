@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naattu Suvai - Order</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+  .product { margin-bottom: 15px; }
+  button.buyBtn {
+    background-color: #2f855a; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;
+  }
+  button.buyBtn:hover { background-color: #276749; }
+  #orderModal {
+    display: none; 
+    position: fixed; 
+    top:0; left:0; right:0; bottom:0; 
+    background: rgba(0,0,0,0.5);
+    justify-content: center; 
+    align-items: center;
+  }
+  #orderFormContainer {
+    background: white; 
+    padding: 25px; 
+    border-radius: 10px; 
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  label { display: block; margin-top: 10px; }
+  input, select, textarea {
+    width: 100%; padding: 8px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box;
+  }
+  button#submitOrder {
+    margin-top: 15px; background: #2f855a; color: white; padding: 10px; border: none; width: 100%; border-radius: 6px;
+    cursor: pointer;
+  }
+  button#submitOrder:hover { background: #276749; }
+  #formMessage { margin-top: 12px; text-align: center; font-weight: 600; }
+  button#closeModal {
+    background: #999; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer;
+    float: right;
+  }
+  button#closeModal:hover { background: #666; }
+</style>
+</head>
+<body>
+
+<h2>Naattu Suvai Products</h2>
+
+<div class="product">
+  <strong>Sesame Oil 250ml - ₹100</strong> 
+  <button class="buyBtn" onclick="openOrderForm('Sesame Oil 250ml', 100)">Buy Now</button>
+</div>
+<div class="product">
+  <strong>Sesame Oil 300ml - ₹120</strong> 
+  <button class="buyBtn" onclick="openOrderForm('Sesame Oil 300ml', 120)">Buy Now</button>
+</div>
+<div class="product">
+  <strong>Sesame Oil 5L - ₹850</strong> 
+  <button class="buyBtn" onclick="openOrderForm('Sesame Oil 5L', 850)">Buy Now</button>
+</div>
+
+<!-- Order Form Modal -->
+<div id="orderModal">
+  <div id="orderFormContainer">
+    <button id="closeModal" onclick="closeOrderForm()">X</button>
+    <h3>Place Your Order</h3>
+    <form id="orderForm">
+      <input type="hidden" name="product" id="product" />
+      <input type="hidden" name="price" id="price" />
+
+      <label for="name">Name *</label>
+      <input type="text" name="name" id="name" required />
+
+      <label for="email">Email *</label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="phone">Phone (10 digits) *</label>
+      <input type="text" name="phone" id="phone" pattern="\d{10}" maxlength="10" required placeholder="Enter 10-digit phone" />
+
+      <label for="address">Address *</label>
+      <textarea name="address" id="address" rows="3" required></textarea>
+
+      <label for="pincode">Pincode (6 digits) *</label>
+      <input type="text" name="pincode" id="pincode" pattern="\d{6}" maxlength="6" required placeholder="Enter 6-digit pincode" />
+
+      <label for="quantity">Quantity *</label>
+      <input type="number" name="quantity" id="quantity" min="1" value="1" required />
+
+      <label for="comments">Comments (optional)</label>
+      <textarea name="comments" id="comments" rows="2" placeholder="Any notes?"></textarea>
+
+      <button type="submit" id="submitOrder">Submit and Pay</button>
+      <p id="formMessage"></p>
+    </form>
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+const RAZORPAY_KEY = "PASTE_YOUR_RAZORPAY_KEY_HERE";
+const allowedPincodes = ["600001", "600002", "600100"]; // customize your delivery pincodes here
+
+// Show order form modal and prefill product info
+function openOrderForm(productName, price) {
+  document.getElementById('orderModal').style.display = 'flex';
+  document.getElementById('product').value = productName;
+  document.getElementById('price').value = price;
+
+  // Reset form & messages
+  document.getElementById('orderForm').reset();
+  document.getElementById('product').value = productName; // reset product after form reset
+  document.getElementById('price').value = price;
+  document.getElementById('formMessage').textContent = '';
+}
+
+// Close order form modal
+function closeOrderForm() {
+  document.getElementById('orderModal').style.display = 'none';
+}
+
+// Form submit with validation and Razorpay payment
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form).entries());
+  const formMessage = document.getElementById('formMessage');
+  formMessage.style.color = 'red';
+  formMessage.textContent = '';
+
+  // Phone validation
+  if (!/^\d{10}$/.test(data.phone)) {
+    formMessage.textContent = 'Please enter a valid 10-digit phone number.';
+    return;
+  }
+
+  // Pincode validation
+  if (!/^\d{6}$/.test(data.pincode)) {
+    formMessage.textContent = 'Please enter a valid 6-digit pincode.';
+    return;
+  }
+  if (!allowedPincodes.includes(data.pincode)) {
+    formMessage.textContent = 'Delivery not available in this pincode.';
+    return;
+  }
+
+  // Quantity validation
+  if (parseInt(data.quantity) < 1) {
+    formMessage.textContent = 'Quantity must be at least 1.';
+    return;
+  }
+
+  // Calculate total amount
+  const amount = parseInt(data.price) * parseInt(data.quantity);
+
+  // Razorpay payment options
+  const options = {
+    key: RAZORPAY_KEY,
+    amount: amount * 100, // amount in paise
+    currency: "INR",
+    name: "Naattu Suvai",
+    description: data.product + " Order",
+    prefill: {
+      name: data.name,
+      email: data.email,
+      contact: data.phone
+    },
+    theme: { color: "#2f855a" },
+    handler: function (response) {
+      data.paymentId = response.razorpay_payment_id;
+
+      // Send data to Google Apps Script backend
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(res => res.text())
+      .then(msg => {
+        form.reset();
+        closeOrderForm();
+        alert("✅ Order successful! Confirmation mail sent.");
+      })
+      .catch(err => {
+        alert("Error saving order. Please contact support.");
+      });
+    },
+    modal: {
+      ondismiss: function() {
+        formMessage.textContent = "Payment cancelled.";
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+});
+
+</script>
+</body>
+</html>
