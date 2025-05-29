@@ -72,64 +72,104 @@
     }
 
     /* Products Section */
-    #products {
-      padding: 3rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    #products h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
-      color: #4caf50;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap: 1.5rem;
-    }
-    .product-card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      padding: 1rem;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-    .product-card img {
-      max-width: 100%;
-      height: 200px;
-      object-fit: contain;
-      margin-bottom: 1rem;
-      border-radius: 4px;
-    }
-    .product-card h3 {
-      margin: 0.5rem 0;
-      color: #2c6b30;
-    }
-    .product-card p.price {
-      font-weight: bold;
-      margin: 0.3rem 0 1rem 0;
-      font-size: 1.1rem;
-      color: #4caf50;
-    }
-    .product-card button {
-      background: #4caf50;
-      border: none;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .product-card button:hover {
-      background: #3a8e40;
-    }
+    /* Products Section */
+#products {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(72, 140, 61, 0.1);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#products h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.8rem;
+  color: #2e7d32;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #e0e7d4;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(34, 97, 21, 0.06);
+  padding: 2rem 1.5rem 2.5rem;
+  text-align: center;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(34, 97, 21, 0.18);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  transition: filter 0.3s ease;
+  filter: drop-shadow(0 3px 5px rgba(46, 125, 50, 0.12));
+}
+
+.product-card:hover img {
+  filter: drop-shadow(0 6px 10px rgba(46, 125, 50, 0.22));
+}
+
+.product-card h3 {
+  margin: 0 0 1rem;
+  color: #2a5d18;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.product-card p.price {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #3a7d2f;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.product-card button {
+  background: #4caf50;
+  border: none;
+  color: white;
+  padding: 0.85rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  align-self: center;
+  min-width: 160px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.product-card button:hover {
+  background: #388e3c;
+  box-shadow: 0 10px 25px rgba(56, 142, 60, 0.55);
+}
+
 
     /* Testimonials */
     #testimonials {
@@ -309,6 +349,54 @@
         padding: 1.5rem;
       }
     }
+/* Fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale and fade for modal */
+@keyframes scaleFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply fade to sections */
+section, .product-card, .testimonial-list .product-card {
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+section:nth-of-type(1) { animation-delay: 0.2s; }
+section:nth-of-type(2) { animation-delay: 0.4s; }
+section:nth-of-type(3) { animation-delay: 0.6s; }
+section:nth-of-type(4) { animation-delay: 0.8s; }
+
+/* Animate product cards individually */
+.product-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+.product-card:nth-child(1) { animation-delay: 0.2s; }
+.product-card:nth-child(2) { animation-delay: 0.4s; }
+.product-card:nth-child(3) { animation-delay: 0.6s; }
+
+/* Modal animation */
+#orderFormContainer {
+  animation: scaleFade 0.4s ease forwards;
+}
+   }
   </style>
 </head>
 <body>
@@ -316,7 +404,6 @@
 <header>
   Naattu Suvai - Pure Sesame Oil (Nallaennai)
 </header>
-
 <nav>
   <a href="#hero">Home</a>
   <a href="#products">Products</a>
@@ -403,6 +490,10 @@
 
       <label for="price">Price (₹)</label>
       <input type="number" id="price" name="price" readonly />
+	  
+	  <label for="quantity">Quantity <span style="color:red;">*</span></label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+
 
       <label for="name">Name <span style="color:red;">*</span></label>
       <input type="text" id="name" name="name" placeholder="Your full name" required />
@@ -434,6 +525,8 @@
     document.getElementById('orderForm').reset();
     document.getElementById('product').value = product;
     document.getElementById('price').value = price;
+    // Set default quantity 1
+    document.getElementById('quantity').value = 1;
     document.getElementById('name').focus();
   }
 
@@ -461,7 +554,6 @@
       return;
     }
 
-    // Validate phone number pattern
     if(!/^\d{10}$/.test(form.phone.value.trim())) {
       messageDiv.style.color = 'red';
       messageDiv.textContent = 'Please enter a valid 10-digit phone number.';
@@ -473,13 +565,24 @@
       return;
     }
 
+    // Get quantity and price, calculate total amount
+    const quantity = parseInt(form.quantity.value);
+    const unitPrice = parseFloat(form.price.value);
+    if(isNaN(quantity) || quantity <= 0) {
+      messageDiv.style.color = 'red';
+      messageDiv.textContent = 'Please enter a valid quantity.';
+      return;
+    }
+
+    const totalAmount = quantity * unitPrice;
+
     messageDiv.style.color = '#4CAF50';
     messageDiv.textContent = 'Processing your order... Please wait.';
 
-    // Razorpay payment integration
+    // Razorpay payment options
     const options = {
-      key: "rzp_test_H6YtvHIf9vsmtn", // Replace with your Razorpay test/live key
-      amount: parseInt(form.price.value)*100, // Amount in paise
+      key: "rzp_test_H6YtvHIf9vsmtn", // Replace with your Razorpay key
+      amount: totalAmount * 100, // amount in paise
       currency: "INR",
       name: "Naattu Suvai",
       description: form.product.value,
@@ -499,11 +602,12 @@
     rzp1.open();
 
     function submitOrder(paymentId) {
-      const url = "https://script.google.com/macros/s/AKfycbyRX3pEgrr8Xqx1JKq2OnyQj4J6rIKmm6Xc9IyFtrdiqJ0Yw_yQd8-h5uO6f0kw44A/exec"; // Replace with your Google Apps Script URL
+      const url = "https://script.google.com/macros/s/AKfycbyRX3pEgrr8Xqx1JKq2OnyQj4J6rIKmm6Xc9IyFtrdiqJ0Yw_yQd8-h5uO6f0kw44A/exec"; // Your Google Apps Script URL
 
       const orderData = {
         product: form.product.value,
-        price: form.price.value,
+        price: totalAmount.toFixed(2),  // total price
+        quantity: quantity,
         name: form.name.value,
         phone: form.phone.value,
         address: form.address.value,
@@ -537,5 +641,26 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
+
+<script>
+  const revealElements = document.querySelectorAll('section, .product-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    observer.observe(el);
+  });
+</script>
+  
 </body>
 </html>
