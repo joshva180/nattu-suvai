@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naattu Suvai - Pure Sesame Oil</title>
+  <meta name="description" content="Buy pure, traditional sesame oil (Nallaennai) from Naattu Suvai. Healthy, fresh, and natural." />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base styles */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fff9f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background-color: #4caf50;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      background: #3a8e40;
+      display: flex;
+      justify-content: center;
+      padding: 0.5rem 0;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      font-weight: 500;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+    }
+    nav a:hover {
+      background: #2c6b30;
+    }
+
+    /* Hero */
+    #hero {
+      background: url('https://images.unsplash.com/photo-1510626176961-4bfc334a2a04?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+    }
+    #hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    #hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Products Section */
+    /* Products Section */
+#products {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(72, 140, 61, 0.1);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#products h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.8rem;
+  color: #2e7d32;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #e0e7d4;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(34, 97, 21, 0.06);
+  padding: 2rem 1.5rem 2.5rem;
+  text-align: center;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(34, 97, 21, 0.18);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  transition: filter 0.3s ease;
+  filter: drop-shadow(0 3px 5px rgba(46, 125, 50, 0.12));
+}
+
+.product-card:hover img {
+  filter: drop-shadow(0 6px 10px rgba(46, 125, 50, 0.22));
+}
+
+.product-card h3 {
+  margin: 0 0 1rem;
+  color: #2a5d18;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.product-card p.price {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #3a7d2f;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.product-card button {
+  background: #4caf50;
+  border: none;
+  color: white;
+  padding: 0.85rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  align-self: center;
+  min-width: 160px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.product-card button:hover {
+  background: #388e3c;
+  box-shadow: 0 10px 25px rgba(56, 142, 60, 0.55);
+}
+
+
+    /* Testimonials */
+    #testimonials {
+      background: #e8f5e9;
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 3rem auto;
+      border-radius: 8px;
+    }
+    #testimonials h2 {
+      text-align: center;
+      color: #4caf50;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .product-card p {
+      font-style: italic;
+    }
+    .testimonial-list .product-card {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      font-size: 0.95rem;
+    }
+
+    /* Contact */
+    #contact {
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    #contact a {
+      color: #4caf50;
+      font-weight: 600;
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 28px;
+      line-height: 50px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      background-color: #128c4a;
+    }
+
+    /* Footer */
+    footer {
+      background: #4caf50;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: white;
+      margin: 0 0.5rem;
+      font-weight: 500;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    #orderModal {
+      display: none;
+      position: fixed;
+      z-index: 1500;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    #orderFormContainer {
+      background: white;
+      max-width: 400px;
+      width: 100%;
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    #orderFormContainer h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #4caf50;
+      text-align: center;
+    }
+    #closeModal {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.2s ease;
+    }
+    #closeModal:hover {
+      color: #4caf50;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    form input[type="text"],
+    form input[type="number"],
+    form input[type="tel"],
+    form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    form textarea {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    form button[type="submit"] {
+      margin-top: 1.8rem;
+      background: #4caf50;
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+    }
+    form button[type="submit"]:hover {
+      background: #3a8e40;
+    }
+
+    #formMessage {
+      margin-top: 1rem;
+      font-weight: 600;
+      text-align: center;
+      min-height: 1.2em;
+    }
+
+    @media (max-width: 500px) {
+      #hero h1 {
+        font-size: 2.2rem;
+      }
+      #products {
+        padding: 2rem 1rem;
+      }
+      #orderFormContainer {
+        padding: 1.5rem;
+      }
+    }
+/* Fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale and fade for modal */
+@keyframes scaleFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply fade to sections */
+section, .product-card, .testimonial-list .product-card {
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+section:nth-of-type(1) { animation-delay: 0.2s; }
+section:nth-of-type(2) { animation-delay: 0.4s; }
+section:nth-of-type(3) { animation-delay: 0.6s; }
+section:nth-of-type(4) { animation-delay: 0.8s; }
+
+/* Animate product cards individually */
+.product-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+.product-card:nth-child(1) { animation-delay: 0.2s; }
+.product-card:nth-child(2) { animation-delay: 0.4s; }
+.product-card:nth-child(3) { animation-delay: 0.6s; }
+
+/* Modal animation */
+#orderFormContainer {
+  animation: scaleFade 0.4s ease forwards;
+}
+   }
+  </style>
+</head>
+<body>
+
+<header>
+  Naattu Suvai - Pure Sesame Oil (Nallaennai)
+</header>
+<nav>
+  <a href="#hero">Home</a>
+  <a href="#products">Products</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="hero" role="banner" aria-label="Hero section showcasing Naattu Suvai sesame oil">
+  <h1>Pure Traditional Sesame Oil</h1>
+  <p>Experience the rich taste and health benefits of our freshly pressed Nallaennai from Naattu Suvai.</p>
+</section>
+
+<section id="products" aria-labelledby="productsTitle" class="section">
+  <h2 id="productsTitle">Our Products</h2>
+  <div class="product-grid">
+    <div class="product-card" tabindex="0">
+      <img src="https://example.com/oil-bottle-1.jpg" alt="500ml Bottle of Naattu Suvai Sesame Oil" />
+      <h3>Naattu Suvai Sesame Oil - 500ml</h3>
+      <p class="price">₹150</p>
+      <button onclick="openOrderForm('Naattu Suvai Sesame Oil - 500ml', 150)">Buy Now</button>
+    </div>
+    <div class="product-card" tabindex="0">
+      <img src="https://example.com/oil-bottle-2.jpg" alt="1 Liter Bottle of Naattu Suvai Sesame Oil" />
+      <h3>Naattu Suvai Sesame Oil - 1 Liter</h3>
+      <p class="price">₹280</p>
+      <button onclick="openOrderForm('Naattu Suvai Sesame Oil - 1 Liter', 280)">Buy Now</button>
+    </div>
+    <div class="product-card" tabindex="0">
+      <img src="https://example.com/oil-bottle-3.jpg" alt="2 Liter Bottle of Naattu Suvai Sesame Oil" />
+      <h3>Naattu Suvai Sesame Oil - 2 Liter</h3>
+      <p class="price">₹520</p>
+      <button onclick="openOrderForm('Naattu Suvai Sesame Oil - 2 Liter', 520)">Buy Now</button>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" aria-label="Customer testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-list">
+    <div class="product-card">
+      <p>"The oil is very fresh and authentic. My family loves it!"</p>
+      <strong>- Meena, Coimbatore</strong>
+    </div>
+    <div class="product-card">
+      <p>"Prompt delivery and excellent quality. Highly recommended!"</p>
+      <strong>- Arjun, Madurai</strong>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section" aria-labelledby="contactTitle">
+  <h2 id="contactTitle">Contact Us</h2>
+  <p>Email: <a href="mailto:naattusuvai@gmail.com">naattusuvai@gmail.com</a></p>
+  <p>Phone: <a href="tel:+917373030602">+91 7373030602</a></p>
+</section>
+
+<!-- WhatsApp floating button -->
+<a href="https://wa.me/9173730302?text=Vanakkam!%20Naattu%20Suvai%20help-ku%20ungalukku%20enna%20venum%3F" 
+   target="_blank" 
+   style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.3); font-size: 30px;"
+   aria-label="WhatsApp Help Chat">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="30px" height="30px">
+    <path d="M20.52 3.48A11.877 11.877 0 0 0 12 0C5.372 0 0 5.373 0 12a11.92 11.92 0 0 0 2.077 6.455L0 24l5.7-2.073A11.936 11.936 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.204-1.252-6.213-3.48-8.52zm-8.49 16.29a8.062 8.062 0 0 1-4.4-1.308l-.314-.188-3.372 1.227 1.132-3.282-.205-.34a8.04 8.04 0 0 1 3.24-10.94 7.958 7.958 0 0 1 11.293 6.194 7.983 7.983 0 0 1-7.334 8.35zM17 14.8c-.25 0-1.41-.68-1.63-.76-.21-.08-.36-.12-.51.12-.15.25-.59.76-.72.91-.13.15-.25.17-.46.06-.21-.12-.89-.33-1.7-1.05-.63-.57-1.05-1.28-1.17-1.53-.12-.25-.01-.39.09-.52.09-.09.21-.23.32-.34.11-.11.15-.19.23-.32.08-.12.04-.22-.02-.32-.06-.1-.51-1.23-.7-1.7-.18-.44-.36-.38-.51-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.59.29-.2.22-.77.75-.77 1.83 0 1.07.79 2.1.9 2.25.11.15 1.55 2.36 3.77 3.31.53.23.94.37 1.26.47.53.16 1.02.14 1.4.08.43-.07 1.31-.54 1.5-1.07.19-.53.19-.98.13-1.07-.06-.09-.21-.14-.44-.25-.22-.11-1.31-.61-1.5-.68z"/>
+  </svg>
+</a>
+
+
+<footer>
+  <p>© 2025 Naattu Suvai. All rights reserved.</p>
+  <p>
+    <a href="#hero">Home</a> | 
+    <a href="#products">Products</a> | 
+    <a href="#contact">Contact</a>
+  </p>
+</footer>
+
+<!-- Order Modal -->
+<div id="orderModal" aria-hidden="true" role="dialog" aria-labelledby="orderModalTitle" aria-modal="true">
+  <div id="orderFormContainer">
+    <button id="closeModal" aria-label="Close order form">&times;</button>
+    <h2 id="orderModalTitle">Place Your Order</h2>
+    <form id="orderForm">
+      <label for="product">Product</label>
+      <input type="text" id="product" name="product" readonly />
+
+      <label for="price">Price (₹)</label>
+      <input type="number" id="price" name="price" readonly />
+	  
+	  <label for="quantity">Quantity <span style="color:red;">*</span></label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+
+
+      <label for="name">Name <span style="color:red;">*</span></label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+      <label for="phone">Phone <span style="color:red;">*</span></label>
+      <input type="tel" id="phone" name="phone" placeholder="10-digit phone number" pattern="[0-9]{10}" required />
+
+      <label for="address">Address <span style="color:red;">*</span></label>
+      <textarea id="address" name="address" placeholder="Delivery address" rows="3" required></textarea>
+
+      <label for="pincode">Pincode <span style="color:red;">*</span></label>
+      <input type="text" id="pincode" name="pincode" placeholder="6-digit pincode" pattern="[0-9]{6}" required />
+
+      <button type="submit" id="submitOrder">Place Order & Pay</button>
+    </form>
+    <div id="formMessage" role="alert" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+  // Replace these pincodes with your delivery area pincodes
+  const allowedPincodes = ['600001', '600002', '600003', '600004', '600005'];
+
+  function openOrderForm(product, price) {
+    document.getElementById('orderModal').style.display = 'flex';
+    document.getElementById('product').value = product;
+    document.getElementById('price').value = price;
+    document.getElementById('formMessage').textContent = '';
+    document.getElementById('orderForm').reset();
+    document.getElementById('product').value = product;
+    document.getElementById('price').value = price;
+    // Set default quantity 1
+    document.getElementById('quantity').value = 1;
+    document.getElementById('name').focus();
+  }
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('orderModal').style.display = 'none';
+  });
+
+  // Close modal on outside click
+  window.addEventListener('click', e => {
+    if(e.target === document.getElementById('orderModal')) {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+  });
+
+  const form = document.getElementById('orderForm');
+  const messageDiv = document.getElementById('formMessage');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const pincode = form.pincode.value.trim();
+    if(!allowedPincodes.includes(pincode)) {
+      messageDiv.style.color = 'red';
+      messageDiv.textContent = 'Sorry, we do not deliver to this pincode yet.';
+      return;
+    }
+
+    if(!/^\d{10}$/.test(form.phone.value.trim())) {
+      messageDiv.style.color = 'red';
+      messageDiv.textContent = 'Please enter a valid 10-digit phone number.';
+      return;
+    }
+    if(!/^\d{6}$/.test(pincode)) {
+      messageDiv.style.color = 'red';
+      messageDiv.textContent = 'Please enter a valid 6-digit pincode.';
+      return;
+    }
+
+    // Get quantity and price, calculate total amount
+    const quantity = parseInt(form.quantity.value);
+    const unitPrice = parseFloat(form.price.value);
+    if(isNaN(quantity) || quantity <= 0) {
+      messageDiv.style.color = 'red';
+      messageDiv.textContent = 'Please enter a valid quantity.';
+      return;
+    }
+
+    const totalAmount = quantity * unitPrice;
+
+    messageDiv.style.color = '#4CAF50';
+    messageDiv.textContent = 'Processing your order... Please wait.';
+
+    // Razorpay payment options
+    const options = {
+      key: "rzp_test_H6YtvHIf9vsmtn", // Replace with your Razorpay key
+      amount: totalAmount * 100, // amount in paise
+      currency: "INR",
+      name: "Naattu Suvai",
+      description: form.product.value,
+      handler: function(response){
+        submitOrder(response.razorpay_payment_id);
+      },
+      prefill: {
+        name: form.name.value,
+        contact: form.phone.value,
+      },
+      theme: {
+        color: "#4CAF50"
+      }
+    };
+
+    const rzp1 = new Razorpay(options);
+    rzp1.open();
+
+    function submitOrder(paymentId) {
+      const url = "https://script.google.com/macros/s/AKfycbyRX3pEgrr8Xqx1JKq2OnyQj4J6rIKmm6Xc9IyFtrdiqJ0Yw_yQd8-h5uO6f0kw44A/exec"; // Your Google Apps Script URL
+
+      const orderData = {
+        product: form.product.value,
+        price: totalAmount.toFixed(2),  // total price
+        quantity: quantity,
+        name: form.name.value,
+        phone: form.phone.value,
+        address: form.address.value,
+        pincode: form.pincode.value,
+        payment_id: paymentId,
+        order_time: new Date().toISOString()
+      };
+
+      fetch(url + '?callback=?', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+      }).then(() => {
+        messageDiv.style.color = '#4caf50';
+        messageDiv.textContent = "Thank you! Your order is confirmed.";
+        form.reset();
+        setTimeout(() => {
+          document.getElementById('orderModal').style.display = 'none';
+          messageDiv.textContent = '';
+        }, 4000);
+      }).catch(() => {
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = "Order submission failed. Please contact us directly.";
+      });
+    }
+  });
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+  const revealElements = document.querySelectorAll('section, .product-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    observer.observe(el);
+  });
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naattu Suvai - Product Page</title>
+<style>
+body { font-family:sans-serif; margin:0; padding:0; background:#f8f8f8; }
+h1{text-align:center;margin:20px 0;}
+.product-list{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:20px;}
+.product-card{background:white;border-radius:10px;padding:15px;cursor:pointer;width:200px;box-shadow:0 2px 8px rgba(0,0,0,0.1);text-align:center;}
+.product-card img{width:100%; height:150px; object-fit:cover; border-radius:8px;}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000;}
+.modal[aria-hidden="false"]{display:flex;}
+.modal-content{background:white;padding:20px;border-radius:10px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-content span{position:absolute;top:10px;right:15px;font-size:24px;cursor:pointer;}
+
+/* Gallery */
+.product-gallery{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.main-image{width:300px;height:300px;object-fit:cover;border-radius:8px;}
+.thumbs{display:flex;gap:10px;}
+.thumbs img{width:60px;height:60px;object-fit:cover;cursor:pointer;border:2px solid transparent;border-radius:5px;}
+.thumbs img.active{border-color:#16a34a;}
+
+#detailFeatures{margin:10px 0;padding-left:20px;}
+#orderNowBtn{background:#16a34a;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-size:16px;}
+#orderNowBtn:hover{background:#15803d;}
+
+/* Order Form */
+#orderModal .modal-content{max-width:500px;}
+#orderModal label{display:block;margin:8px 0 4px;}
+#orderModal input{width:100%;padding:8px;margin-bottom:10px;border-radius:5px;border:1px solid #ccc;}
+#submitOrder{background:#16a34a;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;width:100%;font-size:16px;}
+</style>
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+</head>
+<body>
+
+<h1>Naattu Suvai Products</h1>
+
+<div class="product-list">
+  <div class="product-card" onclick="openProductDetail(
+    'Pure Sesame Oil 500ml',
+    500,
+    ['Cold Pressed','100% Natural','Healthy for Skin','Rich in Nutrients'],
+    ['images/sesame_oil_1.jpg','images/sesame_oil_2.jpg','images/sesame_oil_3.jpg','images/sesame_oil_4.jpg']
+  )">
+    <img src="images/sesame_oil_1.jpg" alt="Sesame Oil">
+    <h3>Pure Sesame Oil</h3>
+    <p>Cold pressed & healthy</p>
+  </div>
+  <!-- Add more products as needed -->
+</div>
+
+<!-- Product Detail Modal -->
+<div id="productDetailModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <span id="closeProductDetail">&times;</span>
+    <div class="product-gallery">
+      <img id="mainProductImage" src="" alt="Product Image" class="main-image">
+      <div class="thumbs">
+        <img class="thumb" src="" alt="Thumb1" onclick="changeMainImage(0)">
+        <img class="thumb" src="" alt="Thumb2" onclick="changeMainImage(1)">
+        <img class="thumb" src="" alt="Thumb3" onclick="changeMainImage(2)">
+        <img class="thumb" src="" alt="Thumb4" onclick="changeMainImage(3)">
+      </div>
+    </div>
+    <h2 id="detailName"></h2>
+    <p id="detailPrice"></p>
+    <ul id="detailFeatures"></ul>
+    <label>Quantity: <input type="number" id="detailQuantity" value="1" min="1"></label>
+    <button id="orderNowBtn">Order Now</button>
+  </div>
+</div>
+
+<!-- Order Form Modal -->
+<div id="orderModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <span id="closeModal">&times;</span>
+    <h2>Order Form</h2>
+    <div id="formMessage"></div>
+    <form id="orderForm">
+      <input type="hidden" id="product" name="product">
+      <input type="hidden" id="unitPrice" name="unitPrice">
+      <label>Name</label>
+      <input type="text" id="name" name="name" required>
+      <label>Phone</label>
+      <input type="text" id="phone" name="phone" required>
+      <label>Address</label>
+      <input type="text" id="address" name="address" required>
+      <label>City</label>
+      <input type="text" id="city" name="city" required>
+      <label>Pincode</label>
+      <input type="text" id="pincode" name="pincode" required>
+      <div id="deliveryHint"></div>
+      <label>Quantity</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1">
+      <button type="submit" id="submitOrder">Place Order & Pay</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const allowedPincodes=["600001","600002","600003","600004","600005"];
+const GAS_URL="https://script.google.com/macros/s/YOUR_GAS_URL/exec";
+const RZP_KEY="rzp_test_H6YtvHIf9vsmtn"; // replace with live key
+
+// Product Detail
+let currentImages=[];
+function openProductDetail(name,price,features,images){
+  document.getElementById('productDetailModal').setAttribute('aria-hidden','false');
+  document.getElementById('detailName').textContent=name;
+  document.getElementById('detailPrice').textContent=`₹${price}`;
+  const ul=document.getElementById('detailFeatures'); ul.innerHTML='';
+  features.forEach(f=>{ let li=document.createElement('li'); li.textContent=f; ul.appendChild(li); });
+  currentImages=images;
+  document.getElementById('mainProductImage').src=images[0];
+  const thumbs=document.querySelectorAll('.thumb');
+  thumbs.forEach((img,i)=>{ img.src=images[i]; img.classList.toggle('active', i===0); });
+  document.getElementById('detailQuantity').value=1;
+  document.getElementById('orderNowBtn').onclick=()=>openOrderForm(name,price);
+}
+function changeMainImage(index){
+  document.getElementById('mainProductImage').src=currentImages[index];
+  const thumbs=document.querySelectorAll('.thumb');
+  thumbs.forEach((img,i)=> img.classList.toggle('active', i===index));
+}
+document.getElementById('closeProductDetail').onclick=()=>document.getElementById('productDetailModal').setAttribute('aria-hidden','true');
+
+// Order Form
+const modal=document.getElementById('orderModal');
+const closeBtn=document.getElementById('closeModal');
+const orderForm=document.getElementById('orderForm');
+const msg=document.getElementById('formMessage');
+const deliveryHint=document.getElementById('deliveryHint');
+
+function openOrderForm(product,price){
+  modal.setAttribute('aria-hidden','false');
+  orderForm.reset();
+  msg.textContent=''; deliveryHint.textContent='';
+  document.getElementById('product').value=product;
+  document.getElementById('unitPrice').value=price;
+  document.getElementById('quantity').value=document.getElementById('detailQuantity').value||1;
+  setTimeout(()=>document.getElementById('name').focus(),50);
+  document.addEventListener('keydown',trapFocus);
+}
+function closeOrderForm(){ modal.setAttribute('aria-hidden','true'); document.removeEventListener('keydown',trapFocus); }
+function trapFocus(e){ if(e.key==='Escape'){ closeOrderForm(); } if(e.key!=='Tab') return; const focusable=modal.querySelectorAll('button,[href],input,textarea'); const first=focusable[0], last=focusable[focusable.length-1]; if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); } else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
+}
+closeBtn.addEventListener('click',closeOrderForm);
+modal.addEventListener('click', (e)=>{ if(e.target===modal) closeOrderForm(); });
+
+function isValidPhone(v){ return /^\d{10}$/.test(String(v).trim()); }
+function isValidPincode(v){ return /^\d{6}$/.test(String(v).trim()); }
+
+document.getElementById('pincode').addEventListener('input', (e)=>{
+  const pin=e.target.value.trim();
+  if(pin.length===6){
+    if(!isValidPincode(pin)){ deliveryHint.textContent='Please enter a valid 6-digit pincode.'; deliveryHint.style.color='#b91c1c'; }
+    else if(!allowedPincodes.includes(pin)){ deliveryHint.textContent='Sorry, we currently deliver only to select Chennai pincodes.'; deliveryHint.style.color='#b45309'; }
+    else { deliveryHint.textContent='Good news! Delivery available to your pincode.'; deliveryHint.style.color='#15803d'; }
+  } else deliveryHint.textContent='';
+});
+
+// Submit + Razorpay
+orderForm.addEventListener('submit', async(e)=>{
+  e.preventDefault();
+  const product=orderForm.product.value;
+  const unit=parseFloat(orderForm.unitPrice.value);
+  const quantity=Math.max(1,parseInt(orderForm.quantity.value,10)||1);
+  const name=orderForm.name.value.trim();
+  const phone=orderForm.phone.value.trim();
+  const address=orderForm.address.value.trim();
+  const pincode=orderForm.pincode.value.trim();
+  const city=orderForm.city.value.trim();
+
+  if(!isValidPhone(phone)) return showMsg('Please enter a valid 10-digit phone number.',true);
+  if(!isValidPincode(pincode)) return showMsg('Please enter a valid 6-digit pincode.',true);
+  if(!allowedPincodes.includes(pincode)) return showMsg('Sorry, we do not deliver to this pincode yet.',true);
+
+  const totalAmount=unit*quantity;
+  showMsg('Processing your order… opening payment.',false);
+  toggleSubmit(true);
+
+  const options={key:RZP_KEY,amount:Math.round(totalAmount*100),currency:'INR',name:'Naattu Suvai',description:product,
+    handler:function(response){ submitOrder(response.razorpay_payment_id); },
+    notes:{name,phone,address,pincode,city,quantity:String(quantity)},
+    prefill:{name,contact:phone},
+    theme:{color:'#16a34a'},
+    method:{upi:true},
+    modal:{ondismiss:()=>{ showMsg('Payment closed. Try again.',true); toggleSubmit(false); }}
+  };
+  if(window.Razorpay){ new Razorpay(options).open(); }
+  else { showMsg('Payment library failed. Refresh and try.',true); toggleSubmit(false); }
+
+  function submitOrder(paymentId){
+    const orderData={product,price:totalAmount.toFixed(2),unit_price:unit,quantity,name,phone,address,city,pincode,payment_id:paymentId,order_time:new Date().toISOString()};
+    fetch(GAS_URL+'?callback=?',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(orderData)})
+    .then(()=>{
+      showMsg('Thank you! Your order is confirmed.',false);
+      orderForm.reset();
+      sendClientMessage(name,phone,product,totalAmount.toFixed(2));
+      sendOwnerMessage(orderData);
+      setTimeout(()=>{ closeOrderForm(); showMsg('',false); },2800);
+    }).catch(()=>{ showMsg('Order submitted, but confirmation failed. Please contact us.',true); }).finally(()=>toggleSubmit(false));
+  }
+});
+
+function showMsg(text,isError){ msg.textContent=text; msg.style.color=isError?'#b91c1c':'#15803d'; }
+function toggleSubmit(loading){ const btn=document.getElementById('submitOrder'); btn.disabled=loading; btn.textContent=loading?'Please wait…':'Place Order & Pay'; btn.style.opacity=loading?.8:1; }
+
+// Client & Owner Messages (hooks)
+function sendClientMessage(name,phone,product,amount){
+  const msg=`Vanakkam ${name},\nYour order (${product}) of ₹${amount} is confirmed. Thank you for choosing Naattu Suvai!`;
+  console.log('Client Message:',msg);
+  // integrate WhatsApp/email API here
+}
+function sendOwnerMessage(order){
+  const ownerNumber='+91XXXXXXXXXX';
+  const msg=`New Order Received!\nOrder ID: ${order.payment_id}\nCustomer: ${order.name}\nPhone: ${order.phone}\nProduct: ${order.product}\nAmount: ₹${order.price}`;
+  console.log('Owner Message:',msg);
+  // integrate WhatsApp/email API here
+}
+</script>
+</body>
+</html>
