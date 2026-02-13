@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Habit Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#020617; --card:#020617; --border:#1f2933;
+  --text:#e5e7eb; --muted:#94a3b8;
+  --green:#22c55e; --red:#ef4444; --blue:#38bdf8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui;background:var(--bg);color:var(--text)}
+.app{max-width:600px;margin:auto;padding:16px 14px 140px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+header h1{font-size:20px}
+header button{background:linear-gradient(135deg,var(--green),var(--blue));border:none;padding:8px 12px;border-radius:10px;font-weight:600;color:#000;cursor:pointer}
+.month{font-size:13px;color:var(--muted)}
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:16px}
+.week-title{font-size:15px;font-weight:600;margin-bottom:10px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:10px}
+.day{font-size:11px;text-align:center;color:var(--muted)}
+.habit-name{font-size:12px;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.habit-row{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+.box{height:26px;border-radius:6px;border:1px solid var(--border);background:#020617;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:0.2s}
+.box.done{background:var(--green);color:#000}
+.box:hover{opacity:0.8}
+.progress{margin-top:10px}
+.bar{height:10px;background:#020617;border-radius:8px;overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--green))}
+.progress small{font-size:11px}
+.note{margin-top:10px}
+.note textarea{width:100%;min-height:60px;background:#020617;border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px;font-size:12px}
+footer{position:fixed;bottom:0;left:0;right:0;background:#020617;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0}
+footer button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
+.modal-content{background:#020617;border:1px solid var(--border);border-radius:16px;padding:16px;width:90%;max-width:400px}
+.modal-content h3{margin-top:0;font-size:16px}
+.modal-content input{width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:#020617;color:var(--text);margin-bottom:8px}
+.modal-content button{width:100%;margin-top:6px;cursor:pointer;padding:8px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--green),var(--blue));color:#000;font-weight:600;}
+.modal-content .delete-btn{background:var(--red);color:#000;margin-top:0}
+.burger{font-size:22px;cursor:pointer}
+.sidebar{position:fixed;left:-250px;top:0;width:250px;height:100%;background:#020617;border-right:1px solid var(--border);padding:16px;transition:0.3s;display:flex;flex-direction:column;gap:10px;z-index:1000}
+.sidebar.open{left:0}
+.sidebar button{background:none;border:none;color:var(--text);font-size:14px;text-align:left;cursor:pointer;padding:6px 0}
+/* Mobile padding so footer/app content not hidden */
+@media(max-width:600px){
+  .app{padding-bottom:200px;}
+}
+
+.chart-container{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:16px}
+.bar-chart{display:flex;gap:4px;height:120px;align-items:flex-end}
+.bar-chart div{flex:1;border-radius:6px;background:var(--red);display:flex;align-items:flex-end;justify-content:center;color:#000;font-size:10px;transition:0.3s}
+.bar-chart div.green{background:var(--green)}
+.month-selector{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.month-selector button{padding:4px 6px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-size:12px}
+.month-selector button.active{background:var(--green);color:#000}
+/* ===== STREAK UI ===== */
+.streak-box{
+  background:linear-gradient(135deg,#0f172a,#020617);
+  border:1px solid #1e293b;
+  border-radius:14px;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+.streak-box h3{
+  font-size:14px;
+  font-weight:600;
+}
+.streak-count{
+  font-size:20px;
+  font-weight:700;
+  color:#facc15;
+}
+.habit-streak{
+  font-size:11px;
+  color:#facc15;
+  margin-left:auto;
+}
+
+/* ===== FIGMA DARK UPGRADE ===== */
+.week-card, .chart-container{
+  background:linear-gradient(180deg,#0b1220,#020617);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.box.done{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  box-shadow:0 0 10px rgba(34,197,94,.6);
+}
+
+.box.today{
+  border:2px solid var(--blue);
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="burger" onclick="toggleSidebar()">☰</span>
+      <h1>Habit Dashboard</h1>
+      <div class="month" id="monthName"></div>
+    </div>
+  <div id="remainingDays" style="font-size:14px;font-weight:700;color:#f87171;margin-bottom:10px"></div>
+    <button onclick="openHabitEditor()">Edit Habits</button>
+  </header>
+
+  <div class="streak-box">
+    <h3>🔥 Current Streak</h3>
+    <div class="streak-count" id="overallStreak">0 days</div>
+  </div>
+
+  <div class="month-selector" id="monthSelector"></div>
+  <div id="weeks"></div>
+
+  <div class="chart-container" id="chartContainer">
+    <h3>Monthly Completion Chart</h3>
+    <div class="bar-chart" id="barChart"></div>
+    <div id="habitSummary" style="margin-top:12px;font-size:12px;color:#e5e7eb;"></div>
+  </div>
+</div>
+
+<footer>
+  <button onclick="openSettings()">Settings</button>
+</footer>
+
+<div class="sidebar" id="sidebar">
+  <button onclick="showDashboard()">Dashboard</button>
+  <button onclick="showChart()">Chart</button>
+  <button onclick="openSettings()">Settings</button>
+</div>
+
+<!-- HABIT EDITOR MODAL -->
+<div class="modal" id="habitModal">
+  <div class="modal-content">
+    <h3>Edit Habits</h3>
+    <div id="habitInputs"></div>
+    <button onclick="addHabitField()">+ Add Habit</button>
+    <button onclick="saveHabits()">Save</button>
+    <button onclick="closeModal('habitModal')" class="delete-btn">Close</button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal" id="settingsModal">
+  <div class="modal-content">
+    <h3>Settings</h3>
+    <button onclick="resetYear()">Reset Year</button>
+    <button onclick="closeModal('settingsModal')" class="delete-btn">Close</button>
+  </div>
+</div>
+
+<script>
+const sidebar = document.getElementById('sidebar');
+
+function toggleSidebar(){
+  sidebar.classList.toggle('open');
+}
+
+// Close sidebar if clicked outside (mobile)
+document.addEventListener('click', (e)=>{
+  if(sidebar.classList.contains('open') && !sidebar.contains(e.target) && !e.target.classList.contains('burger')){
+    sidebar.classList.remove('open');
+  }
+});
+
+// Optional: ESC key to close
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='Escape' && sidebar.classList.contains('open')){
+    sidebar.classList.remove('open');
+  }
+});
+
+// ================= HELPERS =================
+const habitList = [
+  {name:"Exercise",icon:"🏃"}, {name:"Read",icon:"📖"}, {name:"Meditate",icon:"🧘"}, {name:"Drink Water",icon:"💧"},
+  {name:"Sleep Early",icon:"🛌"}, {name:"No Sugar",icon:"🍬"}, {name:"Coding",icon:"💻"}, {name:"Yoga",icon:"🧎"},
+  {name:"Journaling",icon:"📓"}, {name:"Walk",icon:"🚶"}
+];
+const year = 2026;
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+let data = JSON.parse(localStorage.getItem('habitData2026')) || {months:{}};
+let currentMonth = new Date().getMonth();
+
+// Check if all habits done for the day
+function isDayCompleted(day){ return day.every(v => v===true); }
+
+// Overall streak
+function calculateOverallStreak() {
+  let streak = 0;
+  const today = new Date();
+  for(let m=currentMonth;m>=0;m--){
+    const key = `${year}-${m}`;
+    if(!data.months[key]) continue;
+    const days = data.months[key].weeks.flat();
+    const firstDay = new Date(year,m,1).getDay();
+    const lastIndex = m===currentMonth ? today.getDate()+firstDay-1 : days.length-1;
+    for(let i=lastIndex;i>=0;i--){
+      if(!days[i]) continue;
+      if(isDayCompleted(days[i])) streak++; else return streak;
+    }
+  }
+  return streak;
+}
+
+// Individual habit streak
+function calculateHabitStreak(hIndex){
+  let streak = 0;
+  const today = new Date();
+  for(let m=currentMonth;m>=0;m--){
+    const key = `${year}-${m}`;
+    if(!data.months[key]) continue;
+    const days = data.months[key].weeks.flat();
+    const firstDay = new Date(year,m,1).getDay();
+    const lastIndex = m===currentMonth ? today.getDate()+firstDay-1 : days.length-1;
+    for(let i=lastIndex;i>=0;i--){
+      if(!days[i]) continue;
+      if(days[i][hIndex]) streak++; else return streak;
+    }
+  }
+  return streak;
+}
+
+// Monthly habit completion summary
+function calculateMonthlyHabitCompletion(month = currentMonth) {
+  const key = `${year}-${month}`;
+  if(!data.months[key]) return [];
+  const weeks = data.months[key].weeks;
+  const habitCounts = habitList.map(()=>({done:0,total:0}));
+  weeks.forEach(week=>{
+    week.forEach(day=>{
+      day.forEach((c,i)=>{
+        habitCounts[i].total++;
+        if(c) habitCounts[i].done++;
+      });
+    });
+  });
+  return habitCounts;
+}
+
+// Save data
+function save(){ localStorage.setItem('habitData2026',JSON.stringify(data)); }
+
+// ================= INIT MONTH =================
+function initMonth(m){
+  const key = `${year}-${m}`;
+  const daysInMonth = new Date(year,m+1,0).getDate();
+  const weeks = [];
+  let dayCounter = 1;
+  const startDay = new Date(year,m,1).getDay();
+  while(dayCounter<=daysInMonth){
+    const week=[];
+    for(let d=0; d<7; d++){
+      if(weeks.length===0 && d<startDay){week.push(habitList.map(()=>false)); continue;}
+      if(dayCounter>daysInMonth){week.push(habitList.map(()=>false)); continue;}
+      week.push(habitList.map(()=>false)); dayCounter++;
+    }
+    weeks.push(week);
+  }
+  data.months[key] = {weeks:weeks,notes:Array(weeks.length).fill('')};
+  save();
+}
+
+// Remaining days till year end
+function updateRemainingDays(){
+  const today = new Date();
+  const endOfYear = new Date(today.getFullYear(),11,31);
+  const diff = Math.max(0, Math.ceil((endOfYear-today)/(1000*60*60*24)));
+  document.getElementById('remainingDays').textContent = `There are ${diff} days remaining until the end of ${year}.`;
+}
+
+// ================= SIDEBAR =================
+function toggleSidebar(){ 
+  document.getElementById('sidebar').classList.toggle('open'); 
+}
+
+// Dashboard click
+function showDashboard(){
+  document.getElementById('weeks').style.display='block'; 
+  document.getElementById('chartContainer').style.display='none'; 
+  sidebar.classList.remove('open'); // <-- Auto close
+}
+
+// Chart click
+function showChart(){
+  document.getElementById('weeks').style.display='none'; 
+  document.getElementById('chartContainer').style.display='block'; 
+  updateChart();
+  sidebar.classList.remove('open'); // <-- Auto close
+}
+
+// Settings click
+function openSettings(){
+  document.getElementById('settingsModal').style.display='flex';
+  sidebar.classList.remove('open'); // <-- Auto close
+}
+
+
+// ================= HABIT EDITOR =================
+function openHabitEditor(){
+  const box = document.getElementById('habitInputs'); box.innerHTML='';
+  habitList.forEach((h,i)=>{
+    const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.gap='6px';
+    const inp = document.createElement('input'); inp.value=h.name; inp.oninput=e=>h.name=e.target.value||'Habit';
+    wrap.appendChild(inp); box.appendChild(wrap);
+  });
+  document.getElementById('habitModal').style.display='flex';
+}
+function addHabitField(){ habitList.push({name:"New Habit",icon:"🔹"}); openHabitEditor(); }
+function saveHabits(){ closeModal('habitModal'); render(currentMonth); }
+
+// ================= SETTINGS =================
+
+function closeModal(id){document.getElementById(id).style.display='none';}
+function resetYear(){ if(confirm("Reset all 2026 data?")){data={months:{}}; save(); render(currentMonth);}}
+
+// ================= MONTH SELECTOR =================
+const monthSelectorDiv = document.getElementById('monthSelector');
+monthNames.forEach((m,i)=>{
+  const btn = document.createElement('button'); btn.textContent=m;
+  btn.onclick=()=>{ currentMonth=i; render(i); updateChart(); updateMonthButtons(); };
+  monthSelectorDiv.appendChild(btn);
+});
+function updateMonthButtons(){ monthSelectorDiv.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',i===currentMonth)); }
+updateMonthButtons();
+
+// ================= RENDER =================
+function render(month=currentMonth){
+  const key = `${year}-${month}`; if(!data.months[key]) initMonth(month);
+  document.getElementById('monthName').textContent = `${monthNames[month]} ${year}`;
+  const wrap = document.getElementById('weeks'); wrap.innerHTML='';
+  const monthData = data.months[key]; const weeks = monthData.weeks;
+  const today = new Date(); const firstDay = new Date(year,month,1).getDay();
+  weeks.forEach((week,wIndex)=>{
+    const card = document.createElement('div'); card.className='week-card';
+    const title = document.createElement('div'); title.className='week-title'; title.textContent=`Week ${wIndex+1}`; card.appendChild(title);
+    // Days header
+const dayNames=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const daysRow=document.createElement('div'); 
+daysRow.className='days';
+
+week.forEach((_,dIndex)=>{
+    const dateNumber=wIndex*7+dIndex-firstDay+1;
+    const dayDiv=document.createElement('div');
+    dayDiv.className='day';
+    if(dateNumber>0 && dateNumber<=new Date(year,month+1,0).getDate()){
+        const dayName = dayNames[new Date(year,month,dateNumber).getDay()];
+        dayDiv.innerHTML = `<div style="font-size:10px;color:var(--muted)">${dayName}</div><div>${dateNumber}</div>`;
+    } else {
+        dayDiv.innerHTML = '';
+    }
+    daysRow.appendChild(dayDiv);
+});
+card.appendChild(daysRow);
+
+    // Habits
+    habitList.forEach((habit,hIndex)=>{
+      const name=document.createElement('div'); name.className='habit-name'; name.textContent=`${habit.icon} ${habit.name}`;
+      const hs=document.createElement('span'); hs.className='habit-streak'; hs.textContent=`🔥 ${calculateHabitStreak(hIndex)}d`; name.appendChild(hs); card.appendChild(name);
+      const row=document.createElement('div'); row.className='habit-row';
+     week.forEach((day,dIndex)=>{
+  const dateNumber = wIndex*7 + dIndex - firstDay + 1;
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const box = document.createElement('div'); 
+  box.className = 'box';
+  
+  if(dateNumber > 0 && dateNumber <= daysInMonth){
+      // real date
+      box.className += day[hIndex] ? ' done' : '';
+      box.textContent = day[hIndex] ? '✔' : '';
+      if(dateNumber === today.getDate() && month === today.getMonth() && year === today.getFullYear())
+          box.classList.add('today');
+      box.onclick = () => { day[hIndex] = !day[hIndex]; save(); render(month); };
+  } else {
+      // placeholder day
+      box.style.visibility = 'hidden';
+  }
+
+  row.appendChild(box);
+});
+
+      card.appendChild(row);
+    });
+    // Week progress
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+let weekDone = 0, weekTotal = 0;
+week.forEach((day, dIndex) => {
+  const dateNumber = wIndex*7 + dIndex - firstDay + 1;
+  if(dateNumber <= 0 || dateNumber > daysInMonth) return; // skip placeholders
+  day.forEach(habit => { weekTotal++; if(habit) weekDone++; });
+});
+const percent = weekTotal ? Math.round((weekDone / weekTotal) * 100) : 0;
+
+    const prog=document.createElement('div'); prog.className='progress';
+    const bar=document.createElement('div'); bar.className='bar';
+    const span=document.createElement('span'); span.style.width=percent+'%'; bar.appendChild(span);
+    const small=document.createElement('small'); small.style.color=percent<50?'var(--red)':'var(--green)'; small.textContent=percent+'% completed';
+    prog.appendChild(bar); prog.appendChild(small); card.appendChild(prog);
+    // Notes
+    const noteDiv=document.createElement('div'); noteDiv.className='note';
+    const textarea=document.createElement('textarea'); textarea.value=monthData.notes[wIndex]||''; textarea.oninput=e=>{monthData.notes[wIndex]=e.target.value; save();};
+    noteDiv.appendChild(textarea); card.appendChild(noteDiv);
+    wrap.appendChild(card);
+  });
+  document.getElementById('overallStreak').textContent=calculateOverallStreak()+' days';
+  showDashboard();
+}
+
+// ================= CHART =================
+function updateChart(){
+  const barChart=document.getElementById('barChart'); 
+  barChart.innerHTML='';
+  const key=`${year}-${currentMonth}`; 
+  if(!data.months[key]) initMonth(currentMonth);
+  const weeks=data.months[key].weeks;
+  const habitCounts=calculateMonthlyHabitCompletion(currentMonth);
+  const chartContainer=document.getElementById('chartContainer');
+  chartContainer.querySelector('h3').textContent=`${monthNames[currentMonth]} ${year} - Weekly Completion`;
+
+  const daysInMonth = new Date(year, currentMonth+1, 0).getDate();
+  const firstDay = new Date(year, currentMonth, 1).getDay();
+
+  weeks.forEach((week,i)=>{
+    let done = 0, total = 0;
+    week.forEach((day,dIndex)=>{
+      const dateNumber = i*7 + dIndex - firstDay + 1;
+      if(dateNumber <= 0 || dateNumber > daysInMonth) return; // skip placeholders
+      day.forEach(habit => { total++; if(habit) done++; });
+    });
+    const percent = total ? Math.round((done/total)*100) : 0;
+
+    const bar=document.createElement('div'); 
+    bar.className=percent>=50?'green':''; 
+    bar.style.height=percent+'%'; 
+    bar.textContent=percent+'%';
+    bar.title=`Week ${i+1} of ${monthNames[currentMonth]}: ${percent}% completed`;
+    barChart.appendChild(bar);
+  });
+
+  // Monthly habit summary
+  const habitSummary=document.getElementById('habitSummary'); 
+  habitSummary.innerHTML='';
+  habitList.forEach((h,i)=>{
+    const div=document.createElement('div');
+    const totalDaysInMonth = new Date(year, currentMonth+1, 0).getDate();
+div.textContent=`${h.icon} ${h.name}: ${habitCounts[i].done}/${totalDaysInMonth} days completed`;
+
+    habitSummary.appendChild(div);
+  });
+}
+
+
+// ================= INITIALIZE =================
+render();
+updateRemainingDays();
+
+</script>
+</body>
+</html>
