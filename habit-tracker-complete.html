@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="description" content="Habit Tracker with Firebase Auth & Sync">
+<title>Habit Dashboard 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e1a;
+  --card:#111827;
+  --glass:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.1);
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --primary:#6366f1;
+  --accent:#22d3ee;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --header-bg:rgba(10,14,26,0.95);
+}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  transition:background 0.3s,color 0.3s;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Auth Screen */
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1e293b 0%,#0f172a 50%,#020617 100%);
+  padding:20px;
+}
+.auth-card{
+  background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(34,211,238,0.1));
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  width:100%;
+  max-width:400px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.auth-card h1{
+  font-size:36px;
+  font-weight:800;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+  text-align:center;
+}
+.auth-card p{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+.form-group{
+  margin-bottom:20px;
+}
+.form-group label{
+  display:block;
+  font-size:14px;
+  margin-bottom:8px;
+  color:var(--muted);
+  font-weight:600;
+}
+.form-group input{
+  width:100%;
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(15,23,42,0.6);
+  color:var(--text);
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  transition:all 0.3s;
+}
+.form-group input:focus{
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:0 0 0 4px rgba(99,102,241,0.2);
+}
+.btn{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:white;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 8px 24px rgba(99,102,241,0.4);
+  font-family:'Inter',sans-serif;
+  margin-top:10px;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(99,102,241,0.6);
+}
+.btn:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+.auth-switch{
+  text-align:center;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:14px;
+}
+.auth-switch a{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:600;
+  cursor:pointer;
+}
+.auth-switch a:hover{
+  text-decoration:underline;
+}
+.error-msg{
+  background:rgba(239,68,68,0.1);
+  border:1px solid rgba(239,68,68,0.5);
+  color:#ef4444;
+  padding:12px;
+  border-radius:12px;
+  font-size:13px;
+  margin-bottom:15px;
+}
+.hidden{display:none;}
+
+/* Main App */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  background:var(--header-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:1;
+  min-width:0;
+}
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header h1{
+  font-size:18px;
+  font-weight:800;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  white-space:nowrap;
+}
+.month{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:600;
+  white-space:nowrap;
+}
+.days-remaining{
+  font-size:11px;
+  color:#f87171;
+  font-weight:600;
+  white-space:nowrap;
+}
+.syncing{
+  font-size:11px;
+  color:var(--accent);
+  font-weight:600;
+}
+header button{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:13px;
+  color:white;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 4px 16px rgba(99,102,241,0.4);
+  white-space:nowrap;
+  font-family:'Inter',sans-serif;
+}
+header button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(99,102,241,0.6);
+}
+.icon-btn{
+  background:none!important;
+  box-shadow:none!important;
+  padding:8px!important;
+  font-size:20px;
+}
+
+.app{
+  margin-top:90px;
+  max-width:680px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:16px 16px 120px;
+}
+
+/* Stats Cards */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+.stat-card{
+  background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(34,211,238,0.15));
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+.stat-card h3{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.stat-card .value{
+  font-size:32px;
+  font-weight:900;
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Week Cards */
+.week-card{
+  background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(34,211,238,0.08));
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:24px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  transition:all 0.4s;
+}
+.week-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+.week-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:16px;
+  color:var(--text);
+}
+.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  margin-bottom:16px;
+}
+.day{
+  font-size:11px;
+  text-align:center;
+  color:var(--muted);
+  font-weight:600;
+  padding:4px 2px;
+}
+.habit-name{
+  font-size:13px;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:600;
+  color:var(--text);
+}
+.habit-row{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  margin-bottom:12px;
+}
+.box{
+  height:44px;
+  border-radius:12px;
+  border:2px solid var(--border);
+  background:var(--glass);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  transition:all 0.3s;
+  user-select:none;
+}
+.box:hover{
+  transform:translateY(-3px) scale(1.05);
+  border-color:var(--primary);
+  box-shadow:0 8px 20px rgba(99,102,241,0.3);
+}
+.box.done{
+  background:linear-gradient(135deg,var(--success),#059669);
+  color:white;
+  border-color:transparent;
+  box-shadow:0 6px 20px rgba(16,185,129,0.5);
+}
+.box.today{
+  border:2px solid #3b82f6;
+  box-shadow:0 0 0 4px rgba(59,130,246,0.2);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 4px rgba(59,130,246,0.2);}
+  50%{box-shadow:0 0 0 8px rgba(59,130,246,0.4);}
+}
+.progress{margin-top:16px;}
+.bar{
+  height:12px;
+  background:rgba(15,23,42,0.5);
+  border-radius:10px;
+  overflow:hidden;
+}
+.bar span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#10b981,#22c55e);
+  transition:width 0.6s;
+}
+.progress small{
+  font-size:12px;
+  font-weight:600;
+  margin-top:6px;
+  display:block;
+  color:var(--text);
+}
+
+/* Month Selector */
+.month-selector{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+  overflow-x:auto;
+}
+.month-selector button{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--glass);
+  color:var(--text);
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  transition:all 0.3s;
+  white-space:nowrap;
+}
+.month-selector button:hover{
+  border-color:var(--primary);
+  color:var(--primary);
+}
+.month-selector button.active{
+  background:linear-gradient(135deg,var(--success),#059669);
+  color:white;
+  border:none;
+  box-shadow:0 4px 16px rgba(16,185,129,0.4);
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:10000;
+}
+.modal.show{display:flex;}
+.modal-content{
+  background:linear-gradient(135deg,#1e293b,#0f172a);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:24px;
+  width:100%;
+  max-width:600px;
+  max-height:85vh;
+  overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-content h3{
+  margin:0 0 20px 0;
+  font-size:22px;
+  font-weight:800;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.habit-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+  padding:14px;
+  background:var(--glass);
+  border-radius:12px;
+  border:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.habit-item input,
+.habit-item select{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(15,23,42,0.8);
+  color:var(--text);
+  font-size:13px;
+  font-family:'Inter',sans-serif;
+}
+.habit-item input{flex:1;min-width:120px;}
+.habit-item .icon-input{
+  width:60px;
+  text-align:center;
+  font-size:20px;
+}
+.habit-item .time-input{width:90px;}
+.habit-item .week-select{width:110px;}
+.del-btn{
+  background:linear-gradient(135deg,#ef4444,#dc2626)!important;
+  padding:8px 12px!important;
+  border-radius:10px;
+  color:white;
+  border:none;
+  cursor:pointer;
+  font-size:16px;
+}
+
+footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:var(--header-bg);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  padding:16px;
+  text-align:center;
+  z-index:100;
+}
+footer button{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-size:13px;
+  cursor:pointer;
+  font-weight:600;
+  padding:8px 16px;
+  font-family:'Inter',sans-serif;
+  margin:0 8px;
+}
+footer button:hover{
+  color:var(--primary);
+}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:1fr;}
+  .box{height:40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Auth Screen -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <h1>Habit Dashboard</h1>
+    <p id="authSubtitle">Sign in to sync your habits</p>
+    
+    <div id="errorMsg" class="error-msg hidden"></div>
+    
+    <form id="authForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="your@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+      
+      <div id="confirmPasswordGroup" class="form-group hidden">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="••••••••">
+      </div>
+      
+      <button type="submit" class="btn" id="authBtn">Sign In</button>
+    </form>
+    
+    <div class="auth-switch">
+      <span id="switchText">Don't have an account?</span>
+      <a id="switchLink">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="mainApp" class="hidden">
+  <header>
+    <div class="header-left">
+      <h1>Habit Dashboard</h1>
+      <div class="month" id="monthName"></div>
+      <div class="days-remaining" id="remainingDays"></div>
+      <div class="syncing hidden" id="syncStatus">Syncing...</div>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="notifBtn" title="Notifications">🔔</button>
+      <button id="editHabitsBtn">Edit Habits</button>
+      <button class="icon-btn" id="logoutBtn" title="Logout">🚪</button>
+    </div>
+  </header>
+
+  <div class="app">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>🔥 Current Streak</h3>
+        <div class="value" id="currentStreak">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>🏆 Best Streak</h3>
+        <div class="value" id="bestStreak">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>📊 This Month</h3>
+        <div class="value" id="monthCompletion">0%</div>
+      </div>
+    </div>
+
+    <!-- Month Selector -->
+    <div class="month-selector" id="monthSelector"></div>
+
+    <!-- Weeks Container -->
+    <div id="weeksContainer"></div>
+
+    <!-- Notes -->
+    <div class="week-card">
+      <h3 style="margin-bottom:12px;">📝 Monthly Notes</h3>
+      <textarea id="monthNotes" style="width:100%;min-height:80px;background:var(--glass);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:12px;font-family:Inter,sans-serif;resize:vertical;" placeholder="Add notes for this month..."></textarea>
+    </div>
+  </div>
+
+  <footer>
+    <button id="settingsBtn">⚙️ Settings</button>
+  </footer>
+</div>
+
+<!-- Edit Habits Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h3>⚙️ Edit Habits</h3>
+    <div id="habitsList"></div>
+    <button class="btn" id="addHabitBtn">+ Add New Habit</button>
+    <button class="btn" id="saveHabitsBtn" style="margin-top:10px;">💾 Save Changes</button>
+    <button class="btn del-btn" id="closeEditBtn" style="margin-top:10px;">✕ Close</button>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal">
+  <div class="modal-content">
+    <h3>⚙️ Settings</h3>
+    <button class="btn del-btn" id="resetMonthBtn">🗑️ Reset Current Month</button>
+    <div style="margin-top:20px;padding:16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:12px;font-size:13px;">
+      <strong>Auto-Sync:</strong> Your habits are automatically synced across all devices in real-time.
+    </div>
+    <button class="btn" id="closeSettingsBtn" style="margin-top:20px;">✕ Close</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, setDoc, onSnapshot, enableIndexedDbPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBeRjfkgufu_2jOSYG9k2eUvrOwdKH6wX4",
+  authDomain: "habit-dashboard-2026.firebaseapp.com",
+  projectId: "habit-dashboard-2026",
+  storageBucket: "habit-dashboard-2026.firebasestorage.app",
+  messagingSenderId: "846418255204",
+  appId: "1:846418255204:web:5e34f5579f7b6df8a72e71"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Enable offline persistence
+enableIndexedDbPersistence(db).catch(err => {
+  console.warn('Persistence error:', err.code);
+});
+
+// Global state
+let currentUser = null;
+let habitData = {
+  habits: [
+    { id: '1', icon: '📚', name: 'Read', time: '08:00', week: 'all' },
+    { id: '2', icon: '🏃', name: 'Exercise', time: '07:00', week: 'all' },
+    { id: '3', icon: '💧', name: 'Drink Water', time: '09:00', week: 'all' }
+  ],
+  months: {},
+  notes: {},
+  bestStreaks: {}
+};
+let selectedMonth = new Date().getMonth();
+let selectedYear = new Date().getFullYear();
+let isSignUp = false;
+
+// DOM Elements
+const authScreen = document.getElementById('authScreen');
+const mainApp = document.getElementById('mainApp');
+const authForm = document.getElementById('authForm');
+const errorMsg = document.getElementById('errorMsg');
+const switchLink = document.getElementById('switchLink');
+const authBtn = document.getElementById('authBtn');
+const authSubtitle = document.getElementById('authSubtitle');
+const switchText = document.getElementById('switchText');
+const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+const syncStatus = document.getElementById('syncStatus');
+
+// Auth state listener
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user;
+    authScreen.classList.add('hidden');
+    mainApp.classList.remove('hidden');
+    loadUserData(user.uid);
+    requestNotificationPermission();
+  } else {
+    currentUser = null;
+    authScreen.classList.remove('hidden');
+    mainApp.classList.add('hidden');
+  }
+});
+
+// Switch between login/signup
+switchLink.addEventListener('click', () => {
+  isSignUp = !isSignUp;
+  if (isSignUp) {
+    authBtn.textContent = 'Sign Up';
+    authSubtitle.textContent = 'Create your account';
+    switchText.textContent = 'Already have an account?';
+    switchLink.textContent = 'Sign In';
+    confirmPasswordGroup.classList.remove('hidden');
+  } else {
+    authBtn.textContent = 'Sign In';
+    authSubtitle.textContent = 'Sign in to sync your habits';
+    switchText.textContent = "Don't have an account?";
+    switchLink.textContent = 'Sign Up';
+    confirmPasswordGroup.classList.add('hidden');
+  }
+  errorMsg.classList.add('hidden');
+});
+
+// Auth form submit
+authForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  
+  errorMsg.classList.add('hidden');
+  
+  try {
+    if (isSignUp) {
+      if (password !== confirmPassword) {
+        throw new Error('Passwords do not match');
+      }
+      if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters');
+      }
+      await createUserWithEmailAndPassword(auth, email, password);
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+    }
+  } catch (error) {
+    errorMsg.textContent = error.message;
+    errorMsg.classList.remove('hidden');
+  }
+});
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  if (confirm('Are you sure you want to logout?')) {
+    await signOut(auth);
+    localStorage.clear();
+  }
+});
+
+// Load user data from Firestore
+function loadUserData(uid) {
+  const docRef = doc(db, 'users', uid);
+  
+  onSnapshot(docRef, (snapshot) => {
+    if (snapshot.exists()) {
+      habitData = snapshot.data();
+    } else {
+      saveData();
+    }
+    renderApp();
+  });
+}
+
+// Save data to Firestore
+async function saveData() {
+  if (!currentUser) return;
+  
+  syncStatus.classList.remove('hidden');
+  
+  try {
+    const docRef = doc(db, 'users', currentUser.uid);
+    await setDoc(docRef, habitData, { merge: true });
+  } catch (error) {
+    console.error('Error saving:', error);
+  } finally {
+    setTimeout(() => {
+      syncStatus.classList.add('hidden');
+    }, 500);
+  }
+}
+
+// Render app
+function renderApp() {
+  renderMonthInfo();
+  renderMonthSelector();
+  renderWeeks();
+  renderStats();
+  renderNotes();
+}
+
+function renderMonthInfo() {
+  const date = new Date(selectedYear, selectedMonth);
+  document.getElementById('monthName').textContent = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+  
+  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  const today = new Date().getDate();
+  const isCurrentMonth = new Date().getMonth() === selectedMonth && new Date().getFullYear() === selectedYear;
+  const daysRemaining = isCurrentMonth ? daysInMonth - today : 0;
+  
+  document.getElementById('remainingDays').textContent = isCurrentMonth ? `${daysRemaining} days left` : '';
+}
+
+function renderMonthSelector() {
+  const container = document.getElementById('monthSelector');
+  container.innerHTML = '';
+  
+  for (let i = 0; i < 12; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = new Date(selectedYear, i).toLocaleString('default', { month: 'short' });
+    btn.className = i === selectedMonth ? 'active' : '';
+    btn.onclick = () => {
+      selectedMonth = i;
+      renderApp();
+    };
+    container.appendChild(btn);
+  }
+}
+
+function renderWeeks() {
+  const container = document.getElementById('weeksContainer');
+  container.innerHTML = '';
+  
+  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  const weeksCount = Math.ceil(daysInMonth / 7);
+  const monthKey = `${selectedYear}-${selectedMonth}`;
+  
+  for (let weekIndex = 0; weekIndex < weeksCount; weekIndex++) {
+    const weekCard = document.createElement('div');
+    weekCard.className = 'week-card';
+    
+    const weekTitle = document.createElement('div');
+    weekTitle.className = 'week-title';
+    weekTitle.textContent = `Week ${weekIndex + 1}`;
+    weekCard.appendChild(weekTitle);
+    
+    // Day headers
+    const daysHeader = document.createElement('div');
+    daysHeader.className = 'days';
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach((day, idx) => {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'day';
+      const date = weekIndex * 7 + idx + 1;
+      dayEl.innerHTML = `${day}<br>${date <= daysInMonth ? date : ''}`;
+      daysHeader.appendChild(dayEl);
+    });
+    weekCard.appendChild(daysHeader);
+    
+    // Habits
+    habitData.habits
+      .filter(h => h.week === 'all' || h.week === String(weekIndex))
+      .forEach(habit => {
+        const habitName = document.createElement('div');
+        habitName.className = 'habit-name';
+        habitName.innerHTML = `<span>${habit.icon}</span><span>${habit.name}</span>`;
+        if (habit.time) {
+          habitName.innerHTML += `<span style="margin-left:auto;font-size:11px;color:var(--muted);">${habit.time}</span>`;
+        }
+        weekCard.appendChild(habitName);
+        
+        const habitRow = document.createElement('div');
+        habitRow.className = 'habit-row';
+        
+        for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+          const dateNum = weekIndex * 7 + dayIdx + 1;
+          const box = document.createElement('div');
+          box.className = 'box';
+          
+          if (dateNum <= daysInMonth) {
+            const date = new Date(selectedYear, selectedMonth, dateNum);
+            const today = new Date();
+            const isToday = date.toDateString() === today.toDateString();
+            
+            if (isToday) box.classList.add('today');
+            
+            const completed = habitData.months[monthKey]?.[weekIndex]?.[dayIdx]?.[habit.id];
+            if (completed) {
+              box.classList.add('done');
+              box.textContent = '✓';
+            }
+            
+            box.onclick = () => toggleHabit(monthKey, weekIndex, dayIdx, habit.id);
+          }
+          
+          habitRow.appendChild(box);
+        }
+        weekCard.appendChild(habitRow);
+      });
+    
+    // Progress
+    const totalChecks = habitData.habits.filter(h => h.week === 'all' || h.week === String(weekIndex)).length * 7;
+    let completed = 0;
+    habitData.habits.forEach(habit => {
+      if (habit.week !== 'all' && habit.week !== String(weekIndex)) return;
+      for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+        if (habitData.months[monthKey]?.[weekIndex]?.[dayIdx]?.[habit.id]) completed++;
+      }
+    });
+    const percentage = totalChecks > 0 ? Math.round((completed / totalChecks) * 100) : 0;
+    
+    const progress = document.createElement('div');
+    progress.className = 'progress';
+    progress.innerHTML = `
+      <div class="bar"><span style="width:${percentage}%"></span></div>
+      <small>${completed} / ${totalChecks} completed (${percentage}%)</small>
+    `;
+    weekCard.appendChild(progress);
+    
+    container.appendChild(weekCard);
+  }
+}
+
+function toggleHabit(monthKey, weekIndex, dayIndex, habitId) {
+  if (!habitData.months[monthKey]) habitData.months[monthKey] = {};
+  if (!habitData.months[monthKey][weekIndex]) habitData.months[monthKey][weekIndex] = {};
+  if (!habitData.months[monthKey][weekIndex][dayIndex]) habitData.months[monthKey][weekIndex][dayIndex] = {};
+  
+  const current = habitData.months[monthKey][weekIndex][dayIndex][habitId] || false;
+  habitData.months[monthKey][weekIndex][dayIndex][habitId] = !current;
+  
+  // Update best streak
+  const streak = calculateStreak(habitId);
+  const best = habitData.bestStreaks[habitId] || 0;
+  if (streak > best) habitData.bestStreaks[habitId] = streak;
+  
+  saveData();
+  renderApp();
+}
+
+function calculateStreak(habitId) {
+  let streak = 0;
+  const today = new Date();
+  
+  for (let i = 0; i < 30; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+    const dayOfMonth = date.getDate();
+    const weekIndex = Math.floor((dayOfMonth - 1) / 7);
+    const dayIndex = date.getDay();
+    
+    const completed = habitData.months[monthKey]?.[weekIndex]?.[dayIndex]?.[habitId];
+    
+    if (completed) {
+      streak++;
+    } else if (i > 0) {
+      break;
+    }
+  }
+  
+  return streak;
+}
+
+function renderStats() {
+  // Current streak
+  let currentStreak = 0;
+  habitData.habits.forEach(h => {
+    const s = calculateStreak(h.id);
+    if (s > currentStreak) currentStreak = s;
+  });
+  document.getElementById('currentStreak').textContent = currentStreak;
+  
+  // Best streak
+  const bestStreak = Math.max(...Object.values(habitData.bestStreaks || {}), currentStreak);
+  document.getElementById('bestStreak').textContent = bestStreak;
+  
+  // Month completion
+  const monthKey = `${selectedYear}-${selectedMonth}`;
+  let total = 0, completed = 0;
+  Object.values(habitData.months[monthKey] || {}).forEach(week => {
+    Object.values(week).forEach(day => {
+      Object.values(day).forEach(done => {
+        total++;
+        if (done) completed++;
+      });
+    });
+  });
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  document.getElementById('monthCompletion').textContent = `${percent}%`;
+}
+
+function renderNotes() {
+  const monthKey = `${selectedYear}-${selectedMonth}`;
+  const notesEl = document.getElementById('monthNotes');
+  notesEl.value = habitData.notes[monthKey] || '';
+  notesEl.oninput = () => {
+    habitData.notes[monthKey] = notesEl.value;
+    saveData();
+  };
+}
+
+// Edit Habits Modal
+document.getElementById('editHabitsBtn').addEventListener('click', () => {
+  document.getElementById('editModal').classList.add('show');
+  renderHabitsList();
+});
+
+document.getElementById('closeEditBtn').addEventListener('click', () => {
+  document.getElementById('editModal').classList.remove('show');
+});
+
+document.getElementById('addHabitBtn').addEventListener('click', () => {
+  const newHabit = {
+    id: Date.now().toString(),
+    icon: '📝',
+    name: 'New Habit',
+    time: '09:00',
+    week: 'all'
+  };
+  habitData.habits.push(newHabit);
+  renderHabitsList();
+});
+
+document.getElementById('saveHabitsBtn').addEventListener('click', () => {
+  saveData();
+  renderApp();
+  document.getElementById('editModal').classList.remove('show');
+});
+
+function renderHabitsList() {
+  const container = document.getElementById('habitsList');
+  container.innerHTML = '';
+  
+  habitData.habits.forEach((habit, idx) => {
+    const item = document.createElement('div');
+    item.className = 'habit-item';
+    item.innerHTML = `
+      <input type="text" class="icon-input" value="${habit.icon}" maxlength="2" data-idx="${idx}" data-field="icon">
+      <input type="text" value="${habit.name}" placeholder="Habit name" data-idx="${idx}" data-field="name">
+      <input type="time" class="time-input" value="${habit.time || '09:00'}" data-idx="${idx}" data-field="time">
+      <select class="week-select" data-idx="${idx}" data-field="week">
+        <option value="all" ${habit.week === 'all' ? 'selected' : ''}>All Weeks</option>
+        <option value="0" ${habit.week === '0' ? 'selected' : ''}>Week 1</option>
+        <option value="1" ${habit.week === '1' ? 'selected' : ''}>Week 2</option>
+        <option value="2" ${habit.week === '2' ? 'selected' : ''}>Week 3</option>
+        <option value="3" ${habit.week === '3' ? 'selected' : ''}>Week 4</option>
+        <option value="4" ${habit.week === '4' ? 'selected' : ''}>Week 5</option>
+      </select>
+      <button class="del-btn" data-idx="${idx}">🗑️</button>
+    `;
+    
+    item.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', (e) => {
+        const idx = parseInt(e.target.dataset.idx);
+        const field = e.target.dataset.field;
+        habitData.habits[idx][field] = e.target.value;
+      });
+    });
+    
+    item.querySelector('.del-btn').addEventListener('click', (e) => {
+      const idx = parseInt(e.target.dataset.idx);
+      habitData.habits.splice(idx, 1);
+      renderHabitsList();
+    });
+    
+    container.appendChild(item);
+  });
+}
+
+// Settings Modal
+document.getElementById('settingsBtn').addEventListener('click', () => {
+  document.getElementById('settingsModal').classList.add('show');
+});
+
+document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+  document.getElementById('settingsModal').classList.remove('show');
+});
+
+document.getElementById('resetMonthBtn').addEventListener('click', () => {
+  if (confirm('Reset all data for current month?')) {
+    const monthKey = `${selectedYear}-${selectedMonth}`;
+    delete habitData.months[monthKey];
+    delete habitData.notes[monthKey];
+    saveData();
+    renderApp();
+    document.getElementById('settingsModal').classList.remove('show');
+  }
+});
+
+// Notifications
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+document.getElementById('notifBtn').addEventListener('click', () => {
+  if ('Notification' in window) {
+    if (Notification.permission === 'granted') {
+      new Notification('Notifications enabled', {
+        body: 'You will receive reminders for your habits',
+        icon: '✅'
+      });
+    } else {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification('Notifications enabled!', {
+            body: 'You will receive reminders for your habits',
+            icon: '✅'
+          });
+        }
+      });
+    }
+  } else {
+    alert('Notifications not supported in this browser');
+  }
+});
+
+// Check for habit reminders every minute
+setInterval(() => {
+  if (Notification.permission === 'granted') {
+    const now = new Date();
+    const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    
+    habitData.habits.forEach(habit => {
+      if (habit.time === time) {
+        new Notification('Habit Reminder', {
+          body: `Time to: ${habit.icon} ${habit.name}`,
+          icon: '✅',
+          tag: habit.id
+        });
+      }
+    });
+  }
+}, 60000);
+</script>
+</body>
+</html>
