@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About Us — Ellakai Spices</title>
+  <meta name="description" content="Ellakai Spices partners with farmers, applies quality standards, and delivers premium spices for wholesale and retail."/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a><a href="products.html">Products</a><a href="wholesale.html">Wholesale</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn accent small" href="wholesale.html">Get Wholesale Price</a>
+        <button class="icon-btn mobile-toggle" id="mobileOpen" title="Menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div style="font-weight:900">Menu</div>
+        <button class="icon-btn" id="mobileClose" title="Close">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="drawer-links">
+        <a href="index.html">Home <span>→</span></a>
+        <a href="products.html">Products <span>→</span></a>
+        <a href="wholesale.html">Wholesale <span>→</span></a>
+        <a href="about.html">About Us <span>→</span></a>
+        <a href="blog.html">Blog <span>→</span></a>
+        <a href="contact.html">Contact <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <main class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">Our story</div>
+          <h2 class="h2">Luxury-grade spices, rooted in real farms</h2>
+          <p class="p-muted">Ellakai Spices exists to connect premium buyers with authentic Indian spices sourced directly from farmers—without compromising on aroma, cleanliness, or consistency.</p>
+        </div>
+      </div>
+
+      <div class="story">
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Who we are</h3>
+          <p class="small">A wholesale & retail spice supplier built around long-term farmer partnerships and transparent quality standards.</p>
+
+          <hr class="sep">
+          <h3 style="margin:0 0 10px 0">Farmer partnerships</h3>
+          <p class="small">We source from villages and estates, focusing on harvest freshness, grade selection, and fair, stable procurement relationships.</p>
+
+          <hr class="sep">
+          <h3 style="margin:0 0 10px 0">Quality standards</h3>
+          <p class="small">Batch selection for aroma and uniformity, careful cleaning and grading, and packaging designed to protect essential oils.</p>
+
+          <hr class="sep">
+          <h3 style="margin:0 0 10px 0">Mission & vision</h3>
+          <p class="small">To become a premium international spice brand trusted by restaurants, supermarkets, distributors, and conscious retail buyers.</p>
+
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <span class="pill">Traceable origins</span>
+            <span class="pill">Fresh harvest focus</span>
+            <span class="pill">Export-ready grades</span>
+          </div>
+        </div>
+
+        <div class="story-media reveal" style="background-image:url('https://images.unsplash.com/photo-1466456620945-2bdc24f0b34b?auto=format&fit=crop&w=1600&q=70');"></div>
+      </div>
+
+      <div style="height:16px"></div>
+
+      <div class="grid cards3 reveal">
+        <div class="card pad">
+          <div class="kicker">Farms</div>
+          <h3 style="margin:6px 0 0 0">Spice farms</h3>
+          <p class="small">Photos and farm notes can be showcased here to build trust.</p>
+        </div>
+        <div class="card pad">
+          <div class="kicker">Harvest</div>
+          <h3 style="margin:6px 0 0 0">Fresh harvest</h3>
+          <p class="small">Highlight harvest seasonality and batch freshness for buyers.</p>
+        </div>
+        <div class="card pad">
+          <div class="kicker">Packaging</div>
+          <h3 style="margin:6px 0 0 0">Packing process</h3>
+          <p class="small">Quality checks, hygiene, and packing visuals for premium positioning.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

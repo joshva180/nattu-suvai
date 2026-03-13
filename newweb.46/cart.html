@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cart — Ellakai Spices</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a><a href="products.html">Products</a><a href="wholesale.html">Wholesale</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="pill">Cart items: <span class="js-cart-count">0</span></span>
+        <a class="btn accent small" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">Cart</div>
+          <h2 class="h2">Your cart</h2>
+          <p class="p-muted">Premium spices ready for checkout. Wholesale needs? Use the wholesale request form.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card pad reveal">
+          <table class="table">
+            <thead><tr><th>Product</th><th>Qty (kg)</th><th>Total</th><th></th></tr></thead>
+            <tbody id="cartTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Summary</h3>
+          <div style="display:grid;gap:10px">
+            <div style="display:flex;justify-content:space-between"><span class="small">Subtotal</span><strong id="subtotal">₹0</strong></div>
+            <div style="display:flex;justify-content:space-between"><span class="small">Shipping (demo)</span><strong id="shipping">₹0</strong></div>
+            <hr class="sep">
+            <div style="display:flex;justify-content:space-between"><span class="small">Total</span><strong id="total">₹0</strong></div>
+          </div>
+          <div style="height:14px"></div>
+          <a class="btn accent" href="checkout.html">Proceed to Checkout</a>
+          <div style="height:10px"></div>
+          <a class="btn secondary" href="products.html">Continue Shopping</a>
+
+          <hr class="sep">
+          <div class="small">Secure payment icons (placeholder): Visa • Mastercard • UPI • NetBanking</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

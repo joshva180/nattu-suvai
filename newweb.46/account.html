@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Account — Ellakai Spices</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <div class="nav-actions">
+        <a class="btn secondary small" href="order-tracking.html">Track order</a>
+        <a class="btn accent small" href="products.html">Shop</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="split">
+        <div class="card pad reveal">
+          <div class="kicker">Customer login</div>
+          <h2 class="h2" style="margin-top:6px">Account</h2>
+          <p class="p-muted">Demo login UI. Connect to real auth later.</p>
+          <form class="form" onsubmit="event.preventDefault(); document.getElementById('aMsg').textContent='Logged in (demo).';">
+            <div class="field"><label>Email</label><input type="email" required></div>
+            <div class="field"><label>Password</label><input type="password" required></div>
+            <button class="btn primary">Login</button>
+            <div id="aMsg" class="small"></div>
+          </form>
+        </div>
+
+        <div class="card pad reveal">
+          <div class="kicker">Wholesale</div>
+          <h3 style="margin:6px 0 0 0">Procurement teams</h3>
+          <p class="small">For bulk orders, request tier pricing and packaging options.</p>
+          <a class="btn accent" href="wholesale.html">Get Wholesale Price</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

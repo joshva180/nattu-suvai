@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin — Ellakai Spices</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Admin Panel (Demo)</div></div></a>
+      <div class="nav-actions">
+        <button class="btn secondary small" id="resetSeed">Reset demo data</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">Admin</div>
+          <h2 class="h2">Dashboard (demo)</h2>
+          <p class="p-muted">Manage products, prices, orders, inquiries, and blog posts (stored in localStorage).</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Add / Edit Product</h3>
+          <form class="form" id="productForm">
+            <div class="split">
+              <div class="field"><label>Product ID</label><input id="pId" placeholder="e.g., cardamom" required></div>
+              <div class="field"><label>Name</label><input id="pName" required></div>
+            </div>
+            <div class="split">
+              <div class="field"><label>Category</label><input id="pCat" placeholder="Whole Spices"></div>
+              <div class="field"><label>Price per kg</label><input id="pPrice" type="number" min="0" required></div>
+            </div>
+            <div class="field"><label>Short description</label><textarea id="pShort" required></textarea></div>
+            <div class="split">
+              <div class="field"><label>Origin</label><input id="pOrigin"></div>
+              <div class="field"><label>Grade</label><input id="pGrade"></div>
+            </div>
+            <div class="split">
+              <div class="field"><label>Harvest season</label><input id="pHarvest"></div>
+              <div class="field"><label>Primary image URL</label><input id="pImg"></div>
+            </div>
+            <button class="btn accent" type="submit">Save Product</button>
+          </form>
+        </div>
+
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Products</h3>
+          <table class="table">
+            <thead><tr><th>Product</th><th>Category</th><th>Price</th><th></th></tr></thead>
+            <tbody id="adminProductsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="height:16px"></div>
+
+      <div class="split">
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Orders</h3>
+          <table class="table">
+            <thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+            <tbody id="adminOrdersBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Wholesale inquiries</h3>
+          <table class="table">
+            <thead><tr><th>Contact</th><th>Phone/Email</th><th>Spices</th><th>Qty</th></tr></thead>
+            <tbody id="adminInquiriesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="height:16px"></div>
+
+      <div class="split">
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Add blog post</h3>
+          <form class="form" id="blogForm">
+            <div class="split">
+              <div class="field"><label>Post ID</label><input id="bId" placeholder="e.g., spice-storage-tips" required></div>
+              <div class="field"><label>Category</label><input id="bCat" placeholder="Quality" required></div>
+            </div>
+            <div class="field"><label>Title</label><input id="bTitle" required></div>
+            <div class="field"><label>Excerpt</label><textarea id="bExcerpt" required></textarea></div>
+            <div class="split">
+              <div class="field"><label>Date</label><input id="bDate" type="date" required></div>
+              <div class="field"><label>Read minutes</label><input id="bRead" type="number" min="1" value="6" required></div>
+            </div>
+            <div class="field"><label>Cover image URL</label><input id="bCover"></div>
+            <button class="btn primary" type="submit">Publish (demo)</button>
+          </form>
+        </div>
+
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Blog posts</h3>
+          <table class="table">
+            <thead><tr><th>Title</th><th>Category</th><th>Date</th><th></th></tr></thead>
+            <tbody id="adminBlogBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="height:16px"></div>
+
+      <div class="card pad reveal">
+        <h3 style="margin:0 0 10px 0">Seed an inquiry (demo)</h3>
+        <p class="small">Optional form to quickly populate inquiries for UI preview.</p>
+        <form class="form" id="inquirySeedForm">
+          <div class="split">
+            <div class="field"><label>Name</label><input id="wName" required></div>
+            <div class="field"><label>Business name</label><input id="wBiz" required></div>
+          </div>
+          <div class="split">
+            <div class="field"><label>Phone</label><input id="wPhone" required></div>
+            <div class="field"><label>Email</label><input id="wEmail" type="email" required></div>
+          </div>
+          <div class="split">
+            <div class="field"><label>Spices required</label><input id="wSpices" required></div>
+            <div class="field"><label>Quantity</label><input id="wQty" required></div>
+          </div>
+          <div class="field"><label>Message</label><textarea id="wMsg"></textarea></div>
+          <button class="btn secondary" type="submit">Save inquiry</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

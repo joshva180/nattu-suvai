@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blog — Ellakai Spices</title>
+  <meta name="description" content="SEO blog for spices: benefits, purity checks, storage tips, and market trends."/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a><a href="products.html">Products</a><a href="wholesale.html">Wholesale</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn accent small" href="wholesale.html">Get Wholesale Price</a>
+        <button class="icon-btn mobile-toggle" id="mobileOpen" title="Menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div style="font-weight:900">Menu</div>
+        <button class="icon-btn" id="mobileClose" title="Close">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="drawer-links">
+        <a href="index.html">Home <span>→</span></a>
+        <a href="products.html">Products <span>→</span></a>
+        <a href="wholesale.html">Wholesale <span>→</span></a>
+        <a href="about.html">About Us <span>→</span></a>
+        <a href="blog.html">Blog <span>→</span></a>
+        <a href="contact.html">Contact <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <main class="section">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">SEO</div>
+          <h2 class="h2">Blog</h2>
+          <p class="p-muted">Organic traffic content that builds trust with wholesale and retail buyers.</p>
+        </div>
+      </div>
+
+      <div class="grid cards3 reveal" id="blogGrid"></div>
+
+      <div style="height:22px"></div>
+      <div class="card pad reveal">
+        <h3 style="margin:0 0 8px 0">Publishing note</h3>
+        <p class="small">For a real site, each post should be its own page with structured data (Article schema), author, and internal links to products and wholesale inquiry.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

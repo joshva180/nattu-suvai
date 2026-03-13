@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ellakai Spices — Premium Quality Spices Direct From Farmers</title>
+  <meta name="description" content="Ellakai Spices is a premium wholesale & retail spice supplier. Farm-direct cardamom and natural Indian spices, fresh packed with trusted quality."/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Ellakai Spices Home">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="brand-name">Ellakai Spices</div>
+          <div class="brand-sub">Wholesale & Retail Supplier</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="wholesale.html">Wholesale</a>
+        <a href="about.html">About Us</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" title="Search" onclick="location.href='products.html'">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <a class="icon-btn" href="cart.html" title="Cart">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-2 9H8L6 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 6 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM18 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/></svg>
+        </a>
+        <span class="pill">Cart: <span class="js-cart-count">0</span></span>
+        <a class="btn secondary small" target="_blank" rel="noopener" href="https://wa.me/0000000000?text=Hello%20Ellakai%20Spices%20-%20I%20want%20to%20place%20an%20order">WhatsApp Order</a>
+        <a class="btn accent small" href="wholesale.html">Get Wholesale Price</a>
+
+        <button class="icon-btn mobile-toggle" id="mobileOpen" title="Menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div style="font-weight:900">Menu</div>
+        <button class="icon-btn" id="mobileClose" title="Close">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="drawer-links">
+        <a href="index.html">Home <span>→</span></a>
+        <a href="products.html">Products <span>→</span></a>
+        <a href="wholesale.html">Wholesale <span>→</span></a>
+        <a href="about.html">About Us <span>→</span></a>
+        <a href="blog.html">Blog <span>→</span></a>
+        <a href="contact.html">Contact <span>→</span></a>
+        <a href="cart.html">Cart <span>→</span></a>
+      </div>
+      <div class="drawer-cta">
+        <a class="btn accent" href="wholesale.html">Get Wholesale Price</a>
+        <a class="btn secondary" href="products.html">View Products</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card reveal">
+          <div class="hero-content">
+            <div class="badge">Premium • Organic-first • Farm Direct</div>
+            <h1>Premium Quality Spices Direct From Farmers</h1>
+            <p>Wholesale Cardamom & Natural Spices Supplier. Trusted sourcing, fresh packaging, and consistent quality for restaurants, supermarkets, and retail customers.</p>
+            <div class="hero-cta">
+              <a class="btn accent" href="products.html">View Products</a>
+              <a class="btn ghost" href="wholesale.html">Get Wholesale Price</a>
+            </div>
+            <div class="hero-trust">
+              <span class="pill">Lab-tested batches</span>
+              <span class="pill">Fresh packed</span>
+              <span class="pill">Export-ready grades</span>
+            </div>
+          </div>
+          <div class="particles" id="particles"></div>
+        </div>
+
+        <div class="hero-media reveal" aria-label="Cinematic spices imagery">
+          <div class="img" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Best sellers</div>
+            <h2 class="h2">Featured Spices</h2>
+            <p class="p-muted">Premium whole spices sourced directly from farmer partners—cleaned, graded, and packed for aroma and consistency.</p>
+          </div>
+          <a class="btn secondary" href="products.html">Explore All Products</a>
+        </div>
+
+        <div class="grid products reveal" id="featuredProducts"></div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section sm">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Trust & quality</div>
+            <h2 class="h2">Why Choose Ellakai</h2>
+            <p class="p-muted">Built for procurement teams: transparent sourcing, consistent grades, and dependable delivery.</p>
+          </div>
+        </div>
+
+        <div class="icon-row reveal">
+          <div class="icon-card">
+            <div class="ic">🌿</div>
+            <h4>Farm Direct Sourcing</h4>
+            <p>Direct partnerships with villages and growers for traceable supply.</p>
+          </div>
+          <div class="icon-card">
+            <div class="ic">🏅</div>
+            <h4>Premium Quality Spices</h4>
+            <p>Hand-graded lots focused on aroma, uniformity, and cleanliness.</p>
+          </div>
+          <div class="icon-card">
+            <div class="ic">📦</div>
+            <h4>Fresh Packaging</h4>
+            <p>Moisture-safe packs and bulk sacks optimized for shelf stability.</p>
+          </div>
+          <div class="icon-card">
+            <div class="ic">🚚</div>
+            <h4>Fast Delivery</h4>
+            <p>Reliable dispatch cycles for wholesale and retail fulfillment.</p>
+          </div>
+          <div class="icon-card">
+            <div class="ic">💼</div>
+            <h4>Best Wholesale Pricing</h4>
+            <p>Tiered pricing designed for restaurants, retailers, and distributors.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FARM TO CUSTOMER STORY -->
+    <section class="section">
+      <div class="container story">
+        <div class="story-card card pad reveal">
+          <div class="kicker">Farm to customer</div>
+          <h2 class="h2">From village harvest to premium packs</h2>
+          <p class="p-muted">We work closely with farmers to secure fresh harvests, apply natural processing, and maintain trusted quality—batch after batch.</p>
+
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <div style="font-weight:900">Direct sourcing</div>
+                <div class="small">Partner farms, transparent origins, stable procurement.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <div style="font-weight:900">Natural processing</div>
+                <div class="small">Cleaning, grading, and careful handling to preserve aroma.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <div style="font-weight:900">Fresh packaging</div>
+                <div class="small">Retail packs and bulk solutions for wholesale buyers.</div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="sep">
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span class="pill">Farmer photos</span>
+            <span class="pill">Spice farms</span>
+            <span class="pill">Packaging process</span>
+          </div>
+        </div>
+
+        <div class="story-media reveal" aria-label="Farm imagery"></div>
+      </div>
+    </section>
+
+    <!-- PRODUCT CATEGORIES -->
+    <section class="section sm">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Shop by type</div>
+            <h2 class="h2">Product Categories</h2>
+            <p class="p-muted">Premium presentation for retail customers, and bulk-ready packs for procurement teams.</p>
+          </div>
+        </div>
+
+        <div class="grid cards2 reveal">
+          <div class="category-card">
+            <div class="corner" aria-hidden="true"></div>
+            <div>
+              <h3>Whole Spices</h3>
+              <p>Cardamom, pepper, cloves, cumin, fennel and more.</p>
+            </div>
+            <a class="btn secondary small" href="products.html">Browse Whole Spices</a>
+          </div>
+
+          <div class="category-card">
+            <div class="corner" aria-hidden="true"></div>
+            <div>
+              <h3>Ground Spices</h3>
+              <p>Coming soon: consistent grind, aroma-preserving packs.</p>
+            </div>
+            <a class="btn secondary small" href="wholesale.html">Request Catalog</a>
+          </div>
+
+          <div class="category-card">
+            <div class="corner" aria-hidden="true"></div>
+            <div>
+              <h3>Premium Export Spices</h3>
+              <p>Hand-graded lots with export-ready standards.</p>
+            </div>
+            <a class="btn secondary small" href="products.html">Explore Export Grade</a>
+          </div>
+
+          <div class="category-card">
+            <div class="corner" aria-hidden="true"></div>
+            <div>
+              <h3>Bulk Wholesale Packs</h3>
+              <p>MOQ-based pricing for restaurants and distributors.</p>
+            </div>
+            <a class="btn accent small" href="wholesale.html">Get Wholesale Price</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Reviews</div>
+            <h2 class="h2">Trusted by buyers</h2>
+            <p class="p-muted">A premium experience from quality to packaging to delivery.</p>
+          </div>
+        </div>
+
+        <div class="testimonials reveal">
+          <div class="card pad hoverlift">
+            <div class="stars">★★★★★</div>
+            <p class="quote">“Cardamom quality is consistently aromatic. Perfect for our dessert and beverage program.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:900">Restaurant Owner</div>
+                <div class="small">Fine dining procurement</div>
+              </div>
+            </div>
+          </div>
+          <div class="card pad hoverlift">
+            <div class="stars">★★★★★</div>
+            <p class="quote">“Wholesale tiers are transparent, and packaging is excellent for inventory rotation.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:900">Wholesale Buyer</div>
+                <div class="small">Distributor</div>
+              </div>
+            </div>
+          </div>
+          <div class="card pad hoverlift">
+            <div class="stars">★★★★★</div>
+            <p class="quote">“Freshness stands out. Pepper and cloves have strong fragrance even after weeks.”</p>
+            <div class="person">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:900">Retail Customer</div>
+                <div class="small">Home cook</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHOLESALE CTA -->
+    <section class="section sm">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h3>Looking for Bulk Spices?</h3>
+          <p>MOQ-based supply for restaurants, supermarkets, and wholesale procurement. Get a quote for your exact grade and packaging needs.</p>
+          <div class="row">
+            <a class="btn accent" href="wholesale.html">Request Wholesale Price</a>
+            <a class="btn ghost" href="products.html">View Products</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL / INSTAGRAM -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Social</div>
+            <h2 class="h2">Instagram-style showcase</h2>
+            <p class="p-muted">Reels, behind-the-scenes, and premium product visuals (embed or connect later).</p>
+          </div>
+        </div>
+
+        <div class="grid cards3 reveal">
+          <div class="card pad hoverlift">
+            <div class="pill">Reel</div>
+            <div style="height:14px"></div>
+            <div class="card" style="height:220px;background:linear-gradient(135deg, rgba(27,58,43,.12), rgba(196,106,45,.12));border-radius:18px"></div>
+            <div class="small" style="margin-top:10px">Harvest to packing: a premium journey.</div>
+          </div>
+          <div class="card pad hoverlift">
+            <div class="pill">Photo</div>
+            <div style="height:14px"></div>
+            <div class="card" style="height:220px;background:linear-gradient(135deg, rgba(216,177,90,.16), rgba(196,106,45,.10));border-radius:18px"></div>
+            <div class="small" style="margin-top:10px">Cardamom close-ups for export-grade buyers.</div>
+          </div>
+          <div class="card pad hoverlift">
+            <div class="pill">Reel</div>
+            <div style="height:14px"></div>
+            <div class="card" style="height:220px;background:linear-gradient(135deg, rgba(196,106,45,.14), rgba(27,58,43,.10));border-radius:18px"></div>
+            <div class="small" style="margin-top:10px">Bulk fulfillment, quality checks, dispatch.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section sm">
+      <div class="container">
+        <div class="card pad reveal">
+          <div class="split">
+            <div>
+              <div class="kicker">Newsletter</div>
+              <h2 class="h2">Get Spice Market Updates</h2>
+              <p class="p-muted">Seasonality, wholesale signals, and new batch announcements. (Demo form)</p>
+            </div>
+            <form class="form" onsubmit="event.preventDefault(); document.getElementById('nlMsg').textContent='Subscribed (demo).';">
+              <div class="field">
+                <label>Email</label>
+                <input type="email" placeholder="you@company.com" required>
+              </div>
+              <button class="btn primary">Subscribe</button>
+              <div id="nlMsg" class="small"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="fab">
+    <a class="w" target="_blank" rel="noopener" href="https://wa.me/0000000000?text=Hello%20Ellakai%20Spices%20-%20I%20want%20to%20place%20an%20order">
+      <span style="font-weight:900">WhatsApp</span><span class="small" style="color:rgba(255,255,255,.85)">Order</span>
+    </a>
+    <a class="c" href="wholesale.html">
+      <span style="font-weight:900">Get Wholesale Price</span>
+    </a>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div style="font-weight:900">Ellakai Spices</div>
+            <div class="small">Premium Wholesale & Retail Supplier</div>
+          </div>
+        </div>
+        <p class="small" style="margin-top:10px">Direct-from-farm spices, premium grades, and fresh packaging built for trust and consistency.</p>
+      </div>
+      <div>
+        <div style="font-weight:900;margin-bottom:8px">Quick Links</div>
+        <div class="small"><a href="products.html">Products</a></div>
+        <div class="small"><a href="wholesale.html">Wholesale</a></div>
+        <div class="small"><a href="blog.html">Blog</a></div>
+        <div class="small"><a href="contact.html">Contact</a></div>
+      </div>
+      <div>
+        <div style="font-weight:900;margin-bottom:8px">Trust</div>
+        <div class="small">Spice certification badges (placeholders)</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <span class="pill">Lab Tested</span>
+          <span class="pill">Secure Payments</span>
+          <span class="pill">Fresh Packed</span>
+        </div>
+      </div>
+    </div>
+    <div class="container"><hr class="sep"><div class="small">© <span id="year"></span> Ellakai Spices. All rights reserved.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

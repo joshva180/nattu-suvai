@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Checkout — Ellakai Spices</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <div class="nav-actions">
+        <a class="btn secondary small" href="cart.html">Back to cart</a>
+        <a class="btn accent small" href="wholesale.html">Wholesale</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section" id="checkoutPage">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">Checkout</div>
+          <h2 class="h2">Secure checkout (demo)</h2>
+          <p class="p-muted">Payment gateway integration placeholder. This demo creates an order ID and enables tracking.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Customer details</h3>
+          <form class="form" id="checkoutForm">
+            <div class="split">
+              <div class="field"><label>Name</label><input id="coName" required></div>
+              <div class="field"><label>Email</label><input id="coEmail" type="email" required></div>
+            </div>
+            <div class="field"><label>Phone</label><input id="coPhone" required></div>
+            <div class="field"><label>Address</label><textarea id="coAddress" required></textarea></div>
+            <button class="btn accent" type="submit">Place order</button>
+            <div class="small">Invoice download (placeholder) can be generated server-side.</div>
+          </form>
+        </div>
+
+        <div class="card pad reveal">
+          <h3 style="margin:0 0 10px 0">Order summary</h3>
+          <div style="display:grid;gap:10px">
+            <div style="display:flex;justify-content:space-between"><span class="small">Subtotal</span><strong id="coSubtotal">₹0</strong></div>
+            <div style="display:flex;justify-content:space-between"><span class="small">Shipping (demo)</span><strong id="coShipping">₹0</strong></div>
+            <hr class="sep">
+            <div style="display:flex;justify-content:space-between"><span class="small">Total</span><strong id="coTotal">₹0</strong></div>
+          </div>
+          <hr class="sep">
+          <div class="small">Secure payment icons (placeholder): Visa • Mastercard • UPI • NetBanking</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

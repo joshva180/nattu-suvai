@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Wholesale — Ellakai Spices</title>
+  <meta name="description" content="Bulk spice supply for restaurants, supermarkets and distributors. Request a quote with MOQ and tier pricing."/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><div class="logo"></div><div><div class="brand-name">Ellakai Spices</div><div class="brand-sub">Wholesale & Retail Supplier</div></div></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a><a href="products.html">Products</a><a href="wholesale.html">Wholesale</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="icon-btn" href="cart.html" title="Cart">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-2 9H8L6 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 6 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM18 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/></svg>
+        </a>
+        <a class="btn accent small" href="#rfq">Request Quote</a>
+        <button class="icon-btn mobile-toggle" id="mobileOpen" title="Menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div style="font-weight:900">Menu</div>
+        <button class="icon-btn" id="mobileClose" title="Close">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="drawer-links">
+        <a href="index.html">Home <span>→</span></a>
+        <a href="products.html">Products <span>→</span></a>
+        <a href="wholesale.html">Wholesale <span>→</span></a>
+        <a href="about.html">About Us <span>→</span></a>
+        <a href="blog.html">Blog <span>→</span></a>
+        <a href="contact.html">Contact <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div class="kicker" style="color:rgba(255,255,255,.85)">Wholesale</div>
+          <h3 style="font-size:28px;margin-top:6px">Bulk spice supply built for procurement</h3>
+          <p>Minimum order quantities, tier pricing, packaging options, and consistent quality for restaurants, supermarkets, and distributors.</p>
+          <div class="row">
+            <a class="btn accent" href="#rfq">Request Wholesale Price</a>
+            <a class="btn ghost" href="products.html">Browse Products</a>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="grid cards3 reveal">
+          <div class="card pad">
+            <div class="kicker">MOQ</div>
+            <h3 style="margin:6px 0 0 0">Minimum order quantity</h3>
+            <p class="small">Typical MOQ starts at 10–25 kg depending on spice and grade.</p>
+          </div>
+          <div class="card pad">
+            <div class="kicker">Packaging</div>
+            <h3 style="margin:6px 0 0 0">Retail & bulk</h3>
+            <p class="small">Pouches, jars (optional), 5/10/25/50 kg bulk packs.</p>
+          </div>
+          <div class="card pad">
+            <div class="kicker">Quality</div>
+            <h3 style="margin:6px 0 0 0">Standards</h3>
+            <p class="small">Grade selection, cleanliness, moisture control, and batch consistency.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section sm" id="rfq">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <div class="kicker">Request for quote</div>
+            <h2 class="h2">Wholesale pricing request</h2>
+            <p class="p-muted">Fill the form and our team will share grade options and pricing tiers. (Demo saves to Admin panel)</p>
+          </div>
+        </div>
+
+        <div class="card pad reveal">
+          <form class="form" id="wholesaleForm">
+            <div class="split">
+              <div class="field"><label>Name</label><input id="wName" required></div>
+              <div class="field"><label>Business name</label><input id="wBiz" required></div>
+            </div>
+            <div class="split">
+              <div class="field"><label>Phone number</label><input id="wPhone" required></div>
+              <div class="field"><label>Email</label><input id="wEmail" type="email" required></div>
+            </div>
+            <div class="split">
+              <div class="field"><label>Spices required</label><input id="wSpices" placeholder="Cardamom, Black Pepper, Cloves..." required></div>
+              <div class="field"><label>Quantity</label><input id="wQty" placeholder="e.g., 25 kg / 100 kg" required></div>
+            </div>
+            <div class="field"><label>Message</label><textarea id="wMsg" placeholder="Grade preference, packaging, delivery city..."></textarea></div>
+            <button class="btn accent" type="submit">Request Quote</button>
+            <div class="small" id="wMsgOut"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="fab">
+    <a class="w" target="_blank" rel="noopener" href="https://wa.me/0000000000?text=Hello%20Ellakai%20Spices%20-%20I%20want%20wholesale%20pricing">
+      <span style="font-weight:900">WhatsApp</span><span class="small" style="color:rgba(255,255,255,.85)">Quote</span>
+    </a>
+  </div>
+
+  <footer class="footer">
+    <div class="container"><div class="small">© <span id="year"></span> Ellakai Spices.</div></div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const form = document.getElementById("wholesaleForm");
+      if(!form) return;
+      form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const inquiries = JSON.parse(localStorage.getItem("ellakai_inquiries")||"[]");
+        inquiries.unshift({
+          createdAt: new Date().toISOString(),
+          name: document.getElementById("wName").value.trim(),
+          business: document.getElementById("wBiz").value.trim(),
+          phone: document.getElementById("wPhone").value.trim(),
+          email: document.getElementById("wEmail").value.trim(),
+          spices: document.getElementById("wSpices").value.trim(),
+          quantity: document.getElementById("wQty").value.trim(),
+          message: document.getElementById("wMsg").value.trim()
+        });
+        localStorage.setItem("ellakai_inquiries", JSON.stringify(inquiries));
+        document.getElementById("wMsgOut").textContent = "Request submitted (demo). Our team will contact you shortly.";
+        form.reset();
+      });
+    });
+  </script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
