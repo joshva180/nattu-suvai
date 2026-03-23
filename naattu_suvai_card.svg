@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1050" height="600" viewBox="0 0 1050 600" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b5e20"/>
+      <stop offset="100%" stop-color="#2e7d32"/>
+    </linearGradient>
+  </defs>
+  <rect width="1050" height="600" fill="url(#bg)" />
+
+  <!-- Title -->
+  <text x="525" y="150" text-anchor="middle" font-size="60" fill="white" font-family="Georgia" font-weight="bold">
+    NAATTU SUVAI
+  </text>
+
+  <!-- Tagline -->
+  <text x="525" y="210" text-anchor="middle" font-size="30" fill="#e0e0e0" font-family="Arial">
+    Flavour You Trust
+  </text>
+
+  <!-- Subtitle -->
+  <text x="525" y="280" text-anchor="middle" font-size="36" fill="#ffe0b2" font-family="Georgia">
+    Premium Spices & Dry Fruits
+  </text>
+
+  <!-- Points -->
+  <text x="200" y="350" font-size="26" fill="white" font-family="Arial">✔ Wholesale & Retail Available</text>
+  <text x="200" y="390" font-size="26" fill="white" font-family="Arial">✔ Small & Bulk Packing Available</text>
+  <text x="200" y="430" font-size="26" fill="white" font-family="Arial">✔ Fresh & Quality Products</text>
+  <text x="200" y="470" font-size="26" fill="white" font-family="Arial">✔ Direct Sourcing from Farms</text>
+
+  <!-- Phone -->
+  <text x="525" y="540" text-anchor="middle" font-size="34" fill="white" font-family="Arial" font-weight="bold">
+    📞 7373030602
+  </text>
+
+</svg>
