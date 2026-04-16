@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ShopERP Pro – Business Management System</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f2f7;--surface:#fff;--surface2:#f7f8fc;--border:#e2e6f0;--border2:#d0d6e8;
+  --text:#1a1f36;--text2:#4a5168;--text3:#8b93b0;
+  --accent:#2563eb;--accent2:#1d4ed8;--accent-light:#eff6ff;
+  --green:#059669;--green-light:#ecfdf5;--red:#dc2626;--red-light:#fef2f2;
+  --orange:#d97706;--orange-light:#fffbeb;--purple:#7c3aed;--purple-light:#f5f3ff;
+  --teal:#0891b2;--teal-light:#ecfeff;--pink:#db2777;--pink-light:#fdf2f8;
+  --sidebar-w:240px;--radius:14px;--radius-sm:8px;
+  --shadow:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.1);--font:'Segoe UI',system-ui,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0d0f1a;--surface:#141624;--surface2:#1a1d2e;--border:#232640;--border2:#2e3258;
+  --text:#e8ecf8;--text2:#9ba3c2;--text3:#5c6380;
+  --accent:#3b82f6;--accent2:#2563eb;--accent-light:#1e3a6e22;
+  --green:#10b981;--green-light:#064e3b22;--red:#f87171;--red-light:#7f1d1d22;
+  --orange:#fbbf24;--orange-light:#78350f22;--purple:#a78bfa;--purple-light:#4c1d9522;
+  --teal:#22d3ee;--teal-light:#164e6322;--pink:#f472b6;--pink-light:#83185322;
+  --shadow:0 2px 8px rgba(0,0,0,.4),0 8px 32px rgba(0,0,0,.3);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.5);
+}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+#app{display:flex;height:100vh;overflow:hidden}
+/* SIDEBAR */
+#sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width .25s,transform .25s;z-index:100;flex-shrink:0;overflow:hidden}
+#sidebar.collapsed{width:60px}
+.sidebar-logo{padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);cursor:pointer;flex-shrink:0}
+.logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:900;flex-shrink:0}
+.logo-text{font-size:14px;font-weight:800;white-space:nowrap;color:var(--text)}
+.logo-badge{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:4px;font-weight:700;margin-left:4px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:8px 6px}
+.nav-group{font-size:9px;font-weight:800;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;padding:10px 10px 4px;white-space:nowrap}
+.nav-item{display:flex;align-items:center;gap:11px;padding:8px 10px;border-radius:9px;cursor:pointer;color:var(--text2);transition:all .15s;margin-bottom:1px;white-space:nowrap;overflow:hidden}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--accent-light);color:var(--accent);font-weight:700}
+.nav-item .ni{font-size:16px;flex-shrink:0;width:20px;text-align:center}
+.nav-item .nl{font-size:13px}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:10px;flex-shrink:0}
+.nav-badge.new{background:var(--green)}
+.sidebar-footer{padding:8px 6px;border-top:1px solid var(--border)}
+/* MAIN */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+#header{height:58px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0}
+.hdr-title{font-size:15px;font-weight:800;flex:1}
+.hdr-sub{font-size:11px;color:var(--text3);white-space:nowrap}
+.hdr-btn{width:34px;height:34px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text2);transition:all .15s;position:relative}
+.hdr-btn:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+.hdr-date{background:var(--accent-light);color:var(--accent);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+#content{flex:1;overflow-y:auto;padding:18px}
+/* PAGES */
+.page{display:none;animation:fadeUp .2s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);transition:box-shadow .15s}
+.card:hover{box-shadow:var(--shadow-lg)}
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;cursor:default}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sc-blue::before{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+.sc-green::before{background:linear-gradient(90deg,#059669,#34d399)}
+.sc-red::before{background:linear-gradient(90deg,#dc2626,#f87171)}
+.sc-orange::before{background:linear-gradient(90deg,#d97706,#fcd34d)}
+.sc-purple::before{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.sc-teal::before{background:linear-gradient(90deg,#0891b2,#22d3ee)}
+.sc-pink::before{background:linear-gradient(90deg,#db2777,#f472b6)}
+.sc-icon{font-size:22px;margin-bottom:6px}
+.sc-label{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.sc-value{font-size:20px;font-weight:900;color:var(--text)}
+.sc-sub{font-size:11px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:4px}
+.trend-up{color:var(--green);font-weight:700}
+.trend-dn{color:var(--red);font-weight:700}
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ga{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.sec-title{font-size:14px;font-weight:800;display:flex;align-items:center;gap:7px}
+/* FORMS */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg.full{grid-column:1/-1}
+label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.04em}
+input,select,textarea{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 11px;color:var(--text);font-family:var(--font);font-size:13px;transition:border-color .15s,box-shadow .15s;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+input.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+textarea{resize:vertical;min-height:65px}
+/* BUTTONS */
+.btn{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{opacity:.9;transform:translateY(-1px)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{opacity:.85}
+.btn-ghost{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--border);color:var(--text)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{opacity:.9;transform:translateY(-1px)}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-orange:hover{opacity:.9}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{opacity:.9}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px}
+.iBtn{padding:6px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;font-size:14px;color:var(--text2);transition:all .15s}
+.iBtn:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--surface2);padding:9px 11px;text-align:left;font-size:10px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:var(--text)}
+thead th .sort-icon{opacity:.4;font-size:10px}
+thead th.sorted .sort-icon{opacity:1;color:var(--accent)}
+tbody td{padding:9px 11px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+.td-main{color:var(--text);font-weight:700}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700}
+.b-blue{background:var(--accent-light);color:var(--accent)}
+.b-green{background:var(--green-light);color:var(--green)}
+.b-red{background:var(--red-light);color:var(--red)}
+.b-orange{background:var(--orange-light);color:var(--orange)}
+.b-purple{background:var(--purple-light);color:var(--purple)}
+.b-teal{background:var(--teal-light);color:var(--teal)}
+.b-gray{background:var(--surface2);color:var(--text3);border:1px solid var(--border)}
+.b-pink{background:var(--pink-light);color:var(--pink)}
+/* ALERTS */
+.alert{padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:9px;font-size:13px;margin-bottom:10px}
+.a-warn{background:var(--orange-light);border:1px solid var(--orange);color:var(--orange)}
+.a-danger{background:var(--red-light);border:1px solid var(--red);color:var(--red)}
+.a-success{background:var(--green-light);border:1px solid var(--green);color:var(--green)}
+.a-info{background:var(--accent-light);border:1px solid var(--accent);color:var(--accent)}
+/* TOAST */
+#toast-box{position:fixed;bottom:22px;right:22px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 15px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;min-width:220px;max-width:310px;animation:slideIn .25s ease;pointer-events:all}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.toast.out{animation:slideOut .2s ease forwards}
+@keyframes slideOut{to{opacity:0;transform:translateX(40px)}}
+/* MODALS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:22px;width:90%;max-width:500px;max-height:92vh;overflow-y:auto;animation:mIn .18s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-title{font-size:15px;font-weight:800}
+.modal-x{background:none;border:none;cursor:pointer;font-size:18px;color:var(--text3);padding:3px}
+/* NOTIF BAR */
+.notif-bar{position:fixed;top:0;left:0;right:0;z-index:9998;background:linear-gradient(90deg,var(--orange),#f59e0b);color:#fff;padding:9px 18px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .3s;font-size:13px;font-weight:700}
+.notif-bar.show{transform:translateY(0)}
+/* NOTIF PANEL */
+.notif-panel{position:fixed;top:58px;right:14px;width:300px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:400;display:none;max-height:75vh;overflow-y:auto}
+.notif-panel.open{display:block;animation:fadeDown .18s ease}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.notif-item{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;gap:9px;cursor:pointer;transition:background .12s}
+.notif-item:hover{background:var(--surface2)}
+.notif-item.unread{background:var(--accent-light)}
+/* DROPDOWN */
+.dropdown{position:relative}
+.drop-menu{position:absolute;top:100%;right:0;margin-top:4px;background:var(--surface);border:1px solid var(--border);border-radius:9px;box-shadow:var(--shadow-lg);z-index:200;min-width:170px;display:none}
+.drop-menu.open{display:block;animation:fadeDown .15s ease}
+.drop-item{padding:8px 13px;font-size:13px;cursor:pointer;color:var(--text2);display:flex;align-items:center;gap:7px;transition:background .1s}
+.drop-item:hover{background:var(--surface2);color:var(--text)}
+/* SEARCH BAR */
+.search-bar{display:flex;align-items:center;gap:9px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 11px}
+.search-bar input{background:none;border:none;box-shadow:none;padding:0;flex:1;font-size:13px}
+.search-bar input:focus{box-shadow:none;border:none}
+/* STOCK BAR */
+.stk-bar{height:4px;border-radius:3px;background:var(--border);margin-top:4px;overflow:hidden}
+.stk-fill{height:100%;border-radius:3px;transition:width .4s}
+/* TOGGLE */
+.toggle{position:relative;display:inline-block;width:42px;height:22px}
+.toggle input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;cursor:pointer;inset:0;background:var(--border2);border-radius:22px;transition:background .2s}
+.tog-sl::before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .2s}
+input:checked+.tog-sl{background:var(--accent)}
+input:checked+.tog-sl::before{transform:translateX(20px)}
+/* SETTINGS ROW */
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.set-row:last-child{border-bottom:none}
+.set-lbl{font-size:13px;font-weight:700}
+.set-desc{font-size:11px;color:var(--text3)}
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:14px 0}
+/* EMPTY STATE */
+.empty{text-align:center;padding:28px 16px;color:var(--text3)}
+.empty-icon{font-size:34px;margin-bottom:8px}
+/* PROGRESS BAR */
+.prog-bar{height:8px;background:var(--border);border-radius:6px;overflow:hidden;margin-top:6px}
+.prog-fill{height:100%;border-radius:6px;transition:width .5s}
+/* TARGET CARD */
+.target-card{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-radius:var(--radius);padding:18px;position:relative;overflow:hidden;margin-bottom:16px}
+.target-card::after{content:'🎯';position:absolute;right:-8px;bottom:-8px;font-size:64px;opacity:.12}
+/* POS */
+.pos-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;height:calc(100vh - 100px)}
+.pos-products{overflow-y:auto;padding-right:4px}
+.pos-cart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.pos-search{padding:12px;border-bottom:1px solid var(--border)}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.prod-tile{background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:all .15s;text-align:center}
+.prod-tile:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.prod-tile.in-cart{border-color:var(--green);background:var(--green-light)}
+.prod-tile.out-of-stock{opacity:.45;cursor:not-allowed}
+.prod-emoji{font-size:24px;margin-bottom:6px}
+.prod-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3}
+.prod-price{font-size:13px;font-weight:800;color:var(--green)}
+.prod-stock{font-size:10px;color:var(--text3)}
+.cart-items{flex:1;overflow-y:auto;padding:10px}
+.cart-item{display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface2);border-radius:8px;margin-bottom:6px}
+.cart-item-name{flex:1;font-size:12px;font-weight:700}
+.cart-qty{display:flex;align-items:center;gap:5px}
+.qty-btn{width:22px;height:22px;border-radius:5px;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--text2);transition:all .12s}
+.qty-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cart-footer{padding:12px;border-top:1px solid var(--border)}
+.cart-total-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.cart-total-row.grand{font-size:16px;font-weight:900;color:var(--accent);border-top:1px solid var(--border);padding-top:8px;margin-top:4px}
+/* CUSTOMER CARD */
+.cust-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .15s;cursor:pointer}
+.cust-card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(37,99,235,.1)}
+.cust-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:900;flex-shrink:0}
+/* PRODUCT CARD */
+.prod-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .15s}
+.prod-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+/* SUPPLIER CARD */
+.supp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .15s}
+.supp-card:hover{border-color:var(--teal);box-shadow:0 4px 16px rgba(8,145,178,.1)}
+.supp-av{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#0284c7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:900;flex-shrink:0}
+/* QUICK CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{padding:4px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--text2);transition:all .12s}
+.chip:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+/* KBD */
+kbd{background:var(--surface2);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;font-family:monospace;color:var(--text2)}
+/* CALC RESULT */
+.calc-res{background:var(--accent-light);border:1px solid var(--accent);border-radius:8px;padding:13px;margin-top:12px}
+/* FOOTER */
+#footer{text-align:center;padding:8px;font-size:10px;color:var(--text3);border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+/* GLOBAL SEARCH */
+#gSearch{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;display:none;align-items:flex-start;justify-content:center;padding-top:80px}
+#gSearch.open{display:flex}
+.gs-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-lg);width:90%;max-width:540px;overflow:hidden;animation:mIn .18s ease}
+.gs-input{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.gs-input input{flex:1;font-size:15px;background:none;border:none;outline:none;color:var(--text)}
+.gs-results{max-height:380px;overflow-y:auto}
+.gs-item{padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);transition:background .1s}
+.gs-item:hover{background:var(--surface2)}
+.gs-type{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+/* ADJUSTMENT MODAL */
+.adj-btns{display:flex;gap:8px;margin-top:10px}
+/* PRINT */
+@media print{
+  #sidebar,#header,#footer,#toast-box,.notif-bar,.overlay,.notif-panel,.drop-menu,#gSearch{display:none!important}
+  body{background:#fff;color:#111}
+  #content{padding:0}
+  .page{display:block!important}
+  .no-print{display:none!important}
+}
+/* RESPONSIVE */
+@media(max-width:768px){
+  #sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #content{padding:12px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .pos-grid{grid-template-columns:1fr}
+  .pos-cart{position:fixed;bottom:0;left:0;right:0;height:45vh;z-index:50;border-radius:14px 14px 0 0}
+}
+/* GST PILL */
+.gst-pill{background:var(--teal-light);color:var(--teal);border:1px solid var(--teal);border-radius:4px;font-size:10px;font-weight:700;padding:1px 6px}
+/* RETURNS BADGE */
+.returned{text-decoration:line-through;opacity:.55}
+/* CASH FLOW */
+.cf-card{border-radius:var(--radius);padding:16px;position:relative;overflow:hidden}
+.cf-in{background:linear-gradient(135deg,#059669,#34d399);color:#fff}
+.cf-out{background:linear-gradient(135deg,#dc2626,#f87171);color:#fff}
+.cf-net{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
+</style>
+</head>
+<body>
+
+<!-- NOTIF BAR -->
+<div class="notif-bar" id="nBar"><span id="nBarMsg"></span><button onclick="document.getElementById('nBar').classList.remove('show')" style="background:none;border:none;color:#fff;cursor:pointer;font-size:17px">✕</button></div>
+
+<!-- TOAST BOX -->
+<div id="toast-box"></div>
+
+<!-- GLOBAL SEARCH -->
+<div id="gSearch" onclick="if(event.target===this)closeGS()">
+  <div class="gs-box">
+    <div class="gs-input"><span style="font-size:18px;color:var(--text3)">🔍</span><input id="gsInput" placeholder="Search purchases, sales, customers, stock…" oninput="runGS(this.value)"/><kbd>ESC</kbd></div>
+    <div class="gs-results" id="gsResults"><div style="padding:20px;text-align:center;color:var(--text3);font-size:13px">Start typing to search everything…</div></div>
+  </div>
+</div>
+
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="nPanel">
+  <div style="padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+    <div style="font-weight:800;font-size:14px">🔔 Notifications</div>
+    <div style="display:flex;gap:5px">
+      <button class="btn btn-ghost btn-xs" onclick="markAllRead()">✓ All Read</button>
+      <button class="btn btn-ghost btn-xs" onclick="clearNotifs()">🗑 Clear</button>
+    </div>
+  </div>
+  <div id="nList"></div>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="overlay" id="invModal">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-hdr"><span class="modal-title" id="invTitle">🧾 Invoice</span><button class="modal-x" onclick="closeM('invModal')">✕</button></div>
+    <div id="invContent"></div>
+    <div style="margin-top:14px;display:flex;gap:8px;justify-content:flex-end" class="no-print">
+      <button class="btn btn-ghost" onclick="closeM('invModal')">Close</button>
+      <button class="btn btn-ghost" onclick="shareWA()" id="waBtn">📱 WhatsApp</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="overlay" id="delModal">
+  <div class="modal" style="max-width:340px;text-align:center">
+    <div style="font-size:36px;margin-bottom:10px">🗑️</div>
+    <div class="modal-title" style="margin-bottom:7px">Confirm Delete</div>
+    <p style="color:var(--text2);margin-bottom:18px;font-size:13px">This action cannot be undone.</p>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-ghost" onclick="closeM('delModal')">Cancel</button>
+      <button class="btn btn-danger" id="delBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESET MODAL -->
+<div class="overlay" id="rstModal">
+  <div class="modal" style="max-width:360px;text-align:center">
+    <div style="font-size:36px;margin-bottom:10px">⚠️</div>
+    <div class="modal-title" style="margin-bottom:7px">Reset All Data?</div>
+    <p style="color:var(--text2);margin-bottom:16px;font-size:13px">Permanently delete everything. Type <b>RESET</b> to confirm.</p>
+    <input type="text" id="rstInput" placeholder="Type RESET" style="text-align:center;margin-bottom:14px"/>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-ghost" onclick="closeM('rstModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="doReset()">Reset Everything</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER MODAL -->
+<div class="overlay" id="custModal">
+  <div class="modal">
+    <div class="modal-hdr"><span class="modal-title" id="custModalTitle">👤 Add Customer</span><button class="modal-x" onclick="closeM('custModal')">✕</button></div>
+    <div class="fgrid">
+      <div class="fg"><label>Name *</label><input id="cm_name" placeholder="Full name"/></div>
+      <div class="fg"><label>Phone</label><input id="cm_phone" placeholder="+91 XXXXXXXXXX"/></div>
+      <div class="fg"><label>Email</label><input type="email" id="cm_email" placeholder="email@example.com"/></div>
+      <div class="fg"><label>Type</label><select id="cm_type"><option>Retail</option><option>Wholesale</option><option>Regular</option><option>Online</option></select></div>
+      <div class="fg full"><label>Address</label><textarea id="cm_addr" placeholder="Address / Area"></textarea></div>
+      <div class="fg full"><label>Notes</label><input id="cm_notes" placeholder="Credit limit, special terms…"/></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeM('custModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCustomer()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPLIER MODAL -->
+<div class="overlay" id="suppModal">
+  <div class="modal">
+    <div class="modal-hdr"><span class="modal-title" id="suppModalTitle">🏭 Add Supplier</span><button class="modal-x" onclick="closeM('suppModal')">✕</button></div>
+    <div class="fgrid">
+      <div class="fg"><label>Name *</label><input id="sm_name" placeholder="Supplier / Vendor name"/></div>
+      <div class="fg"><label>Phone</label><input id="sm_phone" placeholder="+91 XXXXXXXXXX"/></div>
+      <div class="fg"><label>Email</label><input type="email" id="sm_email" placeholder="supplier@email.com"/></div>
+      <div class="fg"><label>Category</label><select id="sm_cat"><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Wholesale</option><option>General</option></select></div>
+      <div class="fg"><label>Payment Terms</label><select id="sm_terms"><option>Cash</option><option>Net 7</option><option>Net 15</option><option>Net 30</option><option>Credit</option></select></div>
+      <div class="fg"><label>GSTIN</label><input id="sm_gstin" placeholder="GSTIN (optional)"/></div>
+      <div class="fg full"><label>Address</label><textarea id="sm_addr" placeholder="Address / Area"></textarea></div>
+      <div class="fg full"><label>Notes</label><input id="sm_notes" placeholder="Notes…"/></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeM('suppModal')">Cancel</button>
+      <button class="btn btn-teal" onclick="saveSupplier()">💾 Save Supplier</button>
+    </div>
+  </div>
+</div>
+
+<!-- STOCK ADJUSTMENT MODAL -->
+<div class="overlay" id="adjModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-hdr"><span class="modal-title">📦 Adjust Stock</span><button class="modal-x" onclick="closeM('adjModal')">✕</button></div>
+    <div class="fgrid">
+      <div class="fg"><label>Product</label><input id="adj_product" readonly style="background:var(--surface2)"/></div>
+      <div class="fg"><label>Current Stock</label><input id="adj_current" readonly style="background:var(--surface2)"/></div>
+      <div class="fg"><label>Adjust Qty (+ or -)</label><input type="number" id="adj_qty" placeholder="e.g. +10 or -5"/></div>
+      <div class="fg"><label>Reason</label><select id="adj_reason"><option>Damaged</option><option>Found Extra</option><option>Theft/Loss</option><option>Manual Correction</option><option>Transfer</option><option>Opening Stock</option></select></div>
+      <div class="fg full"><label>Notes</label><input id="adj_notes" placeholder="Notes…"/></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeM('adjModal')">Cancel</button>
+      <button class="btn btn-orange" onclick="doAdjust()">✅ Apply Adjustment</button>
+    </div>
+  </div>
+</div>
+
+<!-- POS CHECKOUT MODAL -->
+<div class="overlay" id="posModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-hdr"><span class="modal-title">💳 Complete Sale</span><button class="modal-x" onclick="closeM('posModal')">✕</button></div>
+    <div class="fgrid">
+      <div class="fg"><label>Customer</label><input id="pos_cust" placeholder="Customer name (optional)" list="custList2"/><datalist id="custList2"></datalist></div>
+      <div class="fg"><label>Payment Mode</label><select id="pos_pay"><option>Cash</option><option>UPI</option><option>Credit</option><option>Bank Transfer</option><option>Cheque</option></select></div>
+      <div class="fg"><label>Discount (₹)</label><input type="number" id="pos_disc" placeholder="0" min="0" oninput="updatePosSummary()"/></div>
+      <div class="fg"><label>GST %</label><select id="pos_gst" onchange="updatePosSummary()"><option value="0">No GST</option><option value="5">GST 5%</option><option value="12">GST 12%</option><option value="18">GST 18%</option><option value="28">GST 28%</option></select></div>
+    </div>
+    <div id="posSummary" style="margin-top:12px"></div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeM('posModal')">Cancel</button>
+      <button class="btn btn-success" onclick="completePOS()">✅ Confirm Sale</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sidebar-logo" onclick="toggleSB()">
+      <div class="logo-icon">S</div>
+      <div><div class="logo-text">ShopERP<span class="logo-badge">PRO</span></div><div style="font-size:9px;color:var(--text3)">Business Manager v4</div></div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-group">MAIN</div>
+      <div class="nav-item active" onclick="go('dashboard')"><span class="ni">📊</span><span class="nl">Dashboard</span></div>
+      <div class="nav-item" onclick="go('pos')" style="background:var(--green-light);color:var(--green)"><span class="ni">🛍️</span><span class="nl">POS Mode</span><span class="nav-badge new">NEW</span></div>
+      <div class="nav-group">TRANSACTIONS</div>
+      <div class="nav-item" onclick="go('purchase')"><span class="ni">🛒</span><span class="nl">Purchase</span></div>
+      <div class="nav-item" onclick="go('sales')"><span class="ni">💰</span><span class="nl">Sales</span></div>
+      <div class="nav-item" onclick="go('expenses')"><span class="ni">💸</span><span class="nl">Expenses</span></div>
+      <div class="nav-group">INVENTORY</div>
+      <div class="nav-item" onclick="go('stock')"><span class="ni">📦</span><span class="nl">Stock</span><span class="nav-badge" id="lowBadge" style="display:none">!</span></div>
+      <div class="nav-item" onclick="go('catalog')"><span class="ni">🏷️</span><span class="nl">Price Catalog</span></div>
+      <div class="nav-group">PEOPLE</div>
+      <div class="nav-item" onclick="go('customers')"><span class="ni">👥</span><span class="nl">Customers</span></div>
+      <div class="nav-item" onclick="go('suppliers')"><span class="ni">🏭</span><span class="nl">Suppliers</span><span class="nav-badge new" id="suppNewBadge" style="display:none">NEW</span></div>
+      <div class="nav-group">INSIGHTS</div>
+      <div class="nav-item" onclick="go('reports')"><span class="ni">📈</span><span class="nl">Reports</span></div>
+      <div class="nav-item" onclick="go('analytics')"><span class="ni">🎯</span><span class="nl">Analytics</span></div>
+      <div class="nav-group">RECORDS</div>
+      <div class="nav-item" onclick="go('history')"><span class="ni">📋</span><span class="nl">History</span></div>
+      <div class="nav-item" onclick="go('settings')"><span class="ni">⚙️</span><span class="nl">Settings</span></div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="exportBackup()"><span class="ni">💾</span><span class="nl">Backup</span></div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div id="main">
+    <!-- HEADER -->
+    <div id="header">
+      <button class="hdr-btn" onclick="toggleSB()">☰</button>
+      <div style="flex:1;min-width:0">
+        <div class="hdr-title" id="hTitle">Dashboard</div>
+        <div class="hdr-sub" id="hDate"></div>
+      </div>
+      <div class="hdr-date" id="hBadge"></div>
+      <button class="hdr-btn" onclick="openGS()" title="Search (Ctrl+K)">🔍</button>
+      <button class="hdr-btn" id="nBellBtn" onclick="toggleNP()" style="position:relative">🔔<span id="nDot" style="position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;display:none"></span></button>
+      <button class="hdr-btn" onclick="toggleTheme()" id="thBtn">🌙</button>
+      <div class="dropdown">
+        <button class="hdr-btn" onclick="toggleDrop('expMenu')">📤</button>
+        <div class="drop-menu" id="expMenu">
+          <div class="drop-item" onclick="expCSV('purchases')">📥 Export Purchases</div>
+          <div class="drop-item" onclick="expCSV('sales')">📥 Export Sales</div>
+          <div class="drop-item" onclick="expCSV('stock')">📥 Export Stock</div>
+          <div class="drop-item" onclick="expCSV('expenses')">📥 Export Expenses</div>
+          <div class="drop-item" onclick="exportBackup()">💾 JSON Backup</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+    <div id="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div id="tgtBanner"></div>
+        <div id="lowAlerts"></div>
+        <div class="stats-grid" id="dashStats"></div>
+        <div class="g3" style="margin-bottom:14px" id="cfCards"></div>
+        <div class="g2" style="margin-bottom:14px">
+          <div class="card"><div class="sec-hdr"><div class="sec-title">🕐 Recent Purchases</div><button class="btn btn-ghost btn-sm" onclick="go('purchase')">+ Add</button></div><div id="recPurch"></div></div>
+          <div class="card"><div class="sec-hdr"><div class="sec-title">💵 Recent Sales</div><button class="btn btn-ghost btn-sm" onclick="go('sales')">+ Add</button></div><div id="recSales"></div></div>
+        </div>
+        <div class="g2" style="margin-bottom:14px">
+          <div class="card"><div class="sec-hdr"><div class="sec-title">📊 5-Month Trend</div></div><canvas id="cDash" height="160"></canvas></div>
+          <div class="card"><div class="sec-hdr"><div class="sec-title">💸 Expense Breakdown</div><button class="btn btn-ghost btn-sm" onclick="go('expenses')">View</button></div><canvas id="cDashExp" height="160"></canvas></div>
+        </div>
+        <div class="g2">
+          <div class="card"><div class="sec-hdr"><div class="sec-title">🏆 Top Products</div></div><div id="topProds"></div></div>
+          <div class="card"><div class="sec-hdr"><div class="sec-title">⚠️ Low Stock Alerts</div></div><div id="lowList"></div></div>
+        </div>
+      </div>
+
+      <!-- POS MODE -->
+      <div class="page" id="page-pos">
+        <div class="pos-grid">
+          <div class="pos-products">
+            <div style="margin-bottom:12px">
+              <div class="search-bar"><span style="font-size:16px;color:var(--text3)">🔍</span><input id="posSearch" placeholder="Search products…" oninput="renderPOS()"/></div>
+            </div>
+            <div id="posGrid" class="prod-grid"></div>
+          </div>
+          <div class="pos-cart">
+            <div style="padding:12px;border-bottom:1px solid var(--border);font-weight:800;font-size:15px">🛒 Cart <span id="cartCount" style="font-size:12px;color:var(--text3);font-weight:400"></span></div>
+            <div class="cart-items" id="cartItems"><div class="empty"><div class="empty-icon">🛒</div><p>Click products to add</p></div></div>
+            <div class="cart-footer">
+              <div class="cart-total-row"><span style="color:var(--text2)">Subtotal</span><span id="cartSub">₹0.00</span></div>
+              <div class="cart-total-row grand"><span>TOTAL</span><span id="cartTotal">₹0.00</span></div>
+              <div style="display:flex;gap:7px;margin-top:10px">
+                <button class="btn btn-ghost btn-sm" onclick="clearCart()" style="flex:1">🗑 Clear</button>
+                <button class="btn btn-success" onclick="openPosCheckout()" style="flex:2">✅ Checkout</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PURCHASE -->
+      <div class="page" id="page-purchase">
+        <div class="card" style="margin-bottom:14px">
+          <div class="sec-hdr"><div class="sec-title">🛒 Add Purchase</div></div>
+          <div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:700">QUICK ADD</div><div class="chips" id="qChips"></div></div>
+          <div class="fgrid">
+            <div class="fg"><label>Date</label><input type="date" id="p_date"/></div>
+            <div class="fg"><label>Product Name</label><input id="p_name" placeholder="e.g. Red Chilli" list="pSuggest"/><datalist id="pSuggest"></datalist></div>
+            <div class="fg"><label>Category</label><select id="p_cat"><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select></div>
+            <div class="fg"><label>Qty</label><input type="number" id="p_qty" min="0" step="any" placeholder="0" oninput="calcPTotal()"/></div>
+            <div class="fg"><label>Unit</label><select id="p_unit"><option>kg</option><option>g</option><option>packet</option><option>box</option><option>piece</option><option>bundle</option><option>litre</option><option>dozen</option><option>bag</option></select></div>
+            <div class="fg"><label>Purchase Rate (₹)</label><input type="number" id="p_rate" min="0" step="any" placeholder="0.00" oninput="calcPTotal()"/></div>
+            <div class="fg"><label>GST %</label><select id="p_gst" onchange="calcPTotal()"><option value="0">No GST</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option><option value="28">28%</option></select></div>
+            <div class="fg"><label>Extra Cost (₹)</label><input type="number" id="p_extra" min="0" step="any" placeholder="0.00" oninput="calcPTotal()"/></div>
+            <div class="fg"><label>Discount (₹)</label><input type="number" id="p_disc" min="0" step="any" placeholder="0.00" oninput="calcPTotal()"/></div>
+            <div class="fg"><label>Final Total (₹)</label><input type="number" id="p_total" placeholder="Auto" style="font-weight:800;color:var(--accent)"/></div>
+            <div class="fg"><label>Supplier</label><input id="p_supp" placeholder="Supplier name" list="suppList"/><datalist id="suppList"></datalist></div>
+            <div class="fg"><label>Payment</label><select id="p_pay"><option>Cash</option><option>UPI</option><option>Credit</option><option>Bank Transfer</option><option>Cheque</option></select></div>
+            <div class="fg"><label>Selling Price (₹)</label><input type="number" id="p_sell" min="0" step="any" placeholder="For margin calc"/></div>
+            <div class="fg full"><label>Notes</label><textarea id="p_notes" placeholder="Additional notes…"></textarea></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-primary" onclick="addPurchase()">✅ Add Purchase</button>
+            <button class="btn btn-ghost" onclick="rstP()">🔄 Reset</button>
+            <span style="font-size:11px;color:var(--text3)"><kbd>Ctrl+Enter</kbd> to save</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">📋 Purchase Records</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <select id="pFCat" class="btn btn-ghost btn-sm" onchange="renderPList()" style="padding:5px 9px"><option value="">All Categories</option><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select>
+              <input type="month" id="pFMon" class="btn btn-ghost btn-sm" onchange="renderPList()" style="padding:5px 9px"/>
+            </div>
+          </div>
+          <div class="search-bar" style="margin-bottom:10px"><span>🔍</span><input id="pSearch" placeholder="Search product, supplier…" oninput="renderPList()"/></div>
+          <div class="tbl-wrap" id="pTable"></div>
+        </div>
+      </div>
+
+      <!-- SALES -->
+      <div class="page" id="page-sales">
+        <div class="card" style="margin-bottom:14px">
+          <div class="sec-hdr"><div class="sec-title">💰 Add Sale</div></div>
+          <div class="fgrid">
+            <div class="fg"><label>Date</label><input type="date" id="s_date"/></div>
+            <div class="fg"><label>Product</label><input id="s_prod" placeholder="Product name" list="sProdList" oninput="autoFillSale()"/><datalist id="sProdList"></datalist></div>
+            <div class="fg"><label>Category</label><select id="s_cat"><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select></div>
+            <div class="fg"><label>Qty Sold</label><input type="number" id="s_qty" min="0" step="any" placeholder="0" oninput="calcSTotal()"/></div>
+            <div class="fg"><label>Unit</label><select id="s_unit"><option>kg</option><option>g</option><option>packet</option><option>box</option><option>piece</option><option>bundle</option><option>litre</option><option>dozen</option><option>bag</option></select></div>
+            <div class="fg"><label>Sell Price/Unit (₹)</label><input type="number" id="s_price" min="0" step="any" placeholder="0.00" oninput="calcSTotal()"/></div>
+            <div class="fg"><label>Cost/Unit (₹)</label><input type="number" id="s_cost" min="0" step="any" placeholder="0.00" oninput="calcSTotal()"/></div>
+            <div class="fg"><label>GST %</label><select id="s_gst" onchange="calcSTotal()"><option value="0">No GST</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option><option value="28">28%</option></select></div>
+            <div class="fg"><label>Discount (₹)</label><input type="number" id="s_disc" min="0" step="any" placeholder="0.00" oninput="calcSTotal()"/></div>
+            <div class="fg"><label>Revenue (₹)</label><input type="number" id="s_total" readonly style="color:var(--green);font-weight:800"/></div>
+            <div class="fg"><label>Profit/Loss (₹)</label><input type="number" id="s_profit" readonly style="font-weight:800"/></div>
+            <div class="fg"><label>Customer</label><input id="s_cust" placeholder="Customer name" list="custList"/><datalist id="custList"></datalist></div>
+            <div class="fg"><label>Payment</label><select id="s_pay"><option>Cash</option><option>UPI</option><option>Credit</option><option>Bank Transfer</option><option>Cheque</option></select></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-success" onclick="addSale()">✅ Add Sale</button>
+            <button class="btn btn-ghost" onclick="rstS()">🔄 Reset</button>
+            <span style="font-size:11px;color:var(--text3)"><kbd>Ctrl+Enter</kbd> to save</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">📋 Sales Records</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <select id="sFCat" class="btn btn-ghost btn-sm" onchange="renderSList()" style="padding:5px 9px"><option value="">All Categories</option><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select>
+              <input type="month" id="sFMon" class="btn btn-ghost btn-sm" onchange="renderSList()" style="padding:5px 9px"/>
+            </div>
+          </div>
+          <div class="search-bar" style="margin-bottom:10px"><span>🔍</span><input id="sSearch" placeholder="Search product, customer…" oninput="renderSList()"/></div>
+          <div class="tbl-wrap" id="sTable"></div>
+        </div>
+      </div>
+
+      <!-- EXPENSES -->
+      <div class="page" id="page-expenses">
+        <div class="g3" style="margin-bottom:14px" id="expSummary"></div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="sec-hdr"><div class="sec-title">💸 Add Expense</div></div>
+          <div class="fgrid">
+            <div class="fg"><label>Date</label><input type="date" id="e_date"/></div>
+            <div class="fg"><label>Description *</label><input id="e_desc" placeholder="e.g. Shop rent, Electricity bill"/></div>
+            <div class="fg"><label>Category</label><select id="e_cat"><option>Rent</option><option>Utilities</option><option>Salaries</option><option>Transport</option><option>Marketing</option><option>Maintenance</option><option>Office</option><option>Miscellaneous</option></select></div>
+            <div class="fg"><label>Amount (₹) *</label><input type="number" id="e_amt" min="0" step="any" placeholder="0.00"/></div>
+            <div class="fg"><label>Payment</label><select id="e_pay"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Cheque</option><option>Credit Card</option></select></div>
+            <div class="fg"><label>Recurring</label><select id="e_rec"><option value="">One-time</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></div>
+            <div class="fg full"><label>Notes</label><input id="e_notes" placeholder="Notes…"/></div>
+          </div>
+          <div style="margin-top:14px">
+            <button class="btn btn-danger" onclick="addExpense()">+ Add Expense</button>
+            <button class="btn btn-ghost" onclick="rstE()" style="margin-left:8px">🔄 Reset</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">📋 Expense Records</div>
+            <div style="display:flex;gap:7px">
+              <select id="eFCat" class="btn btn-ghost btn-sm" onchange="renderExpenses()" style="padding:5px 9px"><option value="">All Categories</option><option>Rent</option><option>Utilities</option><option>Salaries</option><option>Transport</option><option>Marketing</option><option>Maintenance</option><option>Office</option><option>Miscellaneous</option></select>
+              <input type="month" id="eFMon" class="btn btn-ghost btn-sm" onchange="renderExpenses()" style="padding:5px 9px"/>
+            </div>
+          </div>
+          <div class="search-bar" style="margin-bottom:10px"><span>🔍</span><input id="eSearch" placeholder="Search expenses…" oninput="renderExpenses()"/></div>
+          <div class="tbl-wrap" id="eTable"></div>
+        </div>
+      </div>
+
+      <!-- STOCK -->
+      <div class="page" id="page-stock">
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">📦 Stock Management</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <select id="stFCat" class="btn btn-ghost btn-sm" onchange="renderStock()" style="padding:5px 9px"><option value="">All Categories</option><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select>
+              <button class="btn btn-ghost btn-sm" onclick="toggleLowOnly()" id="lowOnlyBtn">⚠️ Low Only</button>
+            </div>
+          </div>
+          <div class="search-bar" style="margin-bottom:12px"><span>🔍</span><input id="stSearch" placeholder="Search stock…" oninput="renderStock()"/></div>
+          <div class="tbl-wrap" id="stTable"></div>
+        </div>
+      </div>
+
+      <!-- CATALOG -->
+      <div class="page" id="page-catalog">
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">🏷️ Price Catalog</div>
+            <select id="catFCat" class="btn btn-ghost btn-sm" onchange="renderCatalog()" style="padding:5px 9px"><option value="">All Categories</option><option>Spices</option><option>Grocery</option><option>Covers</option><option>Attai</option><option>Plastic</option><option>Packing</option><option>Wholesale</option><option>Misc</option></select>
+          </div>
+          <div class="search-bar" style="margin-bottom:12px"><span>🔍</span><input id="catSearch" placeholder="Search products…" oninput="renderCatalog()"/></div>
+          <div id="catalogGrid"></div>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS -->
+      <div class="page" id="page-customers">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <div class="search-bar" style="flex:1;max-width:300px"><span>🔍</span><input id="custSearch" placeholder="Search customers…" oninput="renderCustomers()"/></div>
+          <button class="btn btn-primary" onclick="openCustModal()">+ Add Customer</button>
+        </div>
+        <div id="custGrid"></div>
+      </div>
+
+      <!-- SUPPLIERS -->
+      <div class="page" id="page-suppliers">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <div class="search-bar" style="flex:1;max-width:300px"><span>🔍</span><input id="suppSearch" placeholder="Search suppliers…" oninput="renderSuppliers()"/></div>
+          <button class="btn btn-teal" onclick="openSuppModal()">+ Add Supplier</button>
+        </div>
+        <div id="suppGrid"></div>
+      </div>
+
+      <!-- REPORTS -->
+      <div class="page" id="page-reports">
+        <div style="display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+          <select id="rptType" class="btn btn-ghost" onchange="renderReports()" style="padding:7px 12px"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option></select>
+          <input type="month" id="rptMon" class="btn btn-ghost" onchange="renderReports()" style="padding:7px 12px"/>
+          <button class="btn btn-primary" onclick="renderReports()">📊 Generate</button>
+          <button class="btn btn-ghost" onclick="window.print()">🖨️ Print</button>
+        </div>
+        <div id="rptContent"></div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="page" id="page-analytics">
+        <div class="target-card" id="tgtCard">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div><div style="font-size:17px;font-weight:900">Monthly Sales Target</div><div style="font-size:12px;opacity:.8" id="tgtSub"></div></div>
+            <div style="text-align:right"><div style="font-size:11px;opacity:.7">Set Target:</div><input type="number" id="tgtInput" placeholder="e.g. 100000" style="width:120px;padding:5px 9px;border-radius:6px;border:none;font-weight:800;text-align:right;background:rgba(255,255,255,.2);color:#fff" oninput="updateTarget()"/></div>
+          </div>
+          <div style="background:rgba(255,255,255,.2);border-radius:6px;height:10px;overflow:hidden"><div id="tgtBar" style="height:100%;background:#fff;border-radius:6px;transition:width .5s;width:0%"></div></div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:11px;opacity:.75"><span id="tgtCur">₹0</span><span id="tgtGoal">Goal: ₹0</span></div>
+        </div>
+        <div class="g2" style="margin-bottom:14px">
+          <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="sec-title">📈 Revenue Trend</div><select id="trendRange" class="btn btn-ghost btn-sm" onchange="renderAnalytics()" style="padding:5px 9px"><option value="6">6 Months</option><option value="12">12 Months</option></select></div><canvas id="cSpend" height="200"></canvas></div>
+          <div class="card"><div class="sec-title" style="margin-bottom:12px">🥧 Category Split</div><canvas id="cCat" height="200"></canvas></div>
+        </div>
+        <div class="g2" style="margin-bottom:14px">
+          <div class="card"><div class="sec-title" style="margin-bottom:12px">📉 Profit vs Expenses</div><canvas id="cProfit" height="200"></canvas></div>
+          <div class="card"><div class="sec-title" style="margin-bottom:12px">🏆 Top Items</div><canvas id="cTop" height="200"></canvas></div>
+        </div>
+        <div class="g2">
+          <div class="card"><div class="sec-title" style="margin-bottom:12px">💳 Payment Methods</div><canvas id="cPay" height="200"></canvas></div>
+          <div class="card"><div class="sec-title" style="margin-bottom:12px">📊 Daily Sales (This Month)</div><canvas id="cDaily" height="200"></canvas></div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="page" id="page-history">
+        <div class="card">
+          <div class="sec-hdr">
+            <div class="sec-title">📋 Transaction History</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <select id="hType" onchange="renderHistory()" class="btn btn-ghost btn-sm" style="padding:5px 9px"><option value="all">All</option><option value="purchase">Purchases</option><option value="sale">Sales</option><option value="expense">Expenses</option></select>
+              <input type="month" id="hMon" onchange="renderHistory()" class="btn btn-ghost btn-sm" style="padding:5px 9px"/>
+            </div>
+          </div>
+          <div class="search-bar" style="margin-bottom:10px"><span>🔍</span><input id="hSearch" placeholder="Search transactions…" oninput="renderHistory()"/></div>
+          <div class="tbl-wrap" id="hTable"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page" id="page-settings">
+        <div class="g2" style="margin-bottom:14px">
+          <div class="card">
+            <div class="sec-title" style="margin-bottom:14px">⚙️ Preferences</div>
+            <div class="set-row"><div><div class="set-lbl">Dark Mode</div><div class="set-desc">Switch light / dark theme</div></div><label class="toggle"><input type="checkbox" id="darkChk" onchange="toggleTheme()"/><span class="tog-sl"></span></label></div>
+            <div class="set-row"><div><div class="set-lbl">Business Name</div><div class="set-desc">Shown on invoices</div></div><input type="text" id="bizName" style="width:150px" placeholder="My Shop" onchange="sv('businessName',this.value)"/></div>
+            <div class="set-row"><div><div class="set-lbl">Business Phone</div><div class="set-desc">Shown on invoices</div></div><input type="text" id="bizPhone" style="width:140px" placeholder="+91 XXXXXXXXXX" onchange="sv('businessPhone',this.value)"/></div>
+            <div class="set-row"><div><div class="set-lbl">GSTIN</div><div class="set-desc">Your GST number</div></div><input type="text" id="bizGSTIN" style="width:160px" placeholder="GSTIN" onchange="sv('gstin',this.value)"/></div>
+            <div class="set-row"><div><div class="set-lbl">Monthly Budget (₹)</div><div class="set-desc">Alert when purchase limit exceeded</div></div><input type="number" id="budgetLim" style="width:110px" placeholder="50000" onchange="sv('budgetLimit',this.value)"/></div>
+            <div class="set-row"><div><div class="set-lbl">Sales Target (₹)</div><div class="set-desc">Monthly sales goal</div></div><input type="number" id="tgtSetting" style="width:110px" placeholder="100000" onchange="sv('salesTarget',this.value)"/></div>
+            <div class="set-row"><div><div class="set-lbl">Low Stock Threshold</div><div class="set-desc">Default minimum qty</div></div><input type="number" id="minStk" style="width:70px" placeholder="5" onchange="sv('minStock',this.value)"/></div>
+          </div>
+          <div class="card">
+            <div class="sec-title" style="margin-bottom:14px">💾 Data Management</div>
+            <div class="set-row"><div><div class="set-lbl">Export Backup</div><div class="set-desc">Download all data as JSON</div></div><button class="btn btn-primary btn-sm" onclick="exportBackup()">⬇ Export</button></div>
+            <div class="set-row"><div><div class="set-lbl">Import Backup</div><div class="set-desc">Restore from JSON file</div></div><label class="btn btn-ghost btn-sm" style="cursor:pointer">⬆ Import<input type="file" accept=".json" onchange="importBackup(event)" style="display:none"/></label></div>
+            <div class="set-row"><div><div class="set-lbl">Export CSV</div><div class="set-desc">Download records as spreadsheet</div></div><button class="btn btn-ghost btn-sm" onclick="toggleDrop('expMenu')">📥 Export</button></div>
+            <div class="set-row"><div><div class="set-lbl" style="color:var(--red)">Reset All Data</div><div class="set-desc">Permanently delete everything</div></div><button class="btn btn-danger btn-sm" onclick="openM('rstModal')">🗑 Reset</button></div>
+            <div class="divider"></div>
+            <div style="font-size:11px;color:var(--text3)" id="dataInfo"></div>
+          </div>
+        </div>
+        <!-- Profit Margin Calc -->
+        <div class="card">
+          <div class="sec-title" style="margin-bottom:14px">🧮 Profit Margin Calculator</div>
+          <div class="fgrid">
+            <div class="fg"><label>Cost Price (₹)</label><input type="number" id="calc_c" min="0" step="any" placeholder="0.00" oninput="doCalc()"/></div>
+            <div class="fg"><label>Selling Price (₹)</label><input type="number" id="calc_s" min="0" step="any" placeholder="0.00" oninput="doCalc()"/></div>
+            <div class="fg"><label>Qty</label><input type="number" id="calc_q" value="1" min="1" oninput="doCalc()"/></div>
+            <div class="fg"><label>Overhead (₹)</label><input type="number" id="calc_o" min="0" step="any" placeholder="0.00" oninput="doCalc()"/></div>
+          </div>
+          <div id="calcRes"></div>
+        </div>
+        <!-- Keyboard Shortcuts -->
+        <div class="card" style="margin-top:14px">
+          <div class="sec-title" style="margin-bottom:12px">⌨️ Keyboard Shortcuts</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">Save form</span><kbd>Ctrl+Enter</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">Close modal</span><kbd>Escape</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">Global Search</span><kbd>Ctrl+K</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">Dashboard</span><kbd>Alt+D</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">POS Mode</span><kbd>Alt+O</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border-radius:7px"><span style="font-size:12px">Toggle Dark Mode</span><kbd>Alt+T</kbd></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+    <div id="footer">ShopERP Pro v4.0 &nbsp;·&nbsp; Built for Smart Shop Owners &nbsp;·&nbsp; All data stored locally in your browser</div>
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let DB = {
+  purchases:[],sales:[],stock:{},expenses:[],customers:[],suppliers:[],
+  adjustments:[],notifications:[],
+  settings:{darkMode:false,budgetLimit:0,minStock:5,salesTarget:0,businessName:'My Shop',businessPhone:'',gstin:''}
+};
+let showLowOnly=false, pendingDelFn=null, editCustId=null, editSuppId=null, adjKey=null;
+let cart={};// POS cart: key->qty
+let lastInvId=null, lastInvType=null;
+
+// ============================================================
+// INIT
+// ============================================================
+function init(){
+  loadData();setToday();updateThemeBtn();updateHeaderDate();
+  renderQuickChips();renderAll();checkLowStock();checkBudget();
+  loadSettings();updateTarget();updateSuggestions();
+  if(!DB.suppliers) DB.suppliers=[];
+  if(!DB.adjustments) DB.adjustments=[];
+  if(!DB.notifications) DB.notifications=[];
+  renderNotifs();
+  document.getElementById('suppNewBadge').style.display=(DB.suppliers.length===0)?'flex':'none';
+}
+function loadData(){try{const d=localStorage.getItem('shopERPpro');if(d){const p=JSON.parse(d);DB={...DB,...p};}}catch(e){}}
+function saveData(){try{localStorage.setItem('shopERPpro',JSON.stringify(DB));}catch(e){}}
+function todayStr(){return new Date().toISOString().slice(0,10);}
+function setToday(){
+  const t=todayStr(),ym=new Date().toISOString().slice(0,7);
+  ['p_date','s_date','e_date'].forEach(id=>{const el=g(id);if(el)el.value=t;});
+  ['pFMon','sFMon','hMon','rptMon','eFMon'].forEach(id=>{const el=g(id);if(el)el.value=ym;});
+}
+function updateHeaderDate(){
+  const now=new Date();
+  g('hDate').textContent=now.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  g('hBadge').textContent=now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+}
+function loadSettings(){
+  const s=DB.settings;
+  if(g('darkChk'))g('darkChk').checked=s.darkMode;
+  if(g('budgetLim'))g('budgetLim').value=s.budgetLimit||'';
+  if(g('minStk'))g('minStk').value=s.minStock||5;
+  if(g('tgtSetting'))g('tgtSetting').value=s.salesTarget||'';
+  if(g('bizName'))g('bizName').value=s.businessName||'';
+  if(g('bizPhone'))g('bizPhone').value=s.businessPhone||'';
+  if(g('bizGSTIN'))g('bizGSTIN').value=s.gstin||'';
+  updateDataInfo();
+}
+function sv(key,val){DB.settings[key]=isNaN(val)||val===''?val:(parseFloat(val)||0);saveData();if(key==='salesTarget')updateTarget();}
+function updateDataInfo(){
+  const el=g('dataInfo');
+  if(el)el.innerHTML=`📦 ${DB.purchases.length} purchases &nbsp; 💰 ${DB.sales.length} sales &nbsp; 💸 ${(DB.expenses||[]).length} expenses &nbsp; 📦 ${Object.keys(DB.stock).length} items &nbsp; 👥 ${(DB.customers||[]).length} customers &nbsp; 🏭 ${(DB.suppliers||[]).length} suppliers`;
+}
+const g=id=>document.getElementById(id);
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const pageTitles={dashboard:'Dashboard',pos:'POS – Point of Sale',purchase:'Purchase Entry',sales:'Sales Entry',expenses:'Expense Tracker',stock:'Stock Management',catalog:'Price Catalog',customers:'Customers',suppliers:'Suppliers',reports:'Reports',analytics:'Analytics',history:'History',settings:'Settings'};
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=g('page-'+page);if(pg)pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    const oc=n.getAttribute('onclick')||'';
+    n.classList.toggle('active',oc.includes(`'${page}'`));
+  });
+  g('hTitle').textContent=pageTitles[page]||page;
+  if(page==='dashboard')renderDashboard();
+  if(page==='pos'){renderPOS();}
+  if(page==='purchase'){renderPList();updateSuggestions();}
+  if(page==='sales'){renderSList();updateSuggestions();}
+  if(page==='expenses'){renderExpenses();renderExpSummary();}
+  if(page==='stock')renderStock();
+  if(page==='catalog')renderCatalog();
+  if(page==='customers')renderCustomers();
+  if(page==='suppliers')renderSuppliers();
+  if(page==='reports')renderReports();
+  if(page==='analytics')setTimeout(renderAnalytics,80);
+  if(page==='history')renderHistory();
+  if(page==='settings')loadSettings();
+  g('sidebar').classList.remove('open');
+  closeAllDropdowns();
+}
+function renderAll(){renderDashboard();renderPList();renderSList();renderStock();renderExpenses();renderCustomers();renderSuppliers();updateSuggestions();}
+
+// ============================================================
+// SIDEBAR / THEME
+// ============================================================
+function toggleSB(){
+  const sb=g('sidebar');
+  if(window.innerWidth<=768)sb.classList.toggle('open');
+  else sb.classList.toggle('collapsed');
+}
+function toggleTheme(){
+  DB.settings.darkMode=!DB.settings.darkMode;
+  document.documentElement.setAttribute('data-theme',DB.settings.darkMode?'dark':'light');
+  const chk=g('darkChk');if(chk)chk.checked=DB.settings.darkMode;
+  updateThemeBtn();saveData();setTimeout(renderAnalytics,200);
+}
+function updateThemeBtn(){g('thBtn').textContent=DB.settings.darkMode?'☀️':'🌙';}
+
+// ============================================================
+// MODALS & DROPDOWNS
+// ============================================================
+function openM(id){g(id).classList.add('open');}
+function closeM(id){g(id).classList.remove('open');}
+function toggleDrop(id){const m=g(id),was=m.classList.contains('open');closeAllDropdowns();if(!was)m.classList.add('open');}
+function closeAllDropdowns(){document.querySelectorAll('.drop-menu').forEach(m=>m.classList.remove('open'));document.querySelectorAll('.notif-panel').forEach(m=>m.classList.remove('open'));}
+
+// ============================================================
+// GLOBAL SEARCH
+// ============================================================
+function openGS(){g('gSearch').classList.add('open');setTimeout(()=>{const i=g('gsInput');if(i){i.value='';i.focus();}},50);}
+function closeGS(){g('gSearch').classList.remove('open');}
+function runGS(q){
+  const res=g('gsResults');if(!q||q.length<2){res.innerHTML='<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px">Type at least 2 characters…</div>';return;}
+  q=q.toLowerCase();const items=[];
+  DB.purchases.forEach(p=>{if(p.name.toLowerCase().includes(q)||(p.supplier||'').toLowerCase().includes(q))items.push({type:'Purchase',icon:'🛒',label:p.name,sub:`${fmtCur(p.total)} · ${fmtDate(p.date)}`,color:'b-blue',fn:`go('purchase')`});});
+  DB.sales.forEach(s=>{if(s.product.toLowerCase().includes(q)||(s.customer||'').toLowerCase().includes(q))items.push({type:'Sale',icon:'💰',label:s.product,sub:`${fmtCur(s.total)} · ${fmtDate(s.date)}`,color:'b-green',fn:`go('sales')`});});
+  (DB.expenses||[]).forEach(e=>{if(e.desc.toLowerCase().includes(q))items.push({type:'Expense',icon:'💸',label:e.desc,sub:`${fmtCur(e.amount)} · ${fmtDate(e.date)}`,color:'b-red',fn:`go('expenses')`});});
+  (DB.customers||[]).forEach(c=>{if(c.name.toLowerCase().includes(q)||(c.phone||'').includes(q))items.push({type:'Customer',icon:'👤',label:c.name,sub:c.phone||'',color:'b-purple',fn:`go('customers')`});});
+  Object.values(DB.stock).forEach(s=>{if(s.name.toLowerCase().includes(q))items.push({type:'Stock',icon:'📦',label:s.name,sub:`${fmtNum(s.qty)} ${s.unit} · ${fmtCur(s.sellingPrice||0)}`,color:'b-teal',fn:`go('stock')`});});
+  if(!items.length){res.innerHTML='<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px">No results found</div>';return;}
+  res.innerHTML=items.slice(0,20).map(it=>`<div class="gs-item" onclick="closeGS();${it.fn}"><span style="font-size:20px">${it.icon}</span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">${it.label}</div><div style="font-size:11px;color:var(--text3)">${it.sub}</div></div><span class="badge ${it.color}">${it.type}</span></div>`).join('');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg,type='info',dur=3200){
+  const icons={success:'✅',error:'❌',warn:'⚠️',info:'ℹ️'};
+  const borderCol={success:'var(--green)',error:'var(--red)',warn:'var(--orange)',info:'var(--accent)'};
+  const bgCol={success:'var(--green-light)',error:'var(--red-light)',warn:'var(--orange-light)',info:'var(--accent-light)'};
+  const c=g('toast-box');const t=document.createElement('div');
+  t.className='toast';
+  t.style.borderLeft=`4px solid ${borderCol[type]||borderCol.info}`;
+  t.style.background=bgCol[type]||bgCol.info;
+  t.innerHTML=`<span style="font-size:17px">${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  c.appendChild(t);setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),220);},dur);
+}
+
+// ============================================================
+// FORMAT
+// ============================================================
+const fmtCur=v=>'₹'+parseFloat(v||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtNum=v=>parseFloat(v||0).toLocaleString('en-IN');
+const fmtDate=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'-';
+const catIcon={Spices:'🌶',Grocery:'🛒',Covers:'🛍',Attai:'📦',Plastic:'🧴',Packing:'📦',Wholesale:'🏪',Misc:'📋'};
+const catColor={Spices:'b-red',Grocery:'b-green',Covers:'b-blue',Attai:'b-orange',Plastic:'b-purple',Packing:'b-gray',Wholesale:'b-blue',Misc:'b-gray'};
+const expIcon={Rent:'🏠',Utilities:'⚡',Salaries:'👷',Transport:'🚚',Marketing:'📢',Maintenance:'🔧',Office:'🖥',Miscellaneous:'📋'};
+
+// ============================================================
+// TREND
+// ============================================================
+function getTrend(cur,prev){
+  if(!prev)return {pct:0,icon:'',cls:''};
+  const pct=((cur-prev)/prev*100);
+  return pct>=0?{pct,icon:'↑',cls:'trend-up'}:{pct,icon:'↓',cls:'trend-dn'};
+}
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+function addNotif(msg,type='info'){
+  if(!DB.notifications)DB.notifications=[];
+  DB.notifications.unshift({id:Date.now(),msg,type,read:false,time:new Date().toISOString()});
+  if(DB.notifications.length>50)DB.notifications=DB.notifications.slice(0,50);
+  renderNotifs();saveData();
+}
+function renderNotifs(){
+  const unread=(DB.notifications||[]).filter(n=>!n.read).length;
+  const dot=g('nDot');
+  if(dot){
+    if(unread>0){
+      dot.style.cssText='position:absolute;top:2px;right:2px;width:16px;height:16px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;pointer-events:none;';
+      dot.textContent=unread>9?'9+':String(unread);
+    }else{
+      dot.style.display='none';
+    }
+  }
+  const list=g('nList');if(!list)return;
+  const items=DB.notifications||[];
+  if(!items.length){list.innerHTML='<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px">No notifications</div>';return;}
+  const icons={success:'✅',error:'❌',warn:'⚠️',info:'ℹ️'};
+  list.innerHTML=items.slice(0,20).map(n=>{
+    const t=new Date(n.time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="notif-item${n.read?'':' unread'}" onclick="markNotif(${n.id})"><span style="font-size:15px">${icons[n.type]||'ℹ️'}</span><div style="flex:1"><div style="font-size:12px;color:var(--text)">${n.msg}</div><div style="font-size:10px;color:var(--text3)">${t}</div></div></div>`;
+  }).join('');
+}
+function markNotif(id){const n=(DB.notifications||[]).find(x=>x.id===id);if(n){n.read=true;renderNotifs();saveData();}}
+function markAllRead(){(DB.notifications||[]).forEach(n=>n.read=true);renderNotifs();saveData();toast('All marked as read','success');}
+function clearNotifs(){DB.notifications=[];renderNotifs();saveData();toast('Notifications cleared','info');}
+function toggleNP(){
+  const p=g('nPanel'),was=p.classList.contains('open');
+  closeAllDropdowns();
+  if(!was){ renderNotifs(); p.classList.add('open'); }
+}
+
+// ============================================================
+// QUICK CHIPS
+// ============================================================
+function renderQuickChips(){
+  const items=['Red Chilli','Turmeric','Coriander','Rice','Sugar','Salt','Oil','Cover Small','Cover Large','Carton'];
+  const el=g('qChips');if(!el)return;
+  el.innerHTML=items.map(f=>`<div class="chip" onclick="quickFill('${f}')">${f}</div>`).join('');
+}
+function quickFill(name){
+  if(g('p_name'))g('p_name').value=name;
+  const key=name.toLowerCase();
+  if(DB.stock[key]){
+    const s=DB.stock[key];
+    if(s.sellingPrice&&g('p_sell'))g('p_sell').value=s.sellingPrice;
+    const cu=g('p_unit');if(cu){for(let o of cu.options)if(o.value===s.unit){cu.value=s.unit;break;}}
+  }
+  if(g('p_name'))g('p_name').focus();
+}
+
+// ============================================================
+// PURCHASE
+// ============================================================
+function calcPTotal(){
+  const q=parseFloat(g('p_qty').value)||0,r=parseFloat(g('p_rate').value)||0;
+  const gst=parseFloat(g('p_gst').value)||0,ex=parseFloat(g('p_extra').value)||0;
+  const disc=parseFloat(g('p_disc').value)||0;
+  const sub=(q*r);const gstAmt=sub*gst/100;
+  const total=sub+gstAmt+ex-disc;
+  g('p_total').value=total>0?total.toFixed(2):'';
+}
+function addPurchase(){
+  const name=g('p_name').value.trim(),qty=parseFloat(g('p_qty').value)||0;
+  if(!name){toast('Enter product name','error');g('p_name').classList.add('invalid');return;}
+  if(qty<=0){toast('Enter valid quantity','error');return;}
+  const gstPct=parseFloat(g('p_gst').value)||0;
+  const p={id:Date.now(),date:g('p_date').value||todayStr(),name,category:g('p_cat').value,qty,unit:g('p_unit').value,rate:parseFloat(g('p_rate').value)||0,gst:gstPct,extra:parseFloat(g('p_extra').value)||0,discount:parseFloat(g('p_disc').value)||0,total:parseFloat(g('p_total').value)||0,supplier:g('p_supp').value.trim(),payment:g('p_pay').value,selling:parseFloat(g('p_sell').value)||0,notes:g('p_notes').value.trim(),type:'purchase'};
+  DB.purchases.unshift(p);
+  updateStock(p.name,p.category,p.unit,p.qty,'add',p.selling);
+  saveData();addNotif(`Purchase: ${p.name} – ${fmtCur(p.total)}`,'success');
+  toast(`Purchase added: ${p.name}`,'success');
+  rstP();renderPList();updateSuggestions();checkLowStock();checkBudget();renderDashboard();
+}
+function rstP(){['p_name','p_qty','p_rate','p_extra','p_disc','p_total','p_supp','p_notes','p_sell'].forEach(id=>{const el=g(id);if(el){el.value='';el.classList.remove('invalid');}});setToday();}
+function delPurchase(id){
+  pendingDelFn=()=>{
+    const idx=DB.purchases.findIndex(p=>p.id===id);
+    if(idx>-1){const p=DB.purchases[idx];updateStock(p.name,p.category,p.unit,p.qty,'remove');DB.purchases.splice(idx,1);saveData();toast('Deleted','warn');renderPList();renderDashboard();checkLowStock();}
+    closeM('delModal');
+  };
+  g('delBtn').onclick=pendingDelFn;openM('delModal');
+}
+function renderPList(){
+  const q=(g('pSearch')?.value||'').toLowerCase(),cat=g('pFCat')?.value||'',mon=g('pFMon')?.value||'';
+  let list=DB.purchases.filter(p=>(!q||(p.name.toLowerCase().includes(q)||(p.supplier||'').toLowerCase().includes(q)))&&(!cat||p.category===cat)&&(!mon||p.date.startsWith(mon)));
+  const tot=list.reduce((a,p)=>a+p.total,0);
+  const wrap=g('pTable');if(!list.length){wrap.innerHTML=empty('No purchases found');return;}
+  wrap.innerHTML=`<div style="padding:8px 10px;background:var(--surface2);border-radius:7px;margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+    <span style="color:var(--text3)">${list.length} record(s)</span><span style="font-weight:800;color:var(--accent)">Total: ${fmtCur(tot)}</span>
+  </div>
+  <table><thead><tr><th>Date</th><th>Product</th><th>Category</th><th>Qty</th><th>Rate</th><th>GST</th><th>Total</th><th>Supplier</th><th>Payment</th><th>Actions</th></tr></thead>
+  <tbody>${list.map(p=>`<tr>
+    <td>${fmtDate(p.date)}</td><td class="td-main">${p.name}</td>
+    <td><span class="badge ${catColor[p.category]||'b-gray'}">${catIcon[p.category]||''} ${p.category}</span></td>
+    <td>${fmtNum(p.qty)} ${p.unit}</td><td>${fmtCur(p.rate)}</td>
+    <td>${p.gst?`<span class="gst-pill">GST ${p.gst}%</span>`:'—'}</td>
+    <td style="font-weight:800;color:var(--accent)">${fmtCur(p.total)}</td>
+    <td>${p.supplier||'—'}</td>
+    <td><span class="badge b-gray">${p.payment}</span></td>
+    <td style="display:flex;gap:5px"><button class="iBtn" onclick="showInv(${p.id},'purchase')" title="Invoice">🧾</button><button class="iBtn" onclick="delPurchase(${p.id})" style="color:var(--red)">🗑</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+// ============================================================
+// STOCK
+// ============================================================
+function updateStock(name,cat,unit,qty,action,sellPrice){
+  const key=name.toLowerCase();
+  if(!DB.stock[key])DB.stock[key]={name,category:cat,unit,qty:0,minQty:DB.settings.minStock||5,sellingPrice:0};
+  if(action==='add'){DB.stock[key].qty+=qty;DB.stock[key].category=cat;DB.stock[key].unit=unit;if(sellPrice)DB.stock[key].sellingPrice=sellPrice;}
+  else DB.stock[key].qty=Math.max(0,DB.stock[key].qty-qty);
+  DB.stock[key].name=name;
+}
+function renderStock(){
+  const q=(g('stSearch')?.value||'').toLowerCase(),cat=g('stFCat')?.value||'';
+  let items=Object.values(DB.stock).filter(s=>(!q||s.name.toLowerCase().includes(q))&&(!cat||s.category===cat)&&(!showLowOnly||s.qty<=s.minQty));
+  const wrap=g('stTable');if(!items.length){wrap.innerHTML=empty('No stock records');return;}
+  const totalVal=items.reduce((a,s)=>a+(s.qty*(s.sellingPrice||0)),0);
+  wrap.innerHTML=`<div style="padding:8px 10px;background:var(--surface2);border-radius:7px;margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+    <span style="color:var(--text3)">${items.length} item(s)</span><span style="font-weight:800;color:var(--purple)">Stock Value: ${fmtCur(totalVal)}</span>
+  </div>
+  <table><thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Min Alert</th><th>Status</th><th>Sell Price</th><th>Value</th><th>Actions</th></tr></thead>
+  <tbody>${items.map(s=>{
+    const pct=Math.min(100,(s.qty/(s.minQty*3||1))*100);const low=s.qty<=s.minQty;const val=s.qty*(s.sellingPrice||0);
+    return `<tr>
+      <td class="td-main">${s.name}</td>
+      <td><span class="badge ${catColor[s.category]||'b-gray'}">${catIcon[s.category]||''} ${s.category}</span></td>
+      <td><div>${fmtNum(s.qty)} ${s.unit}</div><div class="stk-bar"><div class="stk-fill" style="width:${pct}%;background:${low?'var(--red)':pct>60?'var(--green)':'var(--orange)'}"></div></div></td>
+      <td><input type="number" value="${s.minQty}" style="width:65px" onchange="setMinQty('${s.name.toLowerCase()}',this.value)"/></td>
+      <td>${low?'<span class="badge b-red">⚠ Low</span>':'<span class="badge b-green">✓ OK</span>'}</td>
+      <td><input type="number" value="${s.sellingPrice||''}" style="width:85px" placeholder="Set price" onchange="setSellPrice('${s.name.toLowerCase()}',this.value)"/></td>
+      <td style="font-weight:700;color:var(--purple)">${val>0?fmtCur(val):'—'}</td>
+      <td style="display:flex;gap:5px">
+        <button class="iBtn" onclick="openAdj('${s.name.toLowerCase()}')" title="Adjust Stock">⚖️</button>
+        <button class="iBtn" onclick="delStock('${s.name.toLowerCase()}')" style="color:var(--red)">🗑</button>
+      </td>
+    </tr>`;
+  }).join('')}</tbody></table>`;
+}
+function setMinQty(k,v){if(DB.stock[k]){DB.stock[k].minQty=parseFloat(v)||0;saveData();checkLowStock();}}
+function setSellPrice(k,v){if(DB.stock[k]){DB.stock[k].sellingPrice=parseFloat(v)||0;saveData();}}
+function delStock(k){pendingDelFn=()=>{delete DB.stock[k];saveData();renderStock();toast('Removed','warn');closeM('delModal');};g('delBtn').onclick=pendingDelFn;openM('delModal');}
+function toggleLowOnly(){showLowOnly=!showLowOnly;const b=g('lowOnlyBtn');b.style.background=showLowOnly?'var(--orange-light)':'';b.style.color=showLowOnly?'var(--orange)':'';renderStock();}
+function checkLowStock(){
+  const low=Object.values(DB.stock).filter(s=>s.qty<=s.minQty);
+  const badge=g('lowBadge');
+  if(low.length){badge.style.display='flex';badge.textContent=low.length;const nb=g('nBar');g('nBarMsg').textContent=`⚠ ${low.length} items low on stock: ${low.slice(0,3).map(i=>i.name).join(', ')}`;nb.classList.add('show');setTimeout(()=>nb.classList.remove('show'),5000);}
+  else badge.style.display='none';
+}
+function checkBudget(){
+  const lim=DB.settings.budgetLimit;if(!lim)return;
+  const mon=new Date().toISOString().slice(0,7);
+  const spent=DB.purchases.filter(p=>p.date.startsWith(mon)).reduce((a,p)=>a+p.total,0);
+  if(spent>lim){toast(`⚠ Budget exceeded! Spent ${fmtCur(spent)} vs ${fmtCur(lim)}`,'warn',6000);addNotif(`Budget exceeded: ${fmtCur(spent)} spent`,'warn');}
+}
+
+// ============================================================
+// STOCK ADJUSTMENT
+// ============================================================
+function openAdj(key){
+  const s=DB.stock[key];if(!s)return;
+  adjKey=key;
+  if(g('adj_product'))g('adj_product').value=s.name;
+  if(g('adj_current'))g('adj_current').value=`${s.qty} ${s.unit}`;
+  if(g('adj_qty'))g('adj_qty').value='';
+  if(g('adj_notes'))g('adj_notes').value='';
+  openM('adjModal');
+}
+function doAdjust(){
+  const qty=parseFloat(g('adj_qty').value);
+  if(!adjKey||isNaN(qty)){toast('Enter a valid adjustment quantity','error');return;}
+  const s=DB.stock[adjKey];if(!s)return;
+  const prev=s.qty;s.qty=Math.max(0,s.qty+qty);
+  DB.adjustments.push({id:Date.now(),date:todayStr(),product:s.name,key:adjKey,prev,adj:qty,after:s.qty,reason:g('adj_reason').value,notes:g('adj_notes').value});
+  saveData();
+  addNotif(`Stock adjusted: ${s.name} ${qty>0?'+':''}${qty} (${prev}→${s.qty})`,'info');
+  toast(`Stock adjusted: ${s.name}`,'success');
+  closeM('adjModal');renderStock();checkLowStock();
+}
+
+// ============================================================
+// SALES
+// ============================================================
+function autoFillSale(){
+  const name=g('s_prod').value.trim();const key=name.toLowerCase();
+  if(DB.stock[key]){
+    const s=DB.stock[key];
+    if(s.sellingPrice&&g('s_price'))g('s_price').value=s.sellingPrice;
+    const lp=DB.purchases.find(p=>p.name.toLowerCase()===key);
+    if(lp&&g('s_cost'))g('s_cost').value=lp.rate;
+    const u=g('s_unit');if(u){for(let o of u.options)if(o.value===s.unit){u.value=s.unit;break;}}
+    calcSTotal();
+  }
+}
+function calcSTotal(){
+  const q=parseFloat(g('s_qty').value)||0,pr=parseFloat(g('s_price').value)||0;
+  const cost=parseFloat(g('s_cost').value)||0,disc=parseFloat(g('s_disc').value)||0;
+  const gst=parseFloat(g('s_gst').value)||0;
+  const sub=q*pr;const gstAmt=sub*gst/100;const total=sub+gstAmt-disc;
+  const profit=total-(q*cost);
+  g('s_total').value=total.toFixed(2);
+  const pe=g('s_profit');pe.value=profit.toFixed(2);pe.style.color=profit>=0?'var(--green)':'var(--red)';
+}
+function addSale(){
+  const prod=g('s_prod').value.trim(),qty=parseFloat(g('s_qty').value)||0,price=parseFloat(g('s_price').value)||0;
+  if(!prod){toast('Enter product name','error');return;}if(qty<=0){toast('Enter valid quantity','error');return;}
+  const cost=parseFloat(g('s_cost').value)||0,disc=parseFloat(g('s_disc').value)||0;
+  const gst=parseFloat(g('s_gst').value)||0;
+  const sub=qty*price,gstAmt=sub*gst/100,total=sub+gstAmt-disc,profit=total-(qty*cost);
+  const s={id:Date.now(),date:g('s_date').value||todayStr(),product:prod,category:g('s_cat').value,qty,unit:g('s_unit').value,price,cost,gst,discount:disc,gstAmt,total,profit,customer:g('s_cust').value.trim(),payment:g('s_pay').value,type:'sale'};
+  DB.sales.unshift(s);updateStock(s.product,s.category,s.unit,s.qty,'remove');
+  saveData();addNotif(`Sale: ${s.product} – ${fmtCur(s.total)} (Profit: ${fmtCur(s.profit)})`,'success');
+  toast(`Sale recorded: ${s.product}`,'success');
+  rstS();renderSList();renderDashboard();checkLowStock();updateTarget();
+}
+function rstS(){['s_prod','s_qty','s_price','s_cost','s_total','s_profit','s_cust','s_disc'].forEach(id=>{const el=g(id);if(el)el.value='';});setToday();}
+function delSale(id){
+  pendingDelFn=()=>{
+    const idx=DB.sales.findIndex(s=>s.id===id);
+    if(idx>-1){const s=DB.sales[idx];updateStock(s.product,s.category,s.unit,s.qty,'add');DB.sales.splice(idx,1);saveData();toast('Deleted','warn');renderSList();renderDashboard();updateTarget();}
+    closeM('delModal');
+  };
+  g('delBtn').onclick=pendingDelFn;openM('delModal');
+}
+function renderSList(){
+  const q=(g('sSearch')?.value||'').toLowerCase(),cat=g('sFCat')?.value||'',mon=g('sFMon')?.value||'';
+  let list=DB.sales.filter(s=>(!q||(s.product.toLowerCase().includes(q)||(s.customer||'').toLowerCase().includes(q)))&&(!cat||s.category===cat)&&(!mon||s.date.startsWith(mon)));
+  const totR=list.reduce((a,s)=>a+s.total,0),totP=list.reduce((a,s)=>a+s.profit,0);
+  const wrap=g('sTable');if(!list.length){wrap.innerHTML=empty('No sales recorded');return;}
+  wrap.innerHTML=`<div style="padding:8px 10px;background:var(--surface2);border-radius:7px;margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+    <span style="color:var(--text3)">${list.length} record(s)</span><span style="font-weight:800;color:var(--green)">Revenue: ${fmtCur(totR)}</span><span style="font-weight:800;color:${totP>=0?'var(--green)':'var(--red)'}">Profit: ${fmtCur(totP)}</span>
+  </div>
+  <table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Price</th><th>GST</th><th>Revenue</th><th>Profit</th><th>Customer</th><th>Payment</th><th></th></tr></thead>
+  <tbody>${list.map(s=>`<tr>
+    <td>${fmtDate(s.date)}</td><td class="td-main">${s.product}</td>
+    <td>${fmtNum(s.qty)} ${s.unit}</td><td>${fmtCur(s.price)}</td>
+    <td>${s.gst?`<span class="gst-pill">GST ${s.gst}%</span>`:'—'}</td>
+    <td style="color:var(--green);font-weight:800">${fmtCur(s.total)}</td>
+    <td style="font-weight:800;color:${s.profit>=0?'var(--green)':'var(--red)'}">${fmtCur(s.profit)}</td>
+    <td>${s.customer||'—'}</td><td><span class="badge b-gray">${s.payment}</span></td>
+    <td style="display:flex;gap:5px">
+      <button class="iBtn" onclick="showInv(${s.id},'sale')" title="Invoice">🧾</button>
+      <button class="iBtn" onclick="delSale(${s.id})" style="color:var(--red)">🗑</button>
+    </td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+// ============================================================
+// EXPENSES
+// ============================================================
+function addExpense(){
+  const desc=g('e_desc').value.trim(),amt=parseFloat(g('e_amt').value)||0;
+  if(!desc){toast('Enter description','error');return;}if(amt<=0){toast('Enter valid amount','error');return;}
+  if(!DB.expenses)DB.expenses=[];
+  const e={id:Date.now(),date:g('e_date').value||todayStr(),desc,amount:amt,category:g('e_cat').value,payment:g('e_pay').value,recurring:g('e_rec').value,notes:g('e_notes').value.trim(),type:'expense'};
+  DB.expenses.unshift(e);saveData();
+  addNotif(`Expense: ${e.desc} – ${fmtCur(e.amount)}`,'warn');
+  toast(`Expense added: ${e.desc}`,'success');rstE();renderExpenses();renderExpSummary();renderDashboard();
+}
+function rstE(){['e_desc','e_amt','e_notes'].forEach(id=>{const el=g(id);if(el)el.value='';});setToday();}
+function delExpense(id){
+  pendingDelFn=()=>{const idx=(DB.expenses||[]).findIndex(e=>e.id===id);if(idx>-1){DB.expenses.splice(idx,1);saveData();toast('Deleted','warn');renderExpenses();renderExpSummary();}closeM('delModal');};
+  g('delBtn').onclick=pendingDelFn;openM('delModal');
+}
+function renderExpSummary(){
+  if(!DB.expenses)DB.expenses=[];
+  const mon=new Date().toISOString().slice(0,7);
+  const mExp=DB.expenses.filter(e=>e.date.startsWith(mon)).reduce((a,e)=>a+e.amount,0);
+  const allExp=DB.expenses.reduce((a,e)=>a+e.amount,0);
+  const catB={};DB.expenses.filter(e=>e.date.startsWith(mon)).forEach(e=>{if(!catB[e.category])catB[e.category]=0;catB[e.category]+=e.amount;});
+  const top=Object.entries(catB).sort((a,b)=>b[1]-a[1])[0];
+  const el=g('expSummary');if(!el)return;
+  el.innerHTML=`
+    <div class="card" style="border-top:3px solid var(--red)"><div style="font-size:22px">💸</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin:4px 0">This Month</div><div style="font-size:20px;font-weight:900;color:var(--red)">${fmtCur(mExp)}</div></div>
+    <div class="card" style="border-top:3px solid var(--orange)"><div style="font-size:22px">📊</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin:4px 0">All Time</div><div style="font-size:20px;font-weight:900;color:var(--orange)">${fmtCur(allExp)}</div></div>
+    <div class="card" style="border-top:3px solid var(--purple)"><div style="font-size:22px">🏷️</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin:4px 0">Top Category</div><div style="font-size:16px;font-weight:900;color:var(--purple)">${top?top[0]:'—'}</div><div style="font-size:11px;color:var(--text3)">${top?fmtCur(top[1]):'No data'}</div></div>`;
+}
+function renderExpenses(){
+  if(!DB.expenses)DB.expenses=[];
+  const q=(g('eSearch')?.value||'').toLowerCase(),cat=g('eFCat')?.value||'',mon=g('eFMon')?.value||'';
+  let list=DB.expenses.filter(e=>(!q||e.desc.toLowerCase().includes(q))&&(!cat||e.category===cat)&&(!mon||e.date.startsWith(mon)));
+  const tot=list.reduce((a,e)=>a+e.amount,0);
+  const wrap=g('eTable');if(!wrap)return;
+  if(!list.length){wrap.innerHTML=empty('No expenses recorded');return;}
+  wrap.innerHTML=`<div style="padding:8px 10px;background:var(--surface2);border-radius:7px;margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+    <span style="color:var(--text3)">${list.length} record(s)</span><span style="font-weight:800;color:var(--red)">Total: ${fmtCur(tot)}</span>
+  </div>
+  <table><thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Payment</th><th>Recurring</th><th>Notes</th><th></th></tr></thead>
+  <tbody>${list.map(e=>`<tr>
+    <td>${fmtDate(e.date)}</td><td class="td-main">${e.desc}</td>
+    <td><span class="badge b-red">${expIcon[e.category]||'📋'} ${e.category}</span></td>
+    <td style="font-weight:800;color:var(--red)">${fmtCur(e.amount)}</td>
+    <td><span class="badge b-gray">${e.payment}</span></td>
+    <td>${e.recurring?`<span class="badge b-orange">🔄 ${e.recurring}</span>`:'<span class="badge b-gray">Once</span>'}</td>
+    <td style="color:var(--text3);font-size:12px">${e.notes||'—'}</td>
+    <td><button class="iBtn" onclick="delExpense(${e.id})" style="color:var(--red)">🗑</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+// ============================================================
+// CATALOG
+// ============================================================
+function renderCatalog(){
+  const q=(g('catSearch')?.value||'').toLowerCase(),cat=g('catFCat')?.value||'';
+  let items=Object.values(DB.stock).filter(s=>(!q||s.name.toLowerCase().includes(q))&&(!cat||s.category===cat));
+  const el=g('catalogGrid');if(!el)return;
+  if(!items.length){el.innerHTML=empty('No products. Add purchases to populate.');return;}
+  el.innerHTML=`<div class="ga">${items.map(s=>{
+    const lp=DB.purchases.find(p=>p.name.toLowerCase()===s.name.toLowerCase());
+    const cost=lp?lp.rate:0;
+    const margin=s.sellingPrice&&cost?(((s.sellingPrice-cost)/s.sellingPrice)*100).toFixed(1):null;
+    const bought=DB.purchases.filter(p=>p.name.toLowerCase()===s.name.toLowerCase()).reduce((a,p)=>a+p.qty,0);
+    const sold=DB.sales.filter(sl=>sl.product.toLowerCase()===s.name.toLowerCase()).reduce((a,sl)=>a+sl.qty,0);
+    return `<div class="prod-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+        <span class="badge ${catColor[s.category]||'b-gray'}">${catIcon[s.category]||''} ${s.category}</span>
+        <span class="${s.qty<=s.minQty?'badge b-red':'badge b-green'}">${s.qty<=s.minQty?'⚠ Low':'✓ OK'}</span>
+      </div>
+      <div style="font-weight:800;font-size:14px;margin-bottom:8px">${s.name}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:12px;margin-bottom:9px">
+        <div><span style="color:var(--text3)">Cost:</span> <b>${cost?fmtCur(cost):'—'}</b></div>
+        <div><span style="color:var(--text3)">Sell:</span> <b style="color:var(--green)">${s.sellingPrice?fmtCur(s.sellingPrice):'—'}</b></div>
+        <div><span style="color:var(--text3)">Stock:</span> <b>${fmtNum(s.qty)} ${s.unit}</b></div>
+        <div><span style="color:var(--text3)">Margin:</span> <b style="color:var(--purple)">${margin?margin+'%':'—'}</b></div>
+        <div><span style="color:var(--text3)">Bought:</span> <b>${fmtNum(bought)}</b></div>
+        <div><span style="color:var(--text3)">Sold:</span> <b>${fmtNum(sold)}</b></div>
+      </div>
+      <div style="display:flex;gap:5px">
+        <input type="number" value="${s.sellingPrice||''}" placeholder="Set sell price" style="flex:1;padding:5px 8px;font-size:12px" onchange="setSellPrice('${s.name.toLowerCase()}',this.value);renderCatalog()"/>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ============================================================
+// CUSTOMERS
+// ============================================================
+function openCustModal(id){
+  editCustId=id||null;g('custModalTitle').textContent=id?'✏️ Edit Customer':'👤 Add Customer';
+  if(id){const c=(DB.customers||[]).find(x=>x.id===id);if(c){g('cm_name').value=c.name;g('cm_phone').value=c.phone||'';g('cm_email').value=c.email||'';g('cm_type').value=c.type||'Retail';g('cm_addr').value=c.address||'';g('cm_notes').value=c.notes||'';}}
+  else['cm_name','cm_phone','cm_email','cm_addr','cm_notes'].forEach(i=>{g(i).value='';});
+  openM('custModal');
+}
+function saveCustomer(){
+  const name=g('cm_name').value.trim();if(!name){toast('Enter customer name','error');return;}
+  if(!DB.customers)DB.customers=[];
+  if(editCustId){const idx=DB.customers.findIndex(c=>c.id===editCustId);if(idx>-1)DB.customers[idx]={...DB.customers[idx],name,phone:g('cm_phone').value,email:g('cm_email').value,type:g('cm_type').value,address:g('cm_addr').value,notes:g('cm_notes').value};toast('Updated','success');}
+  else{DB.customers.unshift({id:Date.now(),name,phone:g('cm_phone').value,email:g('cm_email').value,type:g('cm_type').value,address:g('cm_addr').value,notes:g('cm_notes').value,createdAt:todayStr()});toast('Customer added','success');}
+  saveData();closeM('custModal');renderCustomers();updateSuggestions();updateDataInfo();
+}
+function delCustomer(id){pendingDelFn=()=>{const idx=(DB.customers||[]).findIndex(c=>c.id===id);if(idx>-1){DB.customers.splice(idx,1);saveData();renderCustomers();}toast('Deleted','warn');closeM('delModal');};g('delBtn').onclick=pendingDelFn;openM('delModal');}
+function renderCustomers(){
+  if(!DB.customers)DB.customers=[];
+  const q=(g('custSearch')?.value||'').toLowerCase();
+  let list=DB.customers.filter(c=>c.name.toLowerCase().includes(q)||(c.phone||'').includes(q));
+  const el=g('custGrid');if(!el)return;
+  if(!list.length){el.innerHTML=empty('No customers yet. Add your first customer!');return;}
+  el.innerHTML=`<div class="ga">${list.map(c=>{
+    const sales=DB.sales.filter(s=>(s.customer||'').toLowerCase()===c.name.toLowerCase());
+    const spent=sales.reduce((a,s)=>a+s.total,0);
+    const credit=sales.filter(s=>s.payment==='Credit').reduce((a,s)=>a+s.total,0);
+    return `<div class="cust-card">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:11px">
+        <div class="cust-av">${c.name[0].toUpperCase()}</div>
+        <div style="flex:1"><div style="font-weight:800;font-size:14px">${c.name}</div><span class="badge b-blue">${c.type}</span></div>
+        <div style="display:flex;gap:5px">
+          <button class="iBtn" onclick="openCustModal(${c.id})" title="Edit">✏️</button>
+          <button class="iBtn" onclick="delCustomer(${c.id})" style="color:var(--red)">🗑</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:12px;margin-bottom:9px">
+        ${c.phone?`<div>📱 ${c.phone}</div>`:''}
+        ${c.email?`<div>📧 ${c.email}</div>`:''}
+      </div>
+      ${c.address?`<div style="font-size:11px;color:var(--text3);margin-bottom:8px">📍 ${c.address}</div>`:''}
+      <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);font-size:12px">
+        <div><span style="color:var(--text3)">${sales.length} orders</span></div>
+        <div><b style="color:var(--green)">${fmtCur(spent)}</b></div>
+      </div>
+      ${credit>0?`<div style="margin-top:5px;padding:5px 8px;background:var(--orange-light);border-radius:6px;font-size:11px;color:var(--orange);font-weight:700">⚠ Credit Due: ${fmtCur(credit)}</div>`:''}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ============================================================
+// SUPPLIERS
+// ============================================================
+function openSuppModal(id){
+  editSuppId=id||null;g('suppModalTitle').textContent=id?'✏️ Edit Supplier':'🏭 Add Supplier';
+  if(id){const s=(DB.suppliers||[]).find(x=>x.id===id);if(s){g('sm_name').value=s.name;g('sm_phone').value=s.phone||'';g('sm_email').value=s.email||'';g('sm_cat').value=s.category||'General';g('sm_terms').value=s.terms||'Cash';g('sm_gstin').value=s.gstin||'';g('sm_addr').value=s.address||'';g('sm_notes').value=s.notes||'';}}
+  else['sm_name','sm_phone','sm_email','sm_gstin','sm_addr','sm_notes'].forEach(i=>{g(i).value='';});
+  openM('suppModal');
+}
+function saveSupplier(){
+  const name=g('sm_name').value.trim();if(!name){toast('Enter supplier name','error');return;}
+  if(!DB.suppliers)DB.suppliers=[];
+  if(editSuppId){const idx=DB.suppliers.findIndex(s=>s.id===editSuppId);if(idx>-1)DB.suppliers[idx]={...DB.suppliers[idx],name,phone:g('sm_phone').value,email:g('sm_email').value,category:g('sm_cat').value,terms:g('sm_terms').value,gstin:g('sm_gstin').value,address:g('sm_addr').value,notes:g('sm_notes').value};toast('Updated','success');}
+  else{DB.suppliers.unshift({id:Date.now(),name,phone:g('sm_phone').value,email:g('sm_email').value,category:g('sm_cat').value,terms:g('sm_terms').value,gstin:g('sm_gstin').value,address:g('sm_addr').value,notes:g('sm_notes').value,createdAt:todayStr()});toast('Supplier added','success');}
+  saveData();closeM('suppModal');renderSuppliers();updateSuggestions();updateDataInfo();
+  g('suppNewBadge').style.display='none';
+}
+function delSupplier(id){pendingDelFn=()=>{const idx=(DB.suppliers||[]).findIndex(s=>s.id===id);if(idx>-1){DB.suppliers.splice(idx,1);saveData();renderSuppliers();}toast('Deleted','warn');closeM('delModal');};g('delBtn').onclick=pendingDelFn;openM('delModal');}
+function renderSuppliers(){
+  if(!DB.suppliers)DB.suppliers=[];
+  const q=(g('suppSearch')?.value||'').toLowerCase();
+  let list=DB.suppliers.filter(s=>s.name.toLowerCase().includes(q)||(s.phone||'').includes(q));
+  const el=g('suppGrid');if(!el)return;
+  if(!list.length){el.innerHTML=empty('No suppliers yet. Add your first supplier!');return;}
+  el.innerHTML=`<div class="ga">${list.map(s=>{
+    const purch=DB.purchases.filter(p=>(p.supplier||'').toLowerCase()===s.name.toLowerCase());
+    const total=purch.reduce((a,p)=>a+p.total,0);
+    const credit=purch.filter(p=>p.payment==='Credit').reduce((a,p)=>a+p.total,0);
+    return `<div class="supp-card">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:11px">
+        <div class="supp-av">${s.name[0].toUpperCase()}</div>
+        <div style="flex:1">
+          <div style="font-weight:800;font-size:14px">${s.name}</div>
+          <span class="badge b-teal">${s.category}</span>
+          ${s.gstin?`<span class="gst-pill" style="margin-left:4px">GSTIN</span>`:''}
+        </div>
+        <div style="display:flex;gap:5px">
+          <button class="iBtn" onclick="openSuppModal(${s.id})">✏️</button>
+          <button class="iBtn" onclick="delSupplier(${s.id})" style="color:var(--red)">🗑</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:12px;margin-bottom:9px">
+        ${s.phone?`<div>📱 ${s.phone}</div>`:''}
+        ${s.email?`<div>📧 ${s.email}</div>`:''}
+        <div>💳 ${s.terms}</div>
+        ${s.gstin?`<div>GST: ${s.gstin}</div>`:''}
+      </div>
+      ${s.address?`<div style="font-size:11px;color:var(--text3);margin-bottom:8px">📍 ${s.address}</div>`:''}
+      <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border);font-size:12px">
+        <div><span style="color:var(--text3)">${purch.length} orders</span></div>
+        <div><b style="color:var(--accent)">${fmtCur(total)}</b></div>
+      </div>
+      ${credit>0?`<div style="margin-top:5px;padding:5px 8px;background:var(--red-light);border-radius:6px;font-size:11px;color:var(--red);font-weight:700">⚠ Credit Dues: ${fmtCur(credit)}</div>`:''}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ============================================================
+// POS
+// ============================================================
+function renderPOS(){
+  const q=(g('posSearch')?.value||'').toLowerCase();
+  const items=Object.values(DB.stock).filter(s=>!q||s.name.toLowerCase().includes(q));
+  const pg=g('posGrid');if(!pg)return;
+  if(!items.length){pg.innerHTML=empty('No products available. Add purchases first.');return;}
+  pg.innerHTML=items.map(s=>{
+    const inCart=!!cart[s.name.toLowerCase()];const oos=s.qty<=0;
+    return `<div class="prod-tile${inCart?' in-cart':''}${oos?' out-of-stock':''}" onclick="${oos?'toast(\'Out of stock\',\'warn\')':'addToCart(\''+s.name.toLowerCase()+'\')'}">
+      <div class="prod-emoji">${catIcon[s.category]||'📦'}</div>
+      <div class="prod-name">${s.name}</div>
+      <div class="prod-price">${s.sellingPrice?fmtCur(s.sellingPrice):'No price'}</div>
+      <div class="prod-stock" style="color:${s.qty<=s.minQty?'var(--red)':'var(--text3)'}">Stock: ${fmtNum(s.qty)} ${s.unit}</div>
+      ${inCart?`<div style="font-size:10px;color:var(--green);font-weight:700;margin-top:3px">✓ In Cart ×${cart[s.name.toLowerCase()]}</div>`:''}
+    </div>`;
+  }).join('');
+  renderCart();
+}
+function addToCart(key){
+  const s=DB.stock[key];if(!s||s.qty<=0){toast('Out of stock','warn');return;}
+  cart[key]=(cart[key]||0)+1;
+  toast(`${s.name} added to cart`,'success',1500);
+  renderPOS();
+}
+function removeFromCart(key){delete cart[key];renderPOS();}
+function updateCartQty(key,delta){
+  cart[key]=(cart[key]||0)+delta;
+  if(cart[key]<=0)delete cart[key];
+  renderPOS();
+}
+function clearCart(){cart={};renderPOS();}
+function renderCart(){
+  const keys=Object.keys(cart);
+  const countEl=g('cartCount');if(countEl)countEl.textContent=keys.length?`(${keys.length} item${keys.length>1?'s':''})`:'';
+  const ci=g('cartItems');if(!ci)return;
+  if(!keys.length){ci.innerHTML='<div class="empty"><div class="empty-icon">🛒</div><p>Click products to add</p></div>';updateCartTotals();return;}
+  ci.innerHTML=keys.map(k=>{
+    const s=DB.stock[k];if(!s)return '';
+    return `<div class="cart-item">
+      <div style="flex:1">
+        <div class="cart-item-name">${s.name}</div>
+        <div style="font-size:11px;color:var(--text3)">${s.sellingPrice?fmtCur(s.sellingPrice)+'/'+s.unit:'No price'}</div>
+      </div>
+      <div class="cart-qty">
+        <button class="qty-btn" onclick="updateCartQty('${k}',-1)">−</button>
+        <span style="font-size:13px;font-weight:800;min-width:24px;text-align:center">${cart[k]}</span>
+        <button class="qty-btn" onclick="updateCartQty('${k}',1)">+</button>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:var(--green);min-width:60px;text-align:right">${s.sellingPrice?fmtCur(s.sellingPrice*cart[k]):'—'}</div>
+      <button class="iBtn" onclick="removeFromCart('${k}')" style="color:var(--red);padding:4px">✕</button>
+    </div>`;
+  }).join('');
+  updateCartTotals();
+}
+function updateCartTotals(){
+  let sub=0;
+  Object.keys(cart).forEach(k=>{const s=DB.stock[k];if(s)sub+=((s.sellingPrice||0)*cart[k]);});
+  const disc=parseFloat(g('pos_disc')?.value)||0;
+  const gst=parseFloat(g('pos_gst')?.value)||0;
+  const gstAmt=sub*gst/100;const total=sub+gstAmt-disc;
+  if(g('cartSub'))g('cartSub').textContent=fmtCur(sub);
+  if(g('cartTotal'))g('cartTotal').textContent=fmtCur(total);
+}
+function openPosCheckout(){
+  if(!Object.keys(cart).length){toast('Cart is empty','warn');return;}
+  // populate customer list
+  const cdl=g('custList2');if(cdl){const names=[...new Set([...DB.sales.map(s=>s.customer).filter(Boolean),...(DB.customers||[]).map(c=>c.name)])];cdl.innerHTML=names.map(n=>`<option value="${n}">`).join('');}
+  updatePosSummary();openM('posModal');
+}
+function updatePosSummary(){
+  let sub=0;
+  Object.keys(cart).forEach(k=>{const s=DB.stock[k];if(s)sub+=((s.sellingPrice||0)*cart[k]);});
+  const disc=parseFloat(g('pos_disc')?.value)||0;
+  const gst=parseFloat(g('pos_gst')?.value)||0;
+  const gstAmt=sub*gst/100;const total=sub+gstAmt-disc;
+  g('posSummary').innerHTML=`
+    <div style="background:var(--surface2);border-radius:8px;padding:12px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--text2)">Subtotal</span><span>${fmtCur(sub)}</span></div>
+      ${gst?`<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--teal)">GST ${gst}%</span><span style="color:var(--teal)">+${fmtCur(gstAmt)}</span></div>`:''}
+      ${disc?`<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--green)">Discount</span><span style="color:var(--green)">−${fmtCur(disc)}</span></div>`:''}
+      <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:900;padding-top:8px;border-top:1px solid var(--border);color:var(--accent)"><span>TOTAL</span><span>${fmtCur(total)}</span></div>
+    </div>`;
+  updateCartTotals();
+}
+function completePOS(){
+  if(!Object.keys(cart).length){toast('Cart is empty','warn');return;}
+  const disc=parseFloat(g('pos_disc')?.value)||0;
+  const gst=parseFloat(g('pos_gst')?.value)||0;
+  const cust=g('pos_cust')?.value||'';
+  const pay=g('pos_pay')?.value||'Cash';
+  let sub=0;const saleItems=[];
+  Object.keys(cart).forEach(k=>{
+    const s=DB.stock[k];if(!s)return;
+    const lineTotal=(s.sellingPrice||0)*cart[k];sub+=lineTotal;
+    const lp=DB.purchases.find(p=>p.name.toLowerCase()===k);
+    const cost=lp?lp.rate:0;
+    saleItems.push({product:s.name,category:s.category,qty:cart[k],unit:s.unit,price:s.sellingPrice||0,cost});
+  });
+  const gstAmt=sub*gst/100;const total=sub+gstAmt-disc;
+  const now=Date.now();
+  saleItems.forEach((item,i)=>{
+    const itemTotal=item.price*item.qty;const itemRatio=sub>0?itemTotal/sub:1/saleItems.length;
+    const itemDisc=disc*itemRatio;const itemGst=item.price*item.qty*gst/100;
+    const itTotal=itemTotal+itemGst-itemDisc;const profit=itTotal-(item.qty*item.cost);
+    const sale={id:now+i,date:todayStr(),product:item.product,category:item.category,qty:item.qty,unit:item.unit,price:item.price,cost:item.cost,gst,discount:itemDisc,gstAmt:itemGst,total:itTotal,profit,customer:cust,payment:pay,type:'sale',fromPOS:true};
+    DB.sales.unshift(sale);
+    updateStock(item.product,item.category,item.unit,item.qty,'remove');
+  });
+  saveData();
+  addNotif(`POS Sale: ${saleItems.length} items – ${fmtCur(total)} (${pay})`,'success');
+  toast(`POS Sale complete: ${fmtCur(total)}`,'success',4000);
+  closeM('posModal');cart={};
+  renderPOS();renderDashboard();checkLowStock();updateTarget();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard(){
+  const today=todayStr(),mon=today.slice(0,7);
+  const lastMon=new Date();lastMon.setMonth(lastMon.getMonth()-1);const lm=lastMon.toISOString().slice(0,7);
+  // This month
+  const mP=DB.purchases.filter(p=>p.date.startsWith(mon)).reduce((a,p)=>a+p.total,0);
+  const mS=DB.sales.filter(s=>s.date.startsWith(mon)).reduce((a,s)=>a+s.total,0);
+  const mProfit=DB.sales.filter(s=>s.date.startsWith(mon)).reduce((a,s)=>a+s.profit,0);
+  const mExp=(DB.expenses||[]).filter(e=>e.date.startsWith(mon)).reduce((a,e)=>a+e.amount,0);
+  // Last month
+  const lmP=DB.purchases.filter(p=>p.date.startsWith(lm)).reduce((a,p)=>a+p.total,0);
+  const lmS=DB.sales.filter(s=>s.date.startsWith(lm)).reduce((a,s)=>a+s.total,0);
+  // Today
+  const tP=DB.purchases.filter(p=>p.date===today).reduce((a,p)=>a+p.total,0);
+  const tS=DB.sales.filter(s=>s.date===today).reduce((a,s)=>a+s.total,0);
+  const netP=mProfit-mExp;
+  const stockVal=Object.values(DB.stock).reduce((a,s)=>a+(s.qty*(s.sellingPrice||0)),0);
+  const low=Object.values(DB.stock).filter(s=>s.qty<=s.minQty).length;
+  const trendS=getTrend(mS,lmS),trendP=getTrend(mP,lmP);
+  // Stats
+  const sc=(icon,lbl,val,cls,sub,trend)=>`<div class="stat-card ${cls}">
+    <div class="sc-icon">${icon}</div>
+    <div class="sc-label">${lbl}</div>
+    <div class="sc-value">${val}</div>
+    <div class="sc-sub">${sub}${trend&&trend.pct?` <span class="${trend.cls}">${trend.icon}${Math.abs(trend.pct).toFixed(0)}%</span>`:''}</div>
+  </div>`;
+  g('dashStats').innerHTML=
+    sc('🛒','Today Purchase',fmtCur(tP),'sc-blue','Cash out today',null)+
+    sc('💵','Today Sales',fmtCur(tS),'sc-green','Revenue today',null)+
+    sc('📅','Monthly Purchase',fmtCur(mP),'sc-blue',mon,trendP)+
+    sc('📈','Monthly Sales',fmtCur(mS),'sc-green',mon,trendS)+
+    sc('📊','Gross Profit',fmtCur(mProfit),mProfit>=0?'sc-green':'sc-red','Sales profit',null)+
+    sc('💸','Expenses',fmtCur(mExp),'sc-red','This month',null)+
+    sc('✅','Net Profit',fmtCur(netP),netP>=0?'sc-green':'sc-red','After expenses',null)+
+    sc('📦','Stock Value',fmtCur(stockVal),'sc-purple','Inventory',null)+
+    sc('⚠️','Low Stock',low+' items','sc-orange','Need reorder',null)+
+    sc('👥','Customers',(DB.customers||[]).length,'sc-teal','Registered',null);
+  // Cash Flow Cards
+  const cfEl=g('cfCards');
+  if(cfEl)cfEl.innerHTML=`
+    <div class="cf-card cf-in"><div style="font-size:12px;opacity:.8;margin-bottom:4px;font-weight:700">CASH IN (This Month)</div><div style="font-size:22px;font-weight:900">${fmtCur(mS)}</div><div style="font-size:11px;opacity:.75">${DB.sales.filter(s=>s.date.startsWith(mon)).length} transactions</div></div>
+    <div class="cf-card cf-out"><div style="font-size:12px;opacity:.8;margin-bottom:4px;font-weight:700">CASH OUT (This Month)</div><div style="font-size:22px;font-weight:900">${fmtCur(mP+mExp)}</div><div style="font-size:11px;opacity:.75">${DB.purchases.filter(p=>p.date.startsWith(mon)).length} purchases + expenses</div></div>
+    <div class="cf-card cf-net"><div style="font-size:12px;opacity:.8;margin-bottom:4px;font-weight:700">NET FLOW</div><div style="font-size:22px;font-weight:900">${fmtCur(mS-(mP+mExp))}</div><div style="font-size:11px;opacity:.75">Inflow minus outflow</div></div>`;
+  // Sales target banner
+  const tgt=DB.settings.salesTarget;
+  if(tgt>0){
+    const pct=Math.min(100,mS/tgt*100);const color=pct>=100?'var(--green)':pct>=70?'var(--orange)':'var(--accent)';
+    g('tgtBanner').innerHTML=`<div class="card" style="border-left:4px solid ${color};padding:12px 16px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+        <div style="font-weight:800">🎯 Monthly Target</div><div style="font-weight:900;color:${color}">${pct.toFixed(1)}%</div>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:var(--text3)"><span>${fmtCur(mS)}</span><span>Goal: ${fmtCur(tgt)}</span></div>
+    </div>`;
+  }else g('tgtBanner').innerHTML='';
+  // Recent
+  const rp=g('recPurch');const rps=DB.purchases.slice(0,5);
+  rp.innerHTML=rps.length?`<div style="display:flex;flex-direction:column;gap:6px">${rps.map(p=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 9px;background:var(--surface2);border-radius:7px"><div><div style="font-weight:700;font-size:13px">${p.name}</div><div style="font-size:11px;color:var(--text3)">${fmtDate(p.date)} · ${p.qty} ${p.unit}</div></div><div style="font-weight:800;color:var(--accent)">${fmtCur(p.total)}</div></div>`).join('')}</div>`:empty('No purchases yet');
+  const rs=g('recSales');const rss=DB.sales.slice(0,5);
+  rs.innerHTML=rss.length?`<div style="display:flex;flex-direction:column;gap:6px">${rss.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 9px;background:var(--surface2);border-radius:7px"><div><div style="font-weight:700;font-size:13px">${s.product}</div><div style="font-size:11px;color:var(--text3)">${fmtDate(s.date)} · ${s.qty} ${s.unit}${s.customer?' · '+s.customer:''}</div></div><div style="font-weight:800;color:var(--green)">${fmtCur(s.total)}</div></div>`).join('')}</div>`:empty('No sales yet');
+  // Top products
+  const it={};DB.purchases.forEach(p=>{if(!it[p.name])it[p.name]=0;it[p.name]+=p.total;});
+  const top=Object.entries(it).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const tp=g('topProds');const mx=top.length?top[0][1]:1;
+  tp.innerHTML=top.length?`<div style="display:flex;flex-direction:column;gap:8px">${top.map(([n,v],i)=>`<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:13px;font-weight:700">${i+1}. ${n}</span><span style="font-size:13px;color:var(--accent);font-weight:800">${fmtCur(v)}</span></div><div class="stk-bar" style="height:5px"><div class="stk-fill" style="width:${(v/mx*100).toFixed(0)}%;background:var(--accent)"></div></div></div>`).join('')}</div>`:empty('No data');
+  // Low stock
+  const lowItems=Object.values(DB.stock).filter(s=>s.qty<=s.minQty).slice(0,6);
+  const ll=g('lowList');
+  ll.innerHTML=lowItems.length?`<div style="display:flex;flex-direction:column;gap:6px">${lowItems.map(s=>`<div class="alert a-danger" style="margin:0;padding:8px 12px">⚠ <b>${s.name}</b> — ${fmtNum(s.qty)} ${s.unit} left (min: ${s.minQty})</div>`).join('')}</div>`:`<div class="alert a-success" style="margin:0">✅ All items well stocked!</div>`;
+  setTimeout(()=>{drawDashChart();drawDashExpChart();},50);
+}
+
+// ============================================================
+// SALES TARGET
+// ============================================================
+function updateTarget(){
+  const inp=parseFloat(g('tgtInput')?.value);if(inp)DB.settings.salesTarget=inp;
+  const tgt=DB.settings.salesTarget||0;
+  const mon=todayStr().slice(0,7);
+  const cur=DB.sales.filter(s=>s.date.startsWith(mon)).reduce((a,s)=>a+s.total,0);
+  const pct=tgt>0?Math.min(100,cur/tgt*100):0;
+  if(g('tgtBar'))g('tgtBar').style.width=pct.toFixed(1)+'%';
+  if(g('tgtCur'))g('tgtCur').textContent=fmtCur(cur);
+  if(g('tgtGoal'))g('tgtGoal').textContent='Goal: '+fmtCur(tgt);
+  if(g('tgtSub'))g('tgtSub').textContent=tgt?`${pct.toFixed(1)}% · ${fmtCur(Math.max(0,tgt-cur))} remaining`:'Set a monthly target';
+  saveData();
+}
+
+// ============================================================
+// REPORTS
+// ============================================================
+function renderReports(){
+  const type=g('rptType').value,mon=g('rptMon').value;
+  let purch,sales,exp;const now=new Date();
+  if(type==='daily'){const t=todayStr();purch=DB.purchases.filter(p=>p.date===t);sales=DB.sales.filter(s=>s.date===t);exp=(DB.expenses||[]).filter(e=>e.date===t);}
+  else if(type==='weekly'){const wa=new Date(now.getTime()-7*86400000).toISOString().slice(0,10);purch=DB.purchases.filter(p=>p.date>=wa);sales=DB.sales.filter(s=>s.date>=wa);exp=(DB.expenses||[]).filter(e=>e.date>=wa);}
+  else{purch=DB.purchases.filter(p=>p.date.startsWith(mon));sales=DB.sales.filter(s=>s.date.startsWith(mon));exp=(DB.expenses||[]).filter(e=>e.date.startsWith(mon));}
+  const tP=purch.reduce((a,p)=>a+p.total,0),tS=sales.reduce((a,s)=>a+s.total,0),tPr=sales.reduce((a,s)=>a+s.profit,0),tE=exp.reduce((a,e)=>a+e.amount,0);
+  const net=tPr-tE;
+  const gstCollected=sales.reduce((a,s)=>a+(s.gstAmt||0),0),gstPaid=purch.reduce((a,p)=>a+(p.gst?p.qty*p.rate*p.gst/100:0),0);
+  const catB={};purch.forEach(p=>{if(!catB[p.category])catB[p.category]=0;catB[p.category]+=p.total;});
+  const suppB={};purch.forEach(p=>{const k=p.supplier||'Unknown';if(!suppB[k])suppB[k]=0;suppB[k]+=p.total;});
+  const itemB={};purch.forEach(p=>{if(!itemB[p.name])itemB[p.name]=0;itemB[p.name]+=p.total;});
+  const top5=Object.entries(itemB).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const expCatB={};exp.forEach(e=>{if(!expCatB[e.category])expCatB[e.category]=0;expCatB[e.category]+=e.amount;});
+  g('rptContent').innerHTML=`
+    <div class="g4" style="margin-bottom:14px">
+      <div class="card"><div style="font-size:22px;font-weight:900;color:var(--accent)">${fmtCur(tP)}</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin-top:4px">Purchase</div></div>
+      <div class="card"><div style="font-size:22px;font-weight:900;color:var(--green)">${fmtCur(tS)}</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin-top:4px">Sales Revenue</div></div>
+      <div class="card"><div style="font-size:22px;font-weight:900;color:var(--red)">${fmtCur(tE)}</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin-top:4px">Expenses</div></div>
+      <div class="card"><div style="font-size:22px;font-weight:900;color:${net>=0?'var(--green)':'var(--red)'}">${fmtCur(net)}</div><div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;margin-top:4px">Net Profit</div></div>
+    </div>
+    ${gstCollected||gstPaid?`<div class="card" style="margin-bottom:14px;border-left:4px solid var(--teal)">
+      <div class="sec-title" style="margin-bottom:10px">🧾 GST Summary</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px">
+        <div><span style="color:var(--text3)">GST Collected (Sales):</span> <b style="color:var(--green)">${fmtCur(gstCollected)}</b></div>
+        <div><span style="color:var(--text3)">GST Paid (Purchases):</span> <b style="color:var(--red)">${fmtCur(gstPaid)}</b></div>
+        <div><span style="color:var(--text3)">Net GST Liability:</span> <b style="color:var(--accent)">${fmtCur(gstCollected-gstPaid)}</b></div>
+      </div>
+    </div>`:''}
+    <div class="g2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="sec-title" style="margin-bottom:10px">📂 Category Breakdown</div>
+        ${Object.entries(catB).length?`<table><thead><tr><th>Category</th><th>Amount</th><th>%</th></tr></thead><tbody>${Object.entries(catB).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`<tr><td><span class="badge ${catColor[c]||'b-gray'}">${catIcon[c]||''} ${c}</span></td><td style="font-weight:700">${fmtCur(v)}</td><td style="color:var(--text3)">${tP?((v/tP*100).toFixed(1))+'%':'0%'}</td></tr>`).join('')}</tbody></table>`:empty('No data')}
+      </div>
+      <div class="card">
+        <div class="sec-title" style="margin-bottom:10px">🏭 Supplier Breakdown</div>
+        ${Object.entries(suppB).length?`<table><thead><tr><th>Supplier</th><th>Amount</th></tr></thead><tbody>${Object.entries(suppB).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([s,v])=>`<tr><td>${s}</td><td style="font-weight:700;color:var(--accent)">${fmtCur(v)}</td></tr>`).join('')}</tbody></table>`:empty('No data')}
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="sec-title" style="margin-bottom:10px">🏆 Top 5 Items</div>
+        ${top5.length?`<table><thead><tr><th>#</th><th>Product</th><th>Total</th></tr></thead><tbody>${top5.map(([n,v],i)=>`<tr><td style="font-weight:800;color:var(--accent)">${i+1}</td><td class="td-main">${n}</td><td style="font-weight:800;color:var(--accent)">${fmtCur(v)}</td></tr>`).join('')}</tbody></table>`:empty('No data')}
+      </div>
+      <div class="card">
+        <div class="sec-title" style="margin-bottom:10px">💸 Expense Breakdown</div>
+        ${Object.entries(expCatB).length?`<table><thead><tr><th>Category</th><th>Amount</th><th>%</th></tr></thead><tbody>${Object.entries(expCatB).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`<tr><td><span class="badge b-red">${expIcon[c]||'📋'} ${c}</span></td><td style="font-weight:700;color:var(--red)">${fmtCur(v)}</td><td style="color:var(--text3)">${tE?((v/tE*100).toFixed(1))+'%':'0%'}</td></tr>`).join('')}</tbody></table>`:empty('No expenses')}
+      </div>
+    </div>`;
+}
+
+// ============================================================
+// HISTORY
+// ============================================================
+function renderHistory(){
+  const type=g('hType')?.value||'all',mon=g('hMon')?.value||'',q=(g('hSearch')?.value||'').toLowerCase();
+  let items=[];
+  if(type!=='sale'&&type!=='expense')items.push(...DB.purchases.map(p=>({...p,_t:'purchase',_n:p.name,_a:p.total,_p:p.supplier||''})));
+  if(type!=='purchase'&&type!=='expense')items.push(...DB.sales.map(s=>({...s,_t:'sale',_n:s.product,_a:s.total,_p:s.customer||''})));
+  if(type!=='purchase'&&type!=='sale')items.push(...(DB.expenses||[]).map(e=>({...e,_t:'expense',_n:e.desc,_a:e.amount,_p:''})));
+  items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(mon)items=items.filter(i=>i.date.startsWith(mon));
+  if(q)items=items.filter(i=>i._n.toLowerCase().includes(q)||(i._p||'').toLowerCase().includes(q));
+  const wrap=g('hTable');if(!items.length){wrap.innerHTML=empty('No records');return;}
+  const tb={'purchase':'<span class="badge b-blue">🛒 Buy</span>','sale':'<span class="badge b-green">💰 Sell</span>','expense':'<span class="badge b-red">💸 Exp</span>'};
+  wrap.innerHTML=`<table><thead><tr><th>Type</th><th>Date</th><th>Description</th><th>Qty</th><th>Amount</th><th>Party</th><th>Payment</th></tr></thead>
+  <tbody>${items.map(i=>`<tr>
+    <td>${tb[i._t]||''}</td>
+    <td>${fmtDate(i.date)}</td>
+    <td class="td-main">${i._n}</td>
+    <td>${i.qty?`${fmtNum(i.qty)} ${i.unit||''}`:'—'}</td>
+    <td style="font-weight:800;color:${i._t==='purchase'?'var(--accent)':i._t==='sale'?'var(--green)':'var(--red)'}">${fmtCur(i._a)}</td>
+    <td>${i._p||'—'}</td>
+    <td><span class="badge b-gray">${i.payment||'—'}</span></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+// ============================================================
+// INVOICE
+// ============================================================
+let _invData=null;
+function showInv(id,type){
+  const biz=DB.settings.businessName||'My Shop';const ph=DB.settings.businessPhone||'';const gstin=DB.settings.gstin||'';
+  if(type==='purchase'){
+    const p=DB.purchases.find(x=>x.id===id);if(!p)return;
+    lastInvId=id;lastInvType='purchase';_invData=p;
+    g('invTitle').textContent='🧾 Purchase Invoice';
+    g('invContent').innerHTML=buildInvoice('PURCHASE INVOICE','#PUR-'+p.id.toString().slice(-6),biz,ph,gstin,p.date,p.supplier||'N/A',p.payment,catIcon[p.category]||'' +' '+p.category,[{name:p.name,qty:p.qty,unit:p.unit,rate:p.rate,gst:p.gst||0}],p.extra,p.discount,p.total,p.notes);
+  }else{
+    const s=DB.sales.find(x=>x.id===id);if(!s)return;
+    lastInvId=id;lastInvType='sale';_invData=s;
+    g('invTitle').textContent='🧾 Sales Invoice';
+    g('invContent').innerHTML=buildInvoice('SALES INVOICE','#SAL-'+s.id.toString().slice(-6),biz,ph,gstin,s.date,s.customer||'Walk-in',s.payment,catIcon[s.category]||''+' '+s.category,[{name:s.product,qty:s.qty,unit:s.unit,rate:s.price,gst:s.gst||0}],0,s.discount||0,s.total,null,s.gstAmt);
+  }
+  openM('invModal');
+}
+function buildInvoice(docType,docNum,biz,ph,gstin,date,party,payment,cat,items,extra,disc,total,notes,gstAmt){
+  const gstSection=gstAmt>0?`<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>GST</span><span>+${fmtCur(gstAmt)}</span></div>`:'';
+  const extraSection=extra>0?`<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>Extra / Transport</span><span>+${fmtCur(extra)}</span></div>`:'';
+  const discSection=disc>0?`<div style="display:flex;justify-content:space-between;margin-bottom:5px;color:var(--green)"><span>Discount</span><span>−${fmtCur(disc)}</span></div>`:'';
+  return `<div style="background:var(--surface);color:var(--text);border-radius:8px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+      <div><div style="font-size:20px;font-weight:900;color:var(--accent)">${biz}</div><div style="font-size:11px;color:var(--text3)">${ph}${gstin?` · GSTIN: ${gstin}`:''}</div></div>
+      <div style="text-align:right"><div style="font-size:16px;font-weight:900">${docType}</div><div style="font-size:11px;color:var(--text3)">${docNum}</div><div style="font-size:11px;color:var(--text3)">${fmtDate(date)}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
+      <div style="background:var(--surface2);padding:10px;border-radius:8px"><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase;margin-bottom:3px">PARTY</div><div style="font-weight:800">${party}</div><div style="font-size:11px;color:var(--text3)">${payment}</div></div>
+      <div style="background:var(--surface2);padding:10px;border-radius:8px"><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase;margin-bottom:3px">CATEGORY</div><div style="font-weight:800">${cat}</div></div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:14px">
+      <thead><tr style="background:var(--surface2)">
+        <th style="padding:9px;text-align:left;border-bottom:2px solid var(--border);font-size:11px">Product</th>
+        <th style="padding:9px;text-align:right;border-bottom:2px solid var(--border);font-size:11px">Qty</th>
+        <th style="padding:9px;text-align:right;border-bottom:2px solid var(--border);font-size:11px">Rate</th>
+        <th style="padding:9px;text-align:right;border-bottom:2px solid var(--border);font-size:11px">GST%</th>
+        <th style="padding:9px;text-align:right;border-bottom:2px solid var(--border);font-size:11px">Amount</th>
+      </tr></thead>
+      <tbody>${items.map(it=>`<tr>
+        <td style="padding:10px 9px">${it.name}</td>
+        <td style="padding:10px 9px;text-align:right">${it.qty} ${it.unit}</td>
+        <td style="padding:10px 9px;text-align:right">${fmtCur(it.rate)}</td>
+        <td style="padding:10px 9px;text-align:right">${it.gst?it.gst+'%':'—'}</td>
+        <td style="padding:10px 9px;text-align:right;font-weight:800">${fmtCur(it.qty*it.rate)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <div style="background:var(--surface2);padding:12px;border-radius:8px">
+      ${extraSection}${gstSection}${discSection}
+      <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:900;padding-top:8px;border-top:1px solid var(--border)"><span>TOTAL</span><span style="color:var(--accent)">${fmtCur(total)}</span></div>
+    </div>
+    ${notes?`<div style="margin-top:12px;padding:9px;background:var(--surface2);border-radius:7px;font-size:12px;color:var(--text3)"><b>Notes:</b> ${notes}</div>`:''}
+    <div style="text-align:center;margin-top:18px;font-size:10px;color:var(--text3);border-top:1px solid var(--border);padding-top:10px">Thank you for your business! · ${biz}${ph?' · '+ph:''} · ShopERP Pro v4</div>
+  </div>`;
+}
+function shareWA(){
+  if(!_invData)return;
+  const biz=DB.settings.businessName||'My Shop';
+  const ph=DB.settings.businessPhone||'';
+  const txt=`*${biz}*\n*Invoice*\nDate: ${fmtDate(_invData.date)}\nProduct: ${_invData.product||_invData.name}\nQty: ${_invData.qty} ${_invData.unit}\nTotal: ${fmtCur(_invData.total)}\nPayment: ${_invData.payment}\n\nThank you!`;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+// ============================================================
+// ANALYTICS
+// ============================================================
+function renderAnalytics(){
+  updateTarget();drawSpend();drawCat();drawProfit();drawTop();drawPayment();drawDaily();
+}
+function getMonths(n){
+  const months=[];const now=new Date();
+  for(let i=n-1;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);months.push(d.toISOString().slice(0,7));}
+  return months;
+}
+function drawDashChart(){
+  const months=getMonths(5);
+  const labels=months.map(m=>new Date(m+'-01').toLocaleString('default',{month:'short'}));
+  const pD=months.map(m=>DB.purchases.filter(p=>p.date.startsWith(m)).reduce((a,p)=>a+p.total,0));
+  const sD=months.map(m=>DB.sales.filter(s=>s.date.startsWith(m)).reduce((a,s)=>a+s.total,0));
+  drawChart('cDash','bar',{labels,datasets:[{label:'Purchase',data:pD,color:'#3b82f6'},{label:'Sales',data:sD,color:'#10b981'}]});
+}
+function drawDashExpChart(){
+  if(!DB.expenses||!DB.expenses.length)return;
+  const cd={};DB.expenses.forEach(e=>{if(!cd[e.category])cd[e.category]=0;cd[e.category]+=e.amount;});
+  const en=Object.entries(cd).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  drawChart('cDashExp','pie',{labels:en.map(e=>e[0]),values:en.map(e=>e[1]),colors:['#ef4444','#f59e0b','#8b5cf6','#3b82f6','#06b6d4','#84cc16']});
+}
+function drawSpend(){
+  const n=parseInt(g('trendRange')?.value||6);const months=getMonths(n);
+  const labels=months.map(m=>new Date(m+'-01').toLocaleString('default',{month:'short'}));
+  const pD=months.map(m=>DB.purchases.filter(p=>p.date.startsWith(m)).reduce((a,p)=>a+p.total,0));
+  const sD=months.map(m=>DB.sales.filter(s=>s.date.startsWith(m)).reduce((a,s)=>a+s.total,0));
+  drawChart('cSpend','line',{labels,datasets:[{label:'Purchase',data:pD,color:'#3b82f6'},{label:'Sales',data:sD,color:'#10b981'}]});
+}
+function drawCat(){
+  const cd={};DB.purchases.forEach(p=>{if(!cd[p.category])cd[p.category]=0;cd[p.category]+=p.total;});
+  const en=Object.entries(cd).sort((a,b)=>b[1]-a[1]);
+  drawChart('cCat','pie',{labels:en.map(e=>e[0]),values:en.map(e=>e[1]),colors:['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#f97316','#84cc16']});
+}
+function drawProfit(){
+  const months=getMonths(6);
+  const labels=months.map(m=>new Date(m+'-01').toLocaleString('default',{month:'short'}));
+  const pr=months.map(m=>DB.sales.filter(s=>s.date.startsWith(m)).reduce((a,s)=>a+s.profit,0));
+  const ex=months.map(m=>(DB.expenses||[]).filter(e=>e.date.startsWith(m)).reduce((a,e)=>a+e.amount,0));
+  drawChart('cProfit','bar',{labels,datasets:[{label:'Gross Profit',data:pr,color:'#10b981'},{label:'Expenses',data:ex,color:'#ef4444'}]});
+}
+function drawTop(){
+  const it={};DB.purchases.forEach(p=>{if(!it[p.name])it[p.name]=0;it[p.name]+=p.total;});
+  const top=Object.entries(it).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  drawChart('cTop','bar',{labels:top.map(e=>e[0].length>10?e[0].slice(0,9)+'…':e[0]),datasets:[{label:'Spent',data:top.map(e=>e[1]),color:'#8b5cf6'}]});
+}
+function drawPayment(){
+  const pd={};[...DB.purchases,...DB.sales].forEach(t=>{const k=t.payment||'Cash';if(!pd[k])pd[k]=0;pd[k]++;});
+  const en=Object.entries(pd).sort((a,b)=>b[1]-a[1]);
+  drawChart('cPay','pie',{labels:en.map(e=>e[0]),values:en.map(e=>e[1]),colors:['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6']});
+}
+function drawDaily(){
+  const mon=todayStr().slice(0,7);const dim=new Date(parseInt(mon.split('-')[0]),parseInt(mon.split('-')[1]),0).getDate();
+  const labels=Array.from({length:dim},(_,i)=>String(i+1));
+  const data=labels.map(d=>DB.sales.filter(s=>s.date===`${mon}-${d.padStart(2,'0')}`).reduce((a,s)=>a+s.total,0));
+  drawChart('cDaily','bar',{labels,datasets:[{label:'Sales',data,color:'#10b981'}]});
+}
+
+// ============================================================
+// CANVAS CHARTS
+// ============================================================
+function drawChart(id,type,data){
+  const canvas=g(id);if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||400,H=canvas.height||200;
+  canvas.width=W;ctx.clearRect(0,0,W,H);
+  const dark=DB.settings.darkMode,tc=dark?'#9ba3c2':'#4a5168',gc=dark?'#232640':'#e2e6f0';
+  if(type==='bar'){
+    const {labels,datasets}=data;const pad={t:10,r:20,b:50,l:60};
+    const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+    const allV=datasets.flatMap(d=>d.data);const maxV=Math.max(...allV,1);
+    const gW=cW/labels.length,bW=Math.min(28,gW*0.6/datasets.length);
+    for(let i=0;i<=4;i++){const y=pad.t+cH*(1-i/4);ctx.strokeStyle=gc;ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=tc;ctx.font='10px sans-serif';ctx.textAlign='right';ctx.fillText('₹'+(maxV/4*i/1000).toFixed(0)+'k',pad.l-5,y+4);}
+    datasets.forEach((ds,di)=>{ds.data.forEach((val,i)=>{const x=pad.l+gW*(i+0.5)+(di-datasets.length/2+0.5)*bW*1.2-bW/2;const bH=(val/maxV)*cH;const y=pad.t+cH-bH;ctx.fillStyle=ds.color||'#3b82f6';ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bW,bH,3);else ctx.rect(x,y,bW,bH);ctx.fill();});});
+    labels.forEach((l,i)=>{const x=pad.l+gW*(i+0.5);ctx.fillStyle=tc;ctx.font='9px sans-serif';ctx.textAlign='center';ctx.fillText(l,x,H-12);});
+    if(datasets.length>1)datasets.forEach((ds,i)=>{const lx=pad.l+i*80;ctx.fillStyle=ds.color||'#3b82f6';ctx.fillRect(lx,H-30,10,7);ctx.fillStyle=tc;ctx.font='10px sans-serif';ctx.textAlign='left';ctx.fillText(ds.label,lx+13,H-24);});
+  }else if(type==='pie'){
+    const {labels,values,colors}=data;const tot=values.reduce((a,b)=>a+b,0);
+    if(!tot){ctx.fillStyle=tc;ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('No data',W/2,H/2);return;}
+    const cx=W*0.36,cy=H/2,r=Math.min(cx,cy)*0.82;let sa=-Math.PI/2;
+    values.forEach((v,i)=>{const sl=(v/tot)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,sa,sa+sl);ctx.closePath();ctx.fillStyle=colors[i]||'#3b82f6';ctx.fill();ctx.strokeStyle=dark?'#141624':'#fff';ctx.lineWidth=2;ctx.stroke();sa+=sl;});
+    values.forEach((v,i)=>{const ly=18+i*21;if(ly>H-8)return;ctx.fillStyle=colors[i]||'#3b82f6';ctx.fillRect(W*0.7,ly,12,12);ctx.fillStyle=tc;ctx.font='10px sans-serif';ctx.textAlign='left';ctx.fillText(`${labels[i]} (${((v/tot)*100).toFixed(0)}%)`,W*0.7+16,ly+10);});
+  }else if(type==='line'){
+    const {labels,datasets}=data;const pad={t:10,r:20,b:50,l:60};
+    const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+    const allV=datasets.flatMap(d=>d.data);const maxV=Math.max(...allV,1),minV=Math.min(...allV,0),range=maxV-minV||1;
+    for(let i=0;i<=4;i++){const y=pad.t+cH*(1-i/4);ctx.strokeStyle=gc;ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=tc;ctx.font='9px sans-serif';ctx.textAlign='right';const v=minV+range*i/4;ctx.fillText('₹'+(v/1000).toFixed(0)+'k',pad.l-5,y+4);}
+    datasets.forEach((ds,di)=>{
+      const pts=ds.data.map((v,i)=>({x:pad.l+(i/(labels.length-1||1))*cW,y:pad.t+cH*(1-(v-minV)/range)}));
+      ctx.beginPath();ctx.moveTo(pts[0].x,pad.t+cH);pts.forEach(p=>ctx.lineTo(p.x,p.y));ctx.lineTo(pts[pts.length-1].x,pad.t+cH);ctx.closePath();ctx.fillStyle=(ds.color||'#3b82f6')+'22';ctx.fill();
+      ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle=ds.color||'#3b82f6';ctx.lineWidth=2.5;ctx.setLineDash([]);ctx.stroke();
+      pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fillStyle=ds.color||'#3b82f6';ctx.fill();});
+    });
+    labels.forEach((l,i)=>{const x=pad.l+(i/(labels.length-1||1))*cW;ctx.fillStyle=tc;ctx.font='9px sans-serif';ctx.textAlign='center';ctx.fillText(l,x,H-12);});
+    datasets.forEach((ds,i)=>{const lx=pad.l+i*90;ctx.fillStyle=ds.color||'#3b82f6';ctx.fillRect(lx,H-30,18,3);ctx.fillStyle=tc;ctx.font='10px sans-serif';ctx.textAlign='left';ctx.fillText(ds.label,lx+22,H-24);});
+  }
+}
+
+// ============================================================
+// PROFIT MARGIN CALC
+// ============================================================
+function doCalc(){
+  const c=parseFloat(g('calc_c').value)||0,s=parseFloat(g('calc_s').value)||0,q=parseFloat(g('calc_q').value)||1,o=parseFloat(g('calc_o').value)||0;
+  if(!c||!s){g('calcRes').innerHTML='';return;}
+  const rev=s*q,tc=(c*q)+o,profit=rev-tc,margin=((profit/rev)*100),markup=(((s-c)/c)*100);
+  g('calcRes').innerHTML=`<div class="calc-res"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px">
+    <div><div style="font-size:9px;color:var(--accent);font-weight:800;text-transform:uppercase">Revenue</div><div style="font-size:18px;font-weight:900;color:var(--green)">${fmtCur(rev)}</div></div>
+    <div><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase">Total Cost</div><div style="font-size:18px;font-weight:900;color:var(--red)">${fmtCur(tc)}</div></div>
+    <div><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase">Net Profit</div><div style="font-size:18px;font-weight:900;color:${profit>=0?'var(--green)':'var(--red)'}">${fmtCur(profit)}</div></div>
+    <div><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase">Margin</div><div style="font-size:18px;font-weight:900;color:var(--purple)">${margin.toFixed(1)}%</div></div>
+    <div><div style="font-size:9px;color:var(--text3);font-weight:800;text-transform:uppercase">Markup</div><div style="font-size:18px;font-weight:900;color:var(--orange)">${markup.toFixed(1)}%</div></div>
+  </div></div>`;
+}
+
+// ============================================================
+// CSV EXPORT
+// ============================================================
+function expCSV(type){
+  let headers,rows,fn;
+  if(type==='purchases'){headers=['Date','Product','Category','Qty','Unit','Rate','GST%','Extra','Discount','Total','Supplier','Payment','Selling Price','Notes'];rows=DB.purchases.map(p=>[p.date,p.name,p.category,p.qty,p.unit,p.rate,p.gst||0,p.extra||0,p.discount||0,p.total,p.supplier||'',p.payment,p.selling||0,p.notes||'']);fn=`purchases_${todayStr()}.csv`;}
+  else if(type==='sales'){headers=['Date','Product','Category','Qty','Unit','Price','Cost','GST%','Discount','Total','Profit','Customer','Payment'];rows=DB.sales.map(s=>[s.date,s.product,s.category,s.qty,s.unit,s.price,s.cost,s.gst||0,s.discount||0,s.total,s.profit,s.customer||'',s.payment]);fn=`sales_${todayStr()}.csv`;}
+  else if(type==='stock'){headers=['Product','Category','Stock','Unit','Min Alert','Sell Price','Stock Value'];rows=Object.values(DB.stock).map(s=>[s.name,s.category,s.qty,s.unit,s.minQty,s.sellingPrice||0,(s.qty*(s.sellingPrice||0)).toFixed(2)]);fn=`stock_${todayStr()}.csv`;}
+  else if(type==='expenses'){headers=['Date','Description','Category','Amount','Payment','Recurring','Notes'];rows=(DB.expenses||[]).map(e=>[e.date,e.desc,e.category,e.amount,e.payment,e.recurring||'One-time',e.notes||'']);fn=`expenses_${todayStr()}.csv`;}
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fn;a.click();URL.revokeObjectURL(url);
+  toast(`${type} exported`,'success');closeAllDropdowns();
+}
+
+// ============================================================
+// BACKUP
+// ============================================================
+function exportBackup(){
+  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`shopERP_backup_${todayStr()}.json`;a.click();URL.revokeObjectURL(url);
+  toast('Backup exported','success');
+}
+function importBackup(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);DB={...DB,...d};saveData();init();toast('Backup imported!','success');}catch(err){toast('Invalid file','error');}};r.readAsText(file);
+}
+function doReset(){
+  if(g('rstInput').value!=='RESET'){toast('Type RESET to confirm','error');return;}
+  DB={purchases:[],sales:[],stock:{},expenses:[],customers:[],suppliers:[],adjustments:[],notifications:[],settings:{darkMode:false,budgetLimit:0,minStock:5,salesTarget:0,businessName:'My Shop',businessPhone:'',gstin:''}};
+  saveData();closeM('rstModal');g('rstInput').value='';init();toast('Reset complete','warn');
+}
+
+// ============================================================
+// SUGGESTIONS
+// ============================================================
+function updateSuggestions(){
+  const names=[...new Set(DB.purchases.map(p=>p.name))];
+  ['pSuggest','sProdList'].forEach(id=>{const d=g(id);if(d)d.innerHTML=names.map(n=>`<option value="${n}">`).join('');});
+  const supps=[...new Set(DB.purchases.map(p=>p.supplier).filter(Boolean)),(DB.suppliers||[]).map(s=>s.name)].flat();
+  const sd=g('suppList');if(sd)sd.innerHTML=[...new Set(supps)].map(s=>`<option value="${s}">`).join('');
+  const custs=[...new Set([...DB.sales.map(s=>s.customer).filter(Boolean),...(DB.customers||[]).map(c=>c.name)])];
+  ['custList','custList2'].forEach(id=>{const d=g(id);if(d)d.innerHTML=custs.map(c=>`<option value="${c}">`).join('');});
+}
+
+// ============================================================
+// KEYBOARD
+// ============================================================
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.key==='k'){e.preventDefault();openGS();return;}
+  if(e.ctrlKey&&e.key==='Enter'){const ap=document.querySelector('.page.active')?.id;if(ap==='page-purchase')addPurchase();if(ap==='page-sales')addSale();if(ap==='page-expenses')addExpense();}
+  if(e.key==='Escape'){document.querySelectorAll('.overlay.open').forEach(m=>m.classList.remove('open'));closeGS();closeAllDropdowns();}
+  if(e.altKey&&e.key==='d'){e.preventDefault();go('dashboard');}
+  if(e.altKey&&e.key==='o'){e.preventDefault();go('pos');}
+  if(e.altKey&&e.key==='p'){e.preventDefault();go('purchase');}
+  if(e.altKey&&e.key==='s'){e.preventDefault();go('sales');}
+  if(e.altKey&&e.key==='t'){e.preventDefault();toggleTheme();}
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.dropdown')&&!e.target.closest('#nPanel')&&!e.target.closest('#nBellBtn'))closeAllDropdowns();});
+window.addEventListener('resize',()=>{const ap=document.querySelector('.page.active')?.id;if(ap==='page-analytics')setTimeout(renderAnalytics,100);if(ap==='page-dashboard')setTimeout(renderDashboard,100);});
+window.addEventListener('focus',()=>{renderDashboard();checkLowStock();});
+
+// ============================================================
+// HELPERS
+// ============================================================
+function empty(msg){return `<div class="empty"><div class="empty-icon">📭</div><p style="font-size:13px">${msg}</p></div>`;}
+
+// ============================================================
+// STARTUP + SAMPLE DATA
+// ============================================================
+init();
+
+if(!DB.purchases.length&&!DB.sales.length){
+  const today=todayStr();
+  const samples=[
+    {name:'Red Chilli',category:'Spices',qty:50,unit:'kg',rate:120,gst:5,extra:50,discount:0,total:6350,supplier:'Kumar Traders',payment:'Cash',selling:160,date:today,notes:''},
+    {name:'Turmeric Powder',category:'Spices',qty:25,unit:'kg',rate:90,gst:5,extra:30,discount:10,total:2382.5,supplier:'Raj Wholesale',payment:'UPI',selling:130,date:today,notes:''},
+    {name:'Rice Bags',category:'Grocery',qty:10,unit:'bag',rate:1400,gst:0,extra:200,discount:0,total:14200,supplier:'Sree Rice Mill',payment:'Credit',selling:1600,date:today,notes:''},
+    {name:'Cover Small',category:'Covers',qty:100,unit:'packet',rate:15,gst:12,extra:0,discount:5,total:1675,supplier:'Plastic World',payment:'Cash',selling:20,date:today,notes:''},
+    {name:'Carton Box',category:'Attai',qty:50,unit:'box',rate:25,gst:18,extra:100,discount:0,total:1575,supplier:'Box Zone',payment:'UPI',selling:35,date:today,notes:''},
+    {name:'Coriander Seeds',category:'Spices',qty:30,unit:'kg',rate:85,gst:5,extra:20,discount:0,total:2694.25,supplier:'Kumar Traders',payment:'Cash',selling:110,date:today,notes:''},
+  ];
+  samples.forEach(s=>{const p={...s,id:Date.now()+Math.random()*1000|0,type:'purchase'};DB.purchases.push(p);updateStock(p.name,p.category,p.unit,p.qty,'add',p.selling);});
+  const sales=[
+    {product:'Red Chilli',category:'Spices',qty:10,unit:'kg',price:160,cost:120,gst:5,discount:0,gstAmt:80,total:1680,profit:480,customer:'Local Shop',payment:'Cash',date:today},
+    {product:'Turmeric Powder',category:'Spices',qty:5,unit:'kg',price:130,cost:90,gst:5,discount:0,gstAmt:32.5,total:682.5,profit:232.5,customer:'Retail Store',payment:'UPI',date:today},
+    {product:'Rice Bags',category:'Grocery',qty:2,unit:'bag',price:1600,cost:1400,gst:0,discount:50,gstAmt:0,total:3150,profit:350,customer:'Corner Shop',payment:'Credit',date:today},
+  ];
+  sales.forEach(s=>{const sl={...s,id:Date.now()+Math.random()*1000|0,type:'sale'};DB.sales.push(sl);updateStock(sl.product,sl.category,sl.unit,sl.qty,'remove');});
+  DB.expenses=[
+    {id:Date.now()+1,date:today,desc:'Shop Rent',category:'Rent',amount:8000,payment:'Bank Transfer',recurring:'monthly',notes:'',type:'expense'},
+    {id:Date.now()+2,date:today,desc:'Electricity Bill',category:'Utilities',amount:1200,payment:'UPI',recurring:'monthly',notes:'',type:'expense'},
+    {id:Date.now()+3,date:today,desc:'Helper Salary',category:'Salaries',amount:6000,payment:'Cash',recurring:'monthly',notes:'',type:'expense'},
+  ];
+  DB.customers=[
+    {id:Date.now()+10,name:'Local Shop',phone:'9876543210',email:'',type:'Retail',address:'Market Street',notes:'Regular customer',createdAt:today},
+    {id:Date.now()+11,name:'Retail Store',phone:'9988776655',email:'retail@example.com',type:'Wholesale',address:'Main Road',notes:'',createdAt:today},
+  ];
+  DB.suppliers=[
+    {id:Date.now()+20,name:'Kumar Traders',phone:'9111222333',email:'kumar@traders.com',category:'Spices',terms:'Net 7',gstin:'',address:'Spice Market',notes:'Reliable',createdAt:today},
+    {id:Date.now()+21,name:'Raj Wholesale',phone:'9444555666',email:'',category:'Spices',terms:'Cash',gstin:'',address:'Wholesale Area',notes:'',createdAt:today},
+    {id:Date.now()+22,name:'Sree Rice Mill',phone:'9777888999',email:'',category:'Grocery',terms:'Net 15',gstin:'',address:'Mill Road',notes:'',createdAt:today},
+  ];
+  DB.settings.salesTarget=50000;
+  saveData();renderAll();checkLowStock();updateTarget();
+}
+</script>
+</body>
+</html>
